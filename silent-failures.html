@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why your scheduled job fails silently on macOS (and how to tell)</title>
+<meta name="description" content="A launchd job that texts you can hang forever on a permission prompt it cannot show — no error, no message, and the monitor still reports itself healthy. What causes it and how to detect it.">
+<link rel="canonical" href="https://rappter.com/silent-failures">
+<meta property="og:title" content="Why your scheduled job fails silently on macOS">
+<meta property="og:description" content="Silence looks identical to nothing happened. That is the dangerous part.">
+<meta name="theme-color" content="#0b0d11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fbfcfd" media="(prefers-color-scheme: light)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle",
+ "headline":"Why your scheduled job fails silently on macOS",
+ "description":"A launchd job driving Messages hangs on a TCC prompt it cannot display: 90 second timeout, no error, no message sent.",
+ "publisher":{"@type":"Organization","name":"RappterBox LLC","url":"https://rappter.com/"}}
+</script>
+<style>
+:root{
+  --bg:#0b0d11;--card:#151922;--ink:#eef2f7;--dim:#94a0b1;--line:#232a35;
+  --go:#5b8cff;--warn:#e0a94a;
+  --edge:rgba(255,255,255,.05);
+  --glow:rgba(91,140,255,.12);
+  --shadow-1:0 1px 1px rgba(0,0,0,.12),0 4px 10px rgba(0,0,0,.14),0 14px 36px rgba(0,0,0,.22);
+}
+@media (prefers-color-scheme:light){:root{
+  --bg:#fbfcfd;--card:#fff;--ink:#10141a;--dim:#5b6675;--line:#e4e8ef;
+  --go:#0b5bd3;--warn:#8a6100;
+  --edge:rgba(255,255,255,.9);
+  --glow:rgba(11,91,211,.06);
+  --shadow-1:0 1px 2px rgba(16,20,26,.04),0 6px 16px rgba(16,20,26,.05),0 18px 44px rgba(16,20,26,.07);
+}}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);color:var(--ink);
+  background-image:radial-gradient(1000px 480px at 50% -160px,var(--glow),transparent 70%);
+  background-repeat:no-repeat;
+  font:17px/1.68 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-synthesis:none;
+  padding:clamp(48px,8vw,72px) 22px 84px}
+::selection{background:color-mix(in srgb,var(--go) 28%,transparent)}
+.w{max-width:720px;margin:0 auto}
+h1{font-size:clamp(30px,5.2vw,42px);line-height:1.1;letter-spacing:-.025em;margin:0 0 14px;font-weight:700;
+  text-wrap:balance;color:var(--ink);
+  background:linear-gradient(180deg,var(--ink) 58%,color-mix(in srgb,var(--ink) 62%,var(--dim)));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lede{color:var(--dim);font-size:19px;line-height:1.6;margin:0 0 30px;text-wrap:pretty}
+h2{font-size:clamp(21px,3vw,24px);line-height:1.2;margin:44px 0 12px;letter-spacing:-.017em;font-weight:650;text-wrap:balance}
+p{margin:15px 0;text-wrap:pretty}
+pre{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;
+  font:13px/1.6 ui-monospace,Menlo,monospace;box-shadow:inset 0 1px 0 var(--edge)}
+code{font:13.5px ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1px 5px}
+pre code{background:none;border:0;padding:0}
+.warn{border-left:3px solid var(--warn);padding:12px 16px;color:var(--dim);
+  background:color-mix(in srgb,var(--warn) 6%,transparent);border-radius:0 12px 12px 0}
+ol{padding-left:22px}
+ol li{margin:10px 0}
+.cta{display:block;background:linear-gradient(180deg,color-mix(in srgb,var(--card) 94%,#fff),var(--card) 45%);
+  border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin:44px 0 0;text-decoration:none;color:inherit;
+  box-shadow:inset 0 1px 0 var(--edge),var(--shadow-1);
+  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1),border-color .3s ease}
+.cta:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--go) 40%,var(--line));
+  box-shadow:inset 0 1px 0 var(--edge),0 2px 4px rgba(0,0,0,.14),0 14px 40px rgba(0,0,0,.24)}
+.cta:active{transform:scale(.99);transition-duration:.1s}
+.cta b{display:block;font-size:19px;letter-spacing:-.015em;margin-bottom:6px}
+.cta span{color:var(--dim)}
+.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:13.5px}
+a{color:var(--go);text-decoration-color:color-mix(in srgb,var(--go) 32%,transparent);
+  text-underline-offset:3px;transition:text-decoration-color .18s ease}
+a:hover{text-decoration-color:var(--go)}
+a.cta{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--go);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:no-preference){
+  .w>*:nth-child(-n+2){animation:rise .8s cubic-bezier(.22,1,.36,1) both}
+  .w>*:nth-child(2){animation-delay:.08s}
+  .reveal{opacity:0;transform:translateY(14px);
+    transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+</style>
+</head>
+<body><div class="w">
+
+<h1>Why your scheduled job fails silently on macOS</h1>
+<p class="lede">A background job that is supposed to text you can hang forever on a permission
+prompt it cannot display. No error. No message. And the monitor keeps reporting itself healthy.</p>
+
+<h2>What actually happens</h2>
+<p>Under <code>launchd</code>, a job that drives Messages through <code>osascript</code> blocks on a
+TCC Automation prompt. A background context has no way to show that prompt, so nothing resolves
+it. Measured on a real system: a <b>90 second timeout, no error returned, and no message sent.</b></p>
+<p>The failure is not the hang. It is that <b>silence looks identical to nothing happened.</b> A
+watchdog wired to text you would go completely quiet overnight while its own health check stayed
+green — the exact failure such a system exists to catch, sitting inside its own notification path.</p>
+
+<h2>The related trap: cron cannot reach your keychain</h2>
+<p>Jobs run from <code>cron</code> have no keychain access, so anything needing a stored credential
+fails with errors like <code>could not read Username: Device not configured</code>. And on recent
+macOS, scheduled jobs are blocked from reading <code>~/Documents</code> entirely, which produces a
+partial view of the filesystem rather than a clean permission error.</p>
+<p class="warn">A partial view is worse than no view. Code that sees half a directory usually
+concludes the missing half does not exist, and reports that conclusion confidently.</p>
+
+<h2>How to tell whether it is really working</h2>
+<p>Exit code zero is not delivery. To know a message actually arrived, check the store that
+records it rather than the tool that sent it:</p>
+<pre><code># osascript exiting 0 proves nothing was raised — not that anything was delivered.
+# Messages writes the row, so poll for the row.
+sqlite3 ~/Library/Messages/chat.db \
+  "select count(*) from message where is_from_me=1 and date > ?;"</code></pre>
+<p>Three rules that come out of this, in order of how much they save:</p>
+<ol>
+<li><b>Anything that pushes or sends belongs in a launchd agent, not cron</b> — and it needs a user
+session with Automation permission actually granted.</li>
+<li><b>Split sending in two.</b> A queue step that always succeeds and never blocks, and a drain
+step that only runs where permission exists. Undelivered items then accumulate <i>visibly</i>
+instead of evaporating.</li>
+<li><b>Never let a job report health it has not verified.</b> If it cannot see everything, it should
+stop and say so rather than converge on a partial view.</li>
+</ol>
+
+<h2>Why we know this</h2>
+<p>Because it happened to us. These are notes from running an estate of machines that watch each
+other, where a silent notification path is the one failure that cannot be tolerated.</p>
+
+<a class="cta" href="/">
+  <b>Work gets done without you thinking about it.</b>
+  <span>A RappterBox runs this kind of job overnight, refuses to claim success it has not verified,
+  and texts you one brief in the morning. Join the waitlist →</span>
+</a>
+
+<div class="foot">
+  RappterBox LLC · <a href="/">home</a> · <a href="/ai">for AI agents</a>
+</div>
+</div>
+
+<script>
+(()=>{try{
+  if(!matchMedia('(prefers-reduced-motion: no-preference)').matches||!('IntersectionObserver'in window))return;
+  const els=document.querySelectorAll('.w>*:nth-child(n+3)');
+  const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}},
+    {rootMargin:'0px 0px -6% 0px',threshold:.08});
+  els.forEach(el=>{el.classList.add('reveal');io.observe(el)});
+  setTimeout(()=>{els.forEach(el=>el.classList.add('in'))},1600);
+}catch(e){}})();
+</script>
+</body></html>

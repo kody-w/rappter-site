@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're testing your AI at the wrong moment</title>
+<meta name="description" content="Evals, benchmarks and red-teams all happen before the moment that matters. The risk lives at decision time — and at decision time, most teams are trusting a single model on its own word.">
+<meta property="og:title" content="You're testing your AI at the wrong moment">
+<meta property="og:description" content="The risk lives at decision time. That's the one moment nobody is testing.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://rappter.com/wrong-game">
+<meta name="theme-color" content="#0b0d11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fbfcfd" media="(prefers-color-scheme: light)">
+<style>
+:root{
+  --bg:#0b0d11;--card:#151922;--ink:#eef2f7;--dim:#94a0b1;--line:#232a35;
+  --go:#5b8cff;--ok:#3fb950;--warn:#e0a94a;
+  --edge:rgba(255,255,255,.05);
+  --glow:rgba(91,140,255,.12);
+  --shadow-1:0 1px 1px rgba(0,0,0,.12),0 4px 10px rgba(0,0,0,.14),0 14px 36px rgba(0,0,0,.22);
+}
+@media (prefers-color-scheme:light){:root{
+  --bg:#fbfcfd;--card:#fff;--ink:#10141a;--dim:#5b6675;--line:#e4e8ef;
+  --go:#0b5bd3;--ok:#1a7f37;--warn:#8a6100;
+  --edge:rgba(255,255,255,.9);
+  --glow:rgba(11,91,211,.06);
+  --shadow-1:0 1px 2px rgba(16,20,26,.04),0 6px 16px rgba(16,20,26,.05),0 18px 44px rgba(16,20,26,.07);
+}}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);color:var(--ink);
+  background-image:radial-gradient(1000px 480px at 50% -160px,var(--glow),transparent 70%);
+  background-repeat:no-repeat;
+  font:17px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-synthesis:none}
+::selection{background:color-mix(in srgb,var(--go) 28%,transparent)}
+.w{max-width:700px;margin:0 auto;padding:0 24px}
+header{padding:clamp(60px,9vw,84px) 0 8px}
+h1{font-size:clamp(32px,5.8vw,48px);line-height:1.08;letter-spacing:-.026em;margin:0 0 16px;font-weight:700;
+  text-wrap:balance;color:var(--ink);
+  background:linear-gradient(180deg,var(--ink) 58%,color-mix(in srgb,var(--ink) 62%,var(--dim)));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lede{font-size:20px;line-height:1.6;color:var(--dim);text-wrap:pretty}
+h2{font-size:clamp(22px,3.2vw,25px);line-height:1.2;letter-spacing:-.018em;margin:52px 0 12px;font-weight:650;text-wrap:balance}
+p{margin:15px 0;text-wrap:pretty}
+.panel{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 94%,#fff),var(--card) 45%);
+  border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:28px 0;
+  box-shadow:inset 0 1px 0 var(--edge),var(--shadow-1)}
+.panel .cap{color:var(--go);font-size:11.5px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px}
+.cta{display:inline-block;background:var(--go);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--go) 84%,#fff),var(--go) 78%);
+  color:#fff;text-decoration:none;font-weight:600;padding:14px 28px;border-radius:12px;font-size:16px;margin:8px 0 0;
+  letter-spacing:-.01em;
+  box-shadow:0 1px 2px rgba(0,0,0,.24),0 8px 22px color-mix(in srgb,var(--go) 32%,transparent),inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)}
+.cta:hover{transform:translateY(-1.5px);
+  box-shadow:0 2px 4px rgba(0,0,0,.24),0 12px 30px color-mix(in srgb,var(--go) 42%,transparent),inset 0 1px 0 rgba(255,255,255,.26)}
+.cta:active{transform:scale(.97);transition-duration:.1s}
+.fine{color:var(--dim);font-size:13.5px}
+a{color:var(--go);text-decoration-color:color-mix(in srgb,var(--go) 32%,transparent);
+  text-underline-offset:3px;transition:text-decoration-color .18s ease}
+a:hover{text-decoration-color:var(--go)}
+a.cta{text-decoration:none}
+:focus-visible{outline:2px solid var(--go);outline-offset:3px;border-radius:4px}
+footer{padding:36px 0 76px;color:var(--dim);font-size:13.5px;border-top:1px solid var(--line);margin-top:64px}
+em{color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){
+  header .w>*{animation:rise .8s cubic-bezier(.22,1,.36,1) both}
+  header .w>*:nth-child(2){animation-delay:.08s}
+  .reveal{opacity:0;transform:translateY(14px);
+    transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+</style>
+</head>
+<body>
+
+<header><div class="w">
+<h1>You're testing your AI at the wrong moment.</h1>
+<p class="lede">If your agents are in production and something still feels unprovable,
+this is probably why.</p>
+</div></header>
+
+<div class="w">
+
+<p>Here is the question that actually brought you here: <em>why is what we're doing not
+working?</em> You ran the evals. You bought the benchmark story. Someone red-teamed the
+prompts. The scores were fine. And yet nobody on your team can look Risk, Audit, or a
+regulator in the eye and say "that specific answer, the one that shipped on Tuesday, was
+checked" — because it wasn't.</p>
+
+<h2>The old game</h2>
+<p>The way nearly every team runs AI today: test hard <em>before</em> deployment, then
+trust completely <em>after</em> it. Evals, benchmarks, red-teams — all of it happens at
+build time, on sample inputs, against yesterday's model. Then the system goes live, and
+from that moment every real answer is produced by a single model, on its own word, with
+nobody checking.</p>
+
+<p>That structure fails for two reasons, and neither is fixable with better evals.</p>
+
+<p><b>First: an eval score is a photograph, not a guarantee.</b> It tells you how the
+model did on the questions you thought to ask, before your users asked the real ones.
+The input that hurts you is by definition the one that wasn't in the set.</p>
+
+<p><b>Second: a model cannot catch its own miss.</b> When a model is wrong, it is wrong
+<em>confidently</em> — the same machinery that produced the error produces the
+justification. Asking the model to double-check itself, or grading it with a judge built
+from the same lineage, stacks copies of the same blind spot. Systems that share a fault
+agree — and are wrong together.</p>
+
+<p>So the risk was never at build time. It lives at <em>decision time</em> — the moment
+an agent's answer is about to become an action, a filing, a price, a denial. And decision
+time is the one moment the old game leaves completely untested.</p>
+
+<h2>The new game</h2>
+<p>Flip the moment. Keep your build-time testing — it's hygiene — but put the real check
+where the real risk is:</p>
+
+<div class="panel">
+<div class="cap">Decision-time verification</div>
+<p style="margin-top:0">When an answer matters, it doesn't ship on one model's word — it
+gets independently checked before it becomes an action, and a wrong answer gets stopped
+in front of a human <em>before</em> it ships, not in the post-mortem.</p>
+<p style="margin-bottom:0">The point isn't the checking. The point is the <em>record</em>:
+every checked decision leaves an audit-grade trail, so "was this validated?" gets
+answered with evidence instead of vibes.</p>
+</div>
+
+<p>Notice what this changes for the person who has to sign things. "Our eval scores were
+strong" is an argument. "Here is the verification record for that decision" is an
+answer. Compliance conversations end differently when the artifact exists.</p>
+
+<p>And notice what it costs: a real check on the answers that matter, instead of a
+perfect-looking dashboard over the ones that don't. Teams that verify everything verify
+nothing — the discipline is choosing the consequential decisions and holding that line.</p>
+
+<h2>If this is your situation</h2>
+<p>If your agents make decisions that matter, and "prove it was checked" is a question
+you'll eventually be asked — we work on exactly this, with a small number of teams, and
+we'd rather tell you up front whether you're a fit than get you on a call.</p>
+<p>Want to watch it run before you read anything else?
+<a href="https://kody-w.github.io/doggcast/">The Machine</a> — a five-minute walkthrough
+where every screen is a live system: independent observers agreeing, a forgery bouncing
+off the math, and the record it all earns. It plays beside the live network it describes.</p>
+<a class="cta" href="/invite">Read the invitation — including who it's not for</a>
+<p class="fine">No form on this page. Nothing to book. The next page tells you everything,
+then you decide.</p>
+
+</div>
+
+<footer><div class="w">
+RappterBox LLC · <a href="/">rapterbox.com</a> · <a href="/silent-failures">why scheduled jobs fail silently</a><br>
+Built on <a href="https://github.com/kody-w/rapp-1">RAPP</a>, the open foundation — credited, not claimed.
+</div></footer>
+
+<script>
+(()=>{try{
+  if(!matchMedia('(prefers-reduced-motion: no-preference)').matches||!('IntersectionObserver'in window))return;
+  const els=document.querySelectorAll('body>.w>*, footer .w');
+  const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}},
+    {rootMargin:'0px 0px -6% 0px',threshold:.08});
+  els.forEach(el=>{el.classList.add('reveal');io.observe(el)});
+  setTimeout(()=>{els.forEach(el=>el.classList.add('in'))},1600);
+}catch(e){}})();
+</script>
+</body>
+</html>
