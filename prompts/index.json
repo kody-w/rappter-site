@@ -1,0 +1,72 @@
+[
+ {
+  "slug": "morning-brief",
+  "title": "The 7am Brief",
+  "promise": "Turn your inbox and calendar into three decisions",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/morning-brief.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/morning-brief.md"
+ },
+ {
+  "slug": "chase-invoices",
+  "title": "The Invoice Chaser",
+  "promise": "Draft the three polite chasers that actually get paid",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/chase-invoices.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/chase-invoices.md"
+ },
+ {
+  "slug": "compliance-calendar",
+  "title": "The Deadline Ledger",
+  "promise": "Every license, renewal and filing on one page, with what it costs to miss",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/compliance-calendar.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/compliance-calendar.md"
+ },
+ {
+  "slug": "review-replies",
+  "title": "The Review Desk",
+  "promise": "Reply to every review in the owner's voice, in one sitting",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/review-replies.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/review-replies.md"
+ },
+ {
+  "slug": "sop-from-memo",
+  "title": "The Playbook Writer",
+  "promise": "Turn a rambling voice memo into a one-page procedure a new hire can follow",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/sop-from-memo.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/sop-from-memo.md"
+ },
+ {
+  "slug": "hiring-ad",
+  "title": "The Job Post",
+  "promise": "A hiring ad that gets the right ten applicants, not the wrong hundred",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/hiring-ad.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/hiring-ad.md"
+ },
+ {
+  "slug": "weekly-numbers",
+  "title": "The Friday Numbers",
+  "promise": "Five numbers, in plain English, that tell the owner if the week was good",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/weekly-numbers.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/weekly-numbers.md"
+ },
+ {
+  "slug": "vendor-compare",
+  "title": "The Quote Reader",
+  "promise": "Compare three vendor quotes without being fooled by the cheapest line",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/vendor-compare.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/vendor-compare.md"
+ },
+ {
+  "slug": "customer-followup",
+  "title": "The Follow-Up Engine",
+  "promise": "Every finished job gets a follow-up that earns the next one",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/customer-followup.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/customer-followup.md"
+ },
+ {
+  "slug": "meeting-to-tasks",
+  "title": "The Meeting Cleaner",
+  "promise": "A meeting transcript into owners, tasks and dates \u2014 nothing else",
+  "prompt": "You are helping the owner of a small business. First, open and read this page in full and follow its Method and Output format exactly:\nhttps://github.com/kody-w/rappter-prompts/blob/main/prompts/meeting-to-tasks.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
+  "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/meeting-to-tasks.md"
+ }
+]
