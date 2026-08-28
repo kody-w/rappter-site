@@ -94,7 +94,8 @@ const ENDPOINT_JSON='https://raw.githubusercontent.com/kody-w/rappter-prompts/ma
 const LASTRUNS='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/last-runs.json';
 const NAMES={"morning-brief":"The 7am Brief","chase-invoices":"The Invoice Chaser","compliance-calendar":"The Deadline Ledger","review-replies":"The Review Desk","sop-from-memo":"The Playbook Writer","hiring-ad":"The Job Post","weekly-numbers":"The Friday Numbers","vendor-compare":"The Quote Reader","customer-followup":"The Follow-Up Engine","meeting-to-tasks":"The Meeting Cleaner"};
 const $=id=>document.getElementById(id);
-let base=null, routine='morning-brief', awake=false;
+let base=null, routine=(new URLSearchParams(location.search).get('routine')||'morning-brief'), awake=false;
+if(!NAMES[routine])routine='morning-brief';
 // --- rapp/1 verification, same as the reference implementation (no floats profile) ---
 function canonical(v){if(v===null||typeof v==='boolean'||typeof v==='number')return JSON.stringify(v);if(typeof v==='string')return JSON.stringify(v);
   if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';const ks=Object.keys(v).sort();return '{'+ks.map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';}
@@ -109,7 +110,7 @@ if(location.search.includes('present'))document.body.classList.add('present');
 async function findBox(){
   try{const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();base=j.url;
     const h=await fetch(base+'/try/health',{cache:'no-store'});const hj=await h.json();if(hj.status==='awake'){awake=true;}}catch(e){awake=false;}
-  const s=$('status');if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live, one run at a time</span>';$('run').disabled=false;}
+  const s=$('status');if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live, one run at a time</span>';$('run').disabled=false;if(location.search.includes('auto'))$('run').click();}
   else{s.className='status asleep';s.innerHTML='<b>Asleep</b> <span>showing the last real run instead</span>';$('run').disabled=true;showLast();}
 }
 async function showLast(){try{const r=await fetch(LASTRUNS+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();const x=j.routines&&j.routines[routine];if(!x)return;reset();
