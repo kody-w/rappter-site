@@ -124,6 +124,22 @@ function match(said){
   for(const [slug,name] of Object.entries(NAMES))if(s.includes(name.toLowerCase().replace(/^the /,'')))return slug;
   return score?best:null;
 }
+// Voice has its own shape: an owner wants the decision and the number, not a page of drafts read aloud.
+// NEEDS YOU when the job produces it; otherwise the few lines that actually carry a fact.
+function spoken(text){
+  const needs=needsYou(text);
+  if(needs)return {lead:`Here is what needs you. ${needs.length} thing${needs.length===1?'':'s'}.`,facts:needs};
+  const lines=String(text).split('\n').map(l=>l.trim().replace(/^[•\-*✓]\s*/,'')).filter(Boolean);
+  // noise a person would never want read aloud: run stamps, separators, field labels, bare dates
+  const noise=/^(today|run date|generated|as of|date)\b|synthetic data|^[—\-–_=·.\s]+$|^(amount|due|completed|term|status|customer [a-z])\s*:/i;
+  const wordy=l=>(l.match(/[a-z]{3,}/gi)||[]).length>=4;               // a sentence, not a field
+  const isFact=l=>l.length<=160&&wordy(l)&&/(\$[\d,]+|\b\d+\s*(days?|weeks?|months?|percent|%)\b|\bUNKNOWN\b|\bASK OWNER\b|\b(late|overdue|due|owes?|renew|expires?)\b)/i.test(l);
+  const headers=/^(day\s*\d+|message\s*\d+|text|quote|vendor\s|customer\s[a-z]$|handled|quieted|needs you|recommendation|next step)/i;
+  const clean=lines.filter(l=>!noise.test(l)&&!headers.test(l));
+  const facts=clean.filter(isFact).slice(0,3);
+  if(facts.length)return {lead:'Here is what it found.',facts};
+  return {lead:'Here is the short of it.',facts:clean.filter(wordy).slice(0,2)};
+}
 // the decisions first: an owner wants "what needs me", not the whole page
 function needsYou(text){
   const lines=String(text).split('\n');
@@ -134,7 +150,9 @@ function needsYou(text){
     const l=lines[j].trim();
     if(!l){if(out.length)break;continue;}
     if(/^(handled|quieted)\b/i.test(l))break;
-    out.push(l.replace(/^[•\-*]\s*/,''));
+    const c=l.replace(/^[•\-*]\s*/,'').trim();
+    if(!c||/^[—\-–_=·.\s]+$/.test(c)||/^needs you/i.test(c))continue;
+    out.push(c);
   }
   return out.length?out:null;
 }
@@ -189,13 +207,8 @@ async function doJob(routine){
       $('sealwrap').hidden=false; $('seal').textContent=ok?'Verified':'Refused'; $('seal').classList.toggle('bad',!ok);
       $('sealwhy').textContent=ok?'this browser recomputed the receipt’s hashes and they match':'the receipt did not check out — do not trust this run';
     }
-    const needs=needsYou(r.text);
-    if(needs){
-      await speak(`Here is what needs you. ${needs.length} thing${needs.length===1?'':'s'}. ` + needs.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say “read the rest” to hear everything else.');
-    } else {
-      const first=r.text.split('\n').filter(Boolean).slice(0,6).join('. ');
-      await speak(first+' Say “read the rest” to hear everything else.');
-    }
+    const sp=spoken(r.text);
+    await speak(`${sp.lead} ` + sp.facts.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say “read the rest” to hear everything else.');
   }catch(e){
     caption('The box',e.message||String(e));
     await speak(`Sorry — ${e.message||'that did not work'}.`,{caption:false});
@@ -232,7 +245,7 @@ $('talk').addEventListener('click',()=>{ if(listening){try{rec.stop();}catch(e){
 document.addEventListener('keydown',e=>{ if(e.code==='Space'&&e.target===document.body){e.preventDefault();$('talk').click();} });
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='job';b.type='button';b.textContent=name;b.onclick=()=>doJob(slug);$('jobs').appendChild(b);}
 setTalk('idle');
-window.__voice={hear:heard,doJob,match,needsYou,speak,state:()=>({awake,busy,base,lastText})};
+window.__voice={hear:heard,doJob,match,needsYou,spoken,speak,state:()=>({awake,busy,base,lastText})};
 findBox();
 </script>
 </body></html>
