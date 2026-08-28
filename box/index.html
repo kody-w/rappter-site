@@ -216,6 +216,7 @@ async function boot(){
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='pick';b.dataset.slug=slug;b.setAttribute('aria-pressed',String(slug===routine));b.textContent=name;b.onclick=()=>{routine=slug;document.querySelectorAll('.pick').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.slug===slug)));};$('picks').appendChild(b);}
 function saveSettings(){const s={prov:$('prov').value,endpoint:$('endpoint').value,model:$('model').value};if($('remember').checked)s.key=$('key').value;try{localStorage.setItem('rapterbox.virtual.settings',JSON.stringify(s));}catch(e){}}
 ['prov','endpoint','model','remember'].forEach(i=>$(i).addEventListener('change',saveSettings));
+['prov','endpoint'].forEach(i=>$(i).addEventListener('change',()=>{endpointChosen=true;}));
 $('key').addEventListener('change',keyChanged); $('key').addEventListener('input',keyChanged);
 function readKey(){
   const k=$('key').value.trim();
@@ -224,6 +225,7 @@ function readKey(){
   if(/^(sk-|sess-|gsk_)/.test(k))return {prov:'openai',endpoint:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini',says:'OpenAI key — it will think with GPT.'};
   return {prov:null,endpoint:null,model:null,says:'The box does not know that kind of key. Open “Point it somewhere else” and say where it goes.'};
 }
+let endpointChosen=false;                 // true once a person deliberately says where the key goes
 function keyChanged(){
   const r=readKey();
   $('thinker').textContent=r?r.says:'Nothing else to set up — the box works out the rest from the key.';
@@ -241,6 +243,9 @@ async function think(prompt){
   const prov=$('prov').value,key=$('key').value.trim(),model=$('model').value.trim(),endpoint=$('endpoint').value.trim();
   const local=/^https?:\/\/(127\.0\.0\.1|localhost)(:|\/)/.test(endpoint);
   if(!key&&!local)throw new Error('paste an API key first — it stays in this browser');
+  const known=readKey();
+  if(key&&known&&!known.prov&&!endpointChosen&&!local)
+    throw new Error('the box does not recognise that key, so it will not send it anywhere. Open “Point it somewhere else” and say where it belongs.');
   if(prov==='anthropic'){
     const r=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model,max_tokens:1500,messages:[{role:'user',content:prompt}]})});
     if(!r.ok)throw new Error('model endpoint answered '+r.status);const j=await r.json();return (j.content||[]).map(c=>c.text||'').join('');}
