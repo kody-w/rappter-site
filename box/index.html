@@ -31,7 +31,7 @@ input,select{width:100%;background:#fff;border:2px solid var(--ink);color:var(--
 input[type=checkbox]{width:auto}
 input:focus,select:focus,button:focus-visible{outline:3px solid var(--amberdeep);outline-offset:2px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-.btn{background:var(--card);color:var(--ink);border:2px solid var(--ink);padding:10px 14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.btn{background:var(--card);color:var(--ink);border:2px solid var(--ink);padding:10px 14px;font-family:inherit;font-size:14px;font-weight:800;text-transform:none;letter-spacing:0;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 .picks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
 .pick{border:2px solid var(--ink);background:var(--card);padding:11px 12px;font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
@@ -80,7 +80,7 @@ body.app .appbar{display:flex}
 <section class="tear"><div class="w stage">
   <div>
     <div class="card"><div class="k">This box</div>
-      <div class="id" id="rappid">minting…</div>
+      <div class="id" id="rappid" title="tap to show the whole identity">minting…</div>
       <div class="fine" id="lineage" style="margin-top:6px"></div>
       <div class="row"><button class="btn" id="export">Export .egg (backup)</button><label for="import" class="btn" style="margin:0">Hatch an .egg here<input id="import" type="file" accept=".egg,.json,application/json" style="display:none"></label><button class="btn" id="wipe">Forget this box</button></div>
       <div class="fine" id="chainmeta" style="margin-top:8px"></div>
@@ -203,7 +203,13 @@ async function boot(){
     id={spec:'rapp/1',kind:'organism',rappid:await mintRappid('rapterbox',slug),what:'rbox mobile (mk0): a RappterBox running in a browser',grown_from:null,minted_utc:utc()};
     try{localStorage.setItem('rapterbox.virtual.identity',JSON.stringify(id));}catch(e){}
   }
-  identity=id;$('rappid').textContent=id.rappid;$('lineage').textContent=id.grown_from?('minted here, once (§6.2) · grown from egg '+id.grown_from.slice(0,16)+'… (§9.4 lineage)'):'minted here, once (§6.2 keyless) — not grown from an egg';
+  identity=id;
+  const short=(id.rappid.split('/')[1]||'').split(':');
+  const full=id.rappid, brief='rappid:@rapterbox/'+short[0]+':'+(short[1]||'').slice(0,12)+'…';
+  const el=$('rappid'); let open=false;
+  el.textContent=document.body.classList.contains('app')?brief:full;
+  el.style.cursor='pointer';
+  el.onclick=()=>{open=!open;el.textContent=open?full:(document.body.classList.contains('app')?brief:full);};$('lineage').textContent=id.grown_from?('minted here, once (§6.2) · grown from egg '+id.grown_from.slice(0,16)+'… (§9.4 lineage)'):'minted here, once (§6.2 keyless) — not grown from an egg';
   const all=await loadStreams();chain=all[own()]||[];hatched={};for(const k in all)if(k!==own())hatched[k]=all[k];renderChain();
   try{const s=JSON.parse(localStorage.getItem('rapterbox.virtual.settings')||'{}');if(s.prov)$('prov').value=s.prov;if(s.endpoint)$('endpoint').value=s.endpoint;if(s.model)$('model').value=s.model;if(s.key){$('key').value=s.key;$('remember').checked=true;}}catch(e){}
 }
@@ -321,6 +327,7 @@ window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search
   if(q.get('app')||window.ReactNativeWebView){                 // the phone opens the box, not the brochure
     document.body.classList.add('app');
     document.title='rbox';
+    if(identity){const sh=(identity.rappid.split('/')[1]||'').split(':');$('rappid').textContent='rappid:@rapterbox/'+sh[0]+':'+(sh[1]||'').slice(0,12)+'…';}
     const sw=document.getElementById('swap'); if(sw)sw.addEventListener('click',()=>{location.href='/voice/?app=1';});
     const w=document.getElementById('appwhere');
     if(w)w.textContent=((identity&&identity.rappid||'').split('/')[1]||'this device').split(':')[0];   // the short name, not the whole id
