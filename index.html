@@ -3,298 +3,282 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RappterBox — work gets done without you thinking about it</title>
-<meta name="description" content="You are already begging your tools to remember what you said. A RappterBox runs the admin in the background and texts you only the decisions that are actually yours.">
-<meta property="og:title" content="RappterBox">
-<meta property="og:description" content="Work gets done without you thinking about it.">
+<title>RappterBox — your evenings back in 90 days, or you keep the box and stop paying</title>
+<meta name="description" content="A small box on your network does your business's admin overnight and texts you the two or three decisions that are actually yours. Ten hours a month back by day 90, or you keep the box and stop paying. Be one of the first ten businesses in a box.">
+<meta property="og:title" content="RappterBox — be one of the first ten businesses in a box">
+<meta property="og:description" content="It does the admin overnight and texts you only the decisions that are yours. Ten hours a month back by day 90, or you keep the box and stop paying.">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://rappter.com/">
 <link rel="alternate" type="application/json" href="https://rappter.com/agent.json" title="Agent view of this business">
 <meta property="og:url" content="https://rappter.com/">
 <meta property="og:image" content="https://rappter.com/card.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0b0d11" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#fbfcfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#f3eee4">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
- {"@type":"Organization","@id":"https://rappter.com/#org","name":"RappterBox LLC",
-  "url":"https://rappter.com/","description":"A small box on your network that runs a business's admin in the background and texts the owner only the decisions that are theirs."},
- {"@type":"Product","name":"RappterBox","brand":{"@id":"https://rappter.com/#org"},
-  "description":"A fully transferable, perpetually growing digital twin of a business that the owner can talk to. It runs the admin overnight and sends one morning brief.",
-  "audience":{"@type":"Audience","audienceType":"Small business owners and operators"}},
+ {"@type":"Organization","@id":"https://rappter.com/#org","name":"RapterBox LLC","url":"https://rappter.com/",
+  "description":"A small box on your network that does a business's admin in the background and texts the owner only the decisions that are theirs."},
+ {"@type":"Product","name":"RappterBox — The Founding Ten Install","brand":{"@id":"https://rappter.com/#org"},
+  "description":"Install day, the 7am brief, a verifiable receipts ledger, a monthly hours-back report. Guarantee: ten hours a month handed back by day 90 or we work free until it is; if it still hasn't by day 180, you keep the box and stop paying.",
+  "offers":{"@type":"Offer","price":"497","priceCurrency":"USD","priceSpecification":{"@type":"UnitPriceSpecification","price":"497","priceCurrency":"USD","unitText":"month"}},
+  "audience":{"@type":"Audience","audienceType":"Owner-operated services businesses, 5–50 staff"}},
  {"@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"Does it send emails or sign things for me?",
-   "acceptedAnswer":{"@type":"Answer","text":"No. It never sends, signs, pays or deletes on your behalf — there is no code path for those actions. A task needing one comes back to you as a decision, with the reversible work already finished."}},
-  {"@type":"Question","name":"What happens if it cannot see everything?",
-   "acceptedAnswer":{"@type":"Answer","text":"It refuses to act on partial evidence. It stops and says so rather than guessing confidently, because a confident wrong answer is worse than no answer."}},
-  {"@type":"Question","name":"What happens when the network drops?",
-   "acceptedAnswer":{"@type":"Answer","text":"It keeps working locally and reconciles when the connection returns. That is the right trade for a box in your office, and it means it is not a strongly consistent system."}},
-  {"@type":"Question","name":"Who owns the records?",
-   "acceptedAnswer":{"@type":"Answer","text":"You do. The box runs on your network and the records are append-only and verifiable without trusting us."}}]}]}
+  {"@type":"Question","name":"Does it send emails or sign things for me?","acceptedAnswer":{"@type":"Answer","text":"No. It never sends, signs, pays or deletes on your behalf — there is no code path for those actions. A task needing one comes back to you as a decision, with the reversible work already finished."}},
+  {"@type":"Question","name":"What is the guarantee?","acceptedAnswer":{"@type":"Answer","text":"If the monthly report doesn't show at least ten hours a month handed back to you by day 90, we keep working for free until it does. If it still hasn't by day 180, you keep the box and owe nothing further. Separately: 30 days, any reason, full refund."}},
+  {"@type":"Question","name":"Who owns the records?","acceptedAnswer":{"@type":"Answer","text":"You do. The box runs on your network. The records can only be added to, never changed or erased, and your accountant or insurer can check them without trusting us."}}]}]}
 </script>
-
 <style>
-:root{
-  --bg:#0b0d11;--card:#151922;--ink:#eef2f7;--dim:#94a0b1;--line:#232a35;
-  --go:#5b8cff;--ok:#3fb950;--warn:#e0a94a;
-  --edge:rgba(255,255,255,.05);
-  --glow:rgba(91,140,255,.13);--glow2:rgba(63,185,80,.05);
-  --ring:rgba(91,140,255,.30);
-  --shadow-1:0 1px 1px rgba(0,0,0,.12),0 4px 10px rgba(0,0,0,.14),0 14px 36px rgba(0,0,0,.22);
-  --shadow-2:0 1px 2px rgba(0,0,0,.22),0 12px 32px rgba(0,0,0,.28),0 36px 90px rgba(0,0,0,.38);
-}
-@media (prefers-color-scheme:light){:root{
-  --bg:#fbfcfd;--card:#fff;--ink:#10141a;--dim:#5b6675;--line:#e4e8ef;
-  --go:#0b5bd3;--ok:#1a7f37;--warn:#8a6100;
-  --edge:rgba(255,255,255,.9);
-  --glow:rgba(11,91,211,.065);--glow2:rgba(26,127,55,.04);
-  --ring:rgba(11,91,211,.22);
-  --shadow-1:0 1px 2px rgba(16,20,26,.04),0 6px 16px rgba(16,20,26,.05),0 18px 44px rgba(16,20,26,.07);
-  --shadow-2:0 1px 2px rgba(16,20,26,.05),0 14px 36px rgba(16,20,26,.08),0 40px 90px rgba(16,20,26,.10);
-}}
+:root{--paper:#f3eee4;--card:#fff9ee;--white:#fffdf7;--ink:#141210;--body:#3e3930;--mute:#6b655b;--rule:#b7ad9a;--amber:#f26b1d;--amberdeep:#c4520e;--green:#1f7a3f}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:28px}
-body{margin:0;background-color:var(--bg);color:var(--ink);
-  background-image:radial-gradient(1100px 540px at 50% -160px,var(--glow),transparent 70%),
-    radial-gradient(900px 480px at 88% 12%,var(--glow2),transparent 65%);
-  background-repeat:no-repeat;
-  font:17px/1.68 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-synthesis:none}
-::selection{background:color-mix(in srgb,var(--go) 28%,transparent)}
-.w{max-width:760px;margin:0 auto;padding:0 24px}
-section{padding:clamp(64px,9vw,92px) 0;position:relative}
-section+section:before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--line) 18%,var(--line) 82%,transparent)}
-h1{font-size:clamp(34px,6.2vw,56px);line-height:1.05;letter-spacing:-.028em;margin:0 0 18px;font-weight:700;
-  text-wrap:balance;color:var(--ink);
-  background:linear-gradient(180deg,var(--ink) 58%,color-mix(in srgb,var(--ink) 62%,var(--dim)));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-h2{font-size:clamp(24px,3.4vw,29px);line-height:1.18;letter-spacing:-.021em;margin:0 0 14px;font-weight:650;text-wrap:balance}
-.lede{font-size:20px;line-height:1.6;color:var(--dim);margin:0 0 26px;text-wrap:pretty}
-p{margin:14px 0;text-wrap:pretty}
-a{color:var(--go);text-decoration-color:color-mix(in srgb,var(--go) 32%,transparent);
-  text-underline-offset:3px;transition:text-decoration-color .18s ease}
-a:hover{text-decoration-color:var(--go)}
-:focus-visible{outline:2px solid var(--go);outline-offset:3px;border-radius:4px}
-.cta{display:inline-block;background:var(--go);
-  background:linear-gradient(180deg,color-mix(in srgb,var(--go) 84%,#fff),var(--go) 78%);
-  color:#fff;text-decoration:none;font-weight:600;padding:15px 32px;border-radius:12px;font-size:16.5px;
-  letter-spacing:-.01em;
-  box-shadow:0 1px 2px rgba(0,0,0,.24),0 8px 22px color-mix(in srgb,var(--go) 32%,transparent),inset 0 1px 0 rgba(255,255,255,.22);
-  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)}
-.cta:hover{transform:translateY(-1.5px);
-  box-shadow:0 2px 4px rgba(0,0,0,.24),0 12px 30px color-mix(in srgb,var(--go) 42%,transparent),inset 0 1px 0 rgba(255,255,255,.26)}
-.cta:active{transform:scale(.97);transition-duration:.1s}
-.fine{color:var(--dim);font-size:13.5px}
-.mono{font:13.5px/1.7 ui-monospace,Menlo,monospace}
-.phone{max-width:420px;margin:34px auto;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--card) 94%,#fff),var(--card) 42%);
-  border:1px solid var(--line);border-radius:26px;padding:16px 16px 12px;
-  box-shadow:inset 0 1px 0 var(--edge),var(--shadow-2)}
-.pbar{display:flex;align-items:center;gap:10px;color:var(--dim);font-size:12.5px;
-  padding:2px 6px 13px;border-bottom:1px solid var(--line);margin-bottom:14px}
-.pdot{width:24px;height:24px;border-radius:50%;flex:none;display:inline-block;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--go) 65%,#fff),var(--go));
-  box-shadow:0 0 0 1px color-mix(in srgb,var(--go) 28%,transparent),0 2px 6px color-mix(in srgb,var(--go) 35%,transparent)}
-.ptime{margin-left:auto;font-variant-numeric:tabular-nums}
-.bubble{background:var(--bg);border:1px solid var(--line);border-radius:18px 18px 18px 6px;
-  padding:16px 18px;font:13.5px/1.75 ui-monospace,Menlo,monospace;max-width:100%;overflow-x:auto;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.02)}
-.pfoot{text-align:right;color:var(--dim);font-size:11.5px;padding:9px 6px 0;letter-spacing:.01em}
-.tag{color:var(--warn);font-weight:600}
-.ok{color:var(--ok)}
-.steps{counter-reset:s;padding:0;list-style:none;margin:26px 0 0}
-.steps li{counter-increment:s;position:relative;padding:0 0 26px 46px}
-.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;
-  background:linear-gradient(180deg,color-mix(in srgb,var(--card) 88%,#fff),var(--card));
-  border:1px solid var(--line);color:var(--go);
-  font:600 13.5px/28px ui-monospace,Menlo,monospace;text-align:center;
-  box-shadow:inset 0 1px 0 var(--edge),0 2px 6px rgba(0,0,0,.12)}
-.steps li:not(:last-child):after{content:"";position:absolute;left:15px;top:36px;bottom:6px;width:1px;
-  background:linear-gradient(180deg,var(--line),color-mix(in srgb,var(--line) 35%,transparent))}
-.steps b{display:block;letter-spacing:-.011em;margin-bottom:2px}
-.steps span{color:var(--dim)}
-.limits{padding:0;margin:18px 0}
-.limits li{color:var(--dim);padding:10px 0 10px 26px;position:relative;list-style:none}
-.limits li:before{content:"—";position:absolute;left:0;color:var(--warn)}
-.limits b{color:var(--ink)}
-form{background:linear-gradient(180deg,color-mix(in srgb,var(--card) 95%,#fff),var(--card) 45%);
-  border:1px solid var(--line);border-radius:18px;padding:28px 26px;
-  box-shadow:inset 0 1px 0 var(--edge),var(--shadow-1)}
-label{display:block;font-size:13px;font-weight:550;color:var(--dim);margin:16px 0 7px}
-input,textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:10px;
-  padding:13px 14px;font:15.5px inherit;transition:border-color .18s ease,box-shadow .18s ease}
-input:hover,textarea:hover{border-color:color-mix(in srgb,var(--line) 45%,var(--dim))}
-input:focus,textarea:focus{outline:none;border-color:var(--go);box-shadow:0 0 0 3.5px var(--ring)}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.w{max-width:1180px;margin:0 auto;padding:0 28px}
+a{color:var(--amberdeep);text-underline-offset:3px}
+.mono{font-family:ui-monospace,Menlo,monospace}
+h1{font-size:clamp(42px,6.4vw,84px);line-height:.98;letter-spacing:-.04em;margin:0;font-weight:800;text-wrap:balance}
+h1 mark{background:var(--amber);color:var(--ink);padding:0 .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+h2{font-size:clamp(30px,3.6vw,46px);line-height:1.02;letter-spacing:-.035em;margin:0 0 14px;font-weight:800;text-wrap:balance}
+h3{font-size:28px;letter-spacing:-.025em;margin:0 0 12px;font-weight:800}
+p{margin:12px 0;text-wrap:pretty}
+.lede{font-size:clamp(19px,2vw,23px);line-height:1.45;color:var(--body);max-width:640px}
+.kicker{font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amberdeep)}
+.fine{color:var(--mute);font-size:14px}
+nav{border-bottom:2px solid var(--ink)}
+nav .w{display:flex;align-items:center;gap:14px;padding-top:18px;padding-bottom:18px}
+nav svg{flex:none}
+.wm{font-size:22px;font-weight:800;letter-spacing:-.04em}
+.line{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
+nav .cta{margin-left:auto;padding:11px 18px;font-size:15px;box-shadow:4px 4px 0 var(--ink)}
+.cta{display:inline-block;background:var(--amber);color:var(--ink);text-decoration:none;font-weight:800;padding:18px 30px;border:2px solid var(--ink);font-size:18px;box-shadow:6px 6px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.cta:hover{transform:translate(2px,2px);box-shadow:4px 4px 0 var(--ink)}
+.stamp{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--ink);padding:7px 14px;font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--card);transform:rotate(-1.5deg)}
+.stamp b{background:var(--amber);padding:2px 10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+section{padding:clamp(52px,7vw,80px) 0}
+.tear{border-top:2px dashed var(--ink)}
+.hero .w{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
+.hero .copy{display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.hero .row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.hero .row .mono{font-size:14px;color:var(--body);line-height:1.5}
+.phone{width:min(380px,100%);margin:0 auto;background:var(--ink);border-radius:44px;padding:14px;box-shadow:10px 10px 0 var(--ink),0 30px 60px rgba(20,18,16,.25);transform:rotate(2deg)}
+.screen{background:#fff;border-radius:32px;padding:18px 16px 20px;min-height:560px;display:flex;flex-direction:column;gap:12px}
+.ptop{text-align:center;font-size:12px;color:#8a8378;font-weight:600;padding-bottom:8px;border-bottom:1px solid #ece7dc}
+.b{align-self:flex-start;max-width:96%;background:#e9e9eb;color:var(--ink);border-radius:20px 20px 20px 6px;padding:12px 14px;font:12.5px/1.6 ui-monospace,Menlo,monospace;white-space:pre-wrap}
+.b.me{align-self:flex-end;background:var(--amber);border-radius:20px 20px 6px 20px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Inter,Arial,sans-serif}
+.pcap{margin-top:auto;text-align:center;font-size:11px;color:#8a8378}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.two.rc{grid-template-columns:.9fr 1.1fr}
+.pricebox{border:2px solid var(--ink);background:var(--card);padding:22px 24px;box-shadow:6px 6px 0 var(--ink);margin-top:8px}
+.pricebox .k{font-size:12px;font-family:ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.pricebox .k.hot{color:var(--amberdeep);font-weight:700}
+.pricebox .n{font-size:40px;font-weight:800;letter-spacing:-.04em;line-height:1.1}.pricebox .n.big{font-size:54px}
+.pricebox .n small{font-size:16px;font-weight:600;color:var(--mute);letter-spacing:0}
+.pricebox hr{border:0;height:2px;background:var(--ink);margin:16px 0}
+.pricebox p{font-size:15px;color:var(--body);margin:10px 0 0}
+.receipt{background:var(--white);border:2px solid var(--ink);padding:34px 36px 30px;font:14.5px/1.7 ui-monospace,Menlo,monospace;box-shadow:8px 8px 0 var(--ink);position:relative}
+.receipt .seal{position:absolute;top:22px;right:26px;border:3px solid var(--green);color:var(--green);padding:4px 12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;transform:rotate(8deg);font-size:15px}
+.receipt .h{text-align:center;font-weight:800;letter-spacing:.15em;text-transform:uppercase;font-size:15px}
+.receipt .sub{text-align:center;color:var(--mute);font-size:12.5px;margin-bottom:18px}
+.receipt .r{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted var(--rule);padding:7px 0}
+.receipt .r span:last-child{white-space:nowrap}
+.receipt .t{display:flex;justify-content:space-between;padding:16px 0 4px;font-weight:800;font-size:16px}
+.receipt .pay{display:flex;justify-content:space-between;padding:14px 0 0;margin-top:10px;border-top:2px solid var(--ink);font-weight:800;font-size:22px;color:var(--amberdeep)}
+.receipt .note{color:var(--mute);font-size:12.5px;margin-top:10px}
+.receipt .dots{text-align:center;color:var(--rule);font-size:12px;margin-top:18px;letter-spacing:3px}
+.guar{border:2px solid var(--ink);background:var(--card);padding:30px 32px;box-shadow:8px 8px 0 var(--green);position:relative;margin-top:18px}
+.guar .lbl{position:absolute;top:-18px;left:24px;background:var(--green);color:var(--card);padding:6px 14px;font-family:ui-monospace,Menlo,monospace;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12.5px}
+.guar .big{font-size:21px;font-weight:700;line-height:1.4;letter-spacing:-.01em;margin:10px 0 0}
+.guar .anti{font-family:ui-monospace,Menlo,monospace;font-size:14px;color:var(--mute)}
+.limits{padding:0;margin:0}.limits li{list-style:none;padding:0 0 12px 30px;position:relative;color:var(--body)}.limits li b{color:var(--ink)}
+.limits li:before{content:"→";position:absolute;left:0;color:var(--amber);font-weight:800}
+.limits.no li:before{content:"✕";color:var(--ink)}
+.proof li:before{content:"✓";color:var(--green)}
+form{background:var(--card);border:2px solid var(--ink);padding:28px;box-shadow:8px 8px 0 var(--ink)}
+label{display:block;font:700 13px ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em;margin:16px 0 6px}
+input,textarea,select{width:100%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:0;padding:12px 14px;font:inherit;font-size:16px}
+input:focus,textarea:focus,select:focus{outline:none;box-shadow:0 0 0 3px var(--amber)}
 textarea{min-height:72px;resize:vertical}
-button{margin-top:20px;width:100%;background:var(--go);
-  background:linear-gradient(180deg,color-mix(in srgb,var(--go) 84%,#fff),var(--go) 78%);
-  color:#fff;border:0;border-radius:11px;padding:15px;font:600 16.5px inherit;cursor:pointer;
-  box-shadow:0 1px 2px rgba(0,0,0,.24),0 6px 18px color-mix(in srgb,var(--go) 30%,transparent),inset 0 1px 0 rgba(255,255,255,.22);
-  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)}
-button:hover{transform:translateY(-1px);
-  box-shadow:0 2px 4px rgba(0,0,0,.24),0 10px 26px color-mix(in srgb,var(--go) 40%,transparent),inset 0 1px 0 rgba(255,255,255,.26)}
-button:active{transform:scale(.98);transition-duration:.1s}
-button:disabled{opacity:.55;cursor:wait;transform:none}
-.msg{display:none;border-radius:12px;padding:18px;margin-top:16px;font-weight:600;text-align:center}
-#ok{border:1px solid var(--ok);color:var(--ok);background:color-mix(in srgb,var(--ok) 8%,transparent)}
-#no{border:1px solid var(--warn);color:var(--warn);background:color-mix(in srgb,var(--warn) 8%,transparent)}
-footer{padding:34px 0 76px;color:var(--dim);font-size:13.5px;border-top:1px solid var(--line)}
-@media (prefers-reduced-motion:no-preference){
-  section:first-of-type .w>*{animation:rise .8s cubic-bezier(.22,1,.36,1) both}
-  section:first-of-type .w>*:nth-child(2){animation-delay:.07s}
-  section:first-of-type .w>*:nth-child(3){animation-delay:.14s}
-  section:first-of-type .w>*:nth-child(4){animation-delay:.21s}
-  section:first-of-type .w>*:nth-child(5){animation-delay:.28s}
-  .reveal{opacity:0;transform:translateY(14px);
-    transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-  .reveal.in{opacity:1;transform:none}
-}
-@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+button{margin-top:20px;width:100%;background:var(--amber);color:var(--ink);border:2px solid var(--ink);padding:17px;font:inherit;font-size:18px;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 var(--ink)}
+button:disabled{opacity:.6;cursor:wait}
+.msg{display:none;border:2px solid var(--ink);padding:18px;margin-top:16px;font-weight:700;text-align:center;background:var(--card)}
+.msg.ok{border-color:var(--green);color:var(--green)}.msg.no{border-color:var(--amberdeep);color:var(--amberdeep)}
+details{border:2px solid var(--ink);padding:12px 16px;margin:10px 0;background:var(--card)}
+summary{cursor:pointer;font-weight:700}details p{color:var(--body);margin:8px 0 2px;font-size:16px}
+footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
+footer .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:900px){.hero .w,.two,.two.rc{grid-template-columns:1fr;gap:36px}.phone{transform:none;margin-top:8px}.receipt{padding:22px 18px}.receipt .r{flex-direction:column;gap:2px}.receipt .r span:last-child{white-space:normal;color:var(--mute)}.receipt .seal{position:static;display:inline-block;margin-bottom:10px}nav .line{display:none}nav .cta{padding:9px 12px;font-size:13px}.pricebox .n small{display:block;line-height:1.3}.stamp{font-size:11.5px}}
 </style>
 </head>
 <body>
 
-<section>
-  <div class="w">
-    <h1>You are already begging your tools to remember what you said.</h1>
-    <p class="lede">The riffs, the decisions, the rule you made up on a call — all of it
-    evaporates, because keeping the record is your job on top of the job.</p>
-    <p style="font-size:21px;margin:0 0 28px"><b>Work gets done without you thinking about it.</b></p>
-    <a class="cta" href="#join">Join the waitlist</a>
-    <p class="fine" style="margin-top:14px">A small box on your network. You own it, and the records.</p>
-  </div>
-</section>
+<nav><div class="w">
+  <svg width="30" height="30" viewBox="0 0 34 34" fill="none" stroke="#141210" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M6 28 L16 6"/><path d="M14 30 L24 8"/><path d="M22 30 L30 14"/></svg>
+  <span class="wm">RappterBox</span>
+  <span class="line">Rapter see, rapter do.</span>
+  <a class="cta" href="#claim">Be one of the first ten businesses in a box</a>
+</div></nav>
 
-<section>
-  <div class="w">
-    <h2>This arrives as a text at 7am. You do nothing to make it happen.</h2>
-    <p style="color:var(--dim);margin-top:0">A real brief, redacted. Not a mockup — and not an
-    app you have to open.</p>
-
-    <div class="phone">
-      <div class="pbar"><span class="pdot"></span> <b>Northgate Property Co.</b> <span class="ptime">7:00 AM</span></div>
-      <div class="bubble">
-        <b>Tue 25 Aug — morning brief</b><br><br>
-        <b>NEEDS YOU (3)</b><br>
-        • <span class="tag">compliance</span> — subscription lapses in 6 days<br>
-        • <span class="tag">legal</span> — provisional conversion deadline on file<br>
-        • <span class="tag">money</span> — invoice unpaid 21 days<br><br>
-        <b>HANDLED WHILE YOU SLEPT</b><br>
-        <span class="ok">✓</span> 63 drift findings repaired across 4 machines<br>
-        <span class="ok">✓</span> duplicate alerts quieted — 485 texts → 95<br>
-        <span class="ok">✓</span> 12 records appended, 0 broken<br><br>
-        <b>QUIETED</b><br>
-        41 things that did not need you
-      </div>
-      <div class="pfoot">Delivered</div>
+<section class="hero"><div class="w">
+  <div class="copy">
+    <div class="stamp"><b><span id="slots">10</span> of 10</b> places for the first ten businesses open · live count · never faked</div>
+    <h1>Your evenings back in 90&nbsp;days. <mark>Or you keep the box</mark> and stop paying.</h1>
+    <p class="lede">A small box on your network does your business's admin overnight, then texts you the two or three decisions that are actually yours. Everything else: done, with a receipt.</p>
+    <div class="row">
+      <a class="cta" href="#claim">Be one of the first ten businesses in a box</a>
+      <div class="mono">$497/month, locked for life.<br>Install day included. Not ready? Ask for a free sample brief — same form.</div>
     </div>
-
-    <p>Three decisions, not forty notifications. Everything above the line is yours; everything
-    below it was already done and can be checked.</p>
-    <p class="fine">It texts you <b>as your business</b>, from its own number — the twin is named
-    for your company, not for us. Not one more app asking for your attention.</p>
+    <p class="fine" style="margin:0">For owner-operators of services businesses, 5–50 staff. Two guarantees below.</p>
   </div>
-</section>
+  <div class="phone"><div class="screen">
+    <div class="ptop">RapterBox — our own box · 7:00 AM</div>
+    <div class="b">Tue 25 Aug — morning brief
 
-<section>
-  <div class="w">
-    <h2>How it works</h2>
-    <ol class="steps">
-      <li><b>You talk. It records.</b><span>Say it however it comes out. The paper trail builds
-      itself — decisions, rules, what you tried, what broke. You never file anything.</span></li>
-      <li><b>It does the reversible work.</b><span>Repairs, drafts, reports, checks. Everything
-      it does leaves a receipt you can verify without trusting us.</span></li>
-      <li><b>It wakes you with what is actually yours.</b><span>One message. The two or three
-      calls only a human can make, with the work leading up to them already finished.</span></li>
-    </ol>
+NEEDS YOU (3)
+• compliance — subscription lapses in 6 days
+• legal — provisional conversion deadline on file
+• money — invoice unpaid 21 days</div>
+    <div class="b">HANDLED WHILE YOU SLEPT
+✓ 63 drift findings repaired across 4 machines
+✓ duplicate alerts quieted — 485 texts → 95
+✓ 12 records appended, 0 broken
+
+QUIETED
+41 things that did not need you</div>
+    <div class="b me">the invoice reminder → send it</div>
+    <div class="b">Drafted for you to send. I never send, sign, pay or delete.</div>
+    <div class="pcap">Our own box's brief from Tuesday 25 August, redacted — not a mockup.</div>
+  </div></div>
+</div></section>
+
+<section class="tear"><div class="w two rc">
+  <div>
+    <div class="kicker">The receipt</div>
+    <h2>Everything a Founding Ten box comes with, added up.</h2>
+    <p class="lede" style="font-size:18px">Each line is a thing you'd otherwise pay for or do yourself. The number at the bottom is what the first ten businesses actually pay.</p>
+    <div class="pricebox">
+      <div class="k">Standard</div>
+      <div class="n">$997<small>/month + $4,800 install</small></div>
+      <hr>
+      <div class="k hot">The Founding Ten</div>
+      <div class="n big">$497<small>/month, locked for life</small></div>
+      <p>Install Day included. Year one: $5,964 total. Lower because you give us the two things a first customer can — a PII-free case study and a 20-minute call each month. Ends at business #10 and never comes back.</p>
+    </div>
   </div>
-</section>
+  <div class="receipt">
+    <div class="seal">Founding Ten</div>
+    <div class="h">RappterBox</div>
+    <div class="sub">receipt · one box · year one</div>
+    <div class="r"><span><b>THE BOX</b> — a Mac mini running your business's twin. You own it and the records.</span><span>vs $45–60k hire</span></div>
+    <div class="r"><span><b>INSTALL DAY</b> — we set it up and teach it your business: upload your documents, film a task once, or a 60-minute workshop. First brief next morning.</span><span>$4,800</span></div>
+    <div class="r"><span><b>THE 7AM BRIEF</b> — one text a day: needs you / handled / quieted.</span><span>the product</span></div>
+    <div class="r"><span><b>THE RECEIPTS LEDGER</b> — records that can only be added to, never changed or erased. Your accountant or insurer can check them without trusting us.</span><span>audit trail</span></div>
+    <div class="r"><span><b>MONTHLY HOURS-BACK REPORT</b> — measured hours handed back to you. The number the guarantee is written on.</span><span>the proof</span></div>
+    <div class="r"><span><b>QUARTERLY RE-TEACH</b> — your business changes; 60 minutes, four times a year, teaches the twin the new shape.</span><span>$4,800/yr</span></div>
+    <div class="r"><span><b>10 WORK BLOCKS / MONTH</b> — bounded jobs from our fleet: reviews, docs, verification passes (<a href="/mesh/">the board</a>).</span><span>$720–1,440/yr</span></div>
+    <div class="r"><span><b>WILL-NOT-DO GUARANTEE</b> — signed: it never sends, signs, pays or deletes for you, and refuses to act on partial evidence.</span><span>signed</span></div>
+    <div class="t"><span>YEAR ONE, ADDED UP</span><span>$10,320+</span></div>
+    <div class="note">before the admin hire you don't make</div>
+    <div class="pay"><span>FOUNDING TEN PAY</span><span>$5,964</span></div>
+    <div class="note">Why this price: ten hours a month at an owner's rate is $1,500 before a single missed deadline is avoided. The guarantee is written on that number. One outside cost, stated up front: a GitHub Copilot seat you buy directly (about $10–20 a month). Nothing else is metered by us.</div>
+    <div class="dots">· · · · · · · · · · · · · · · ·</div>
+  </div>
+</div></section>
 
-<section>
-  <div class="w">
-    <h2>What it will not do</h2>
-    <p style="color:var(--dim);margin-top:0">Worth knowing before you buy, not after.</p>
+<section class="tear"><div class="w two">
+  <div class="guar">
+    <div class="lbl">The Hours-Back Guarantee</div>
+    <p class="big">If the monthly report doesn't show at least ten hours a month handed back to you by day 90, we keep working for free until it does. If it still hasn't by day 180, you keep the box and owe nothing further.</p>
+    <p>Separately: <b>30 days, any reason, full refund.</b> We collect the box.</p>
+    <p class="anti">The anti-guarantee: we will never guarantee it sends, signs, pays or deletes for you. That is the point of it.</p>
+  </div>
+  <div>
+    <div class="kicker">Proof, honestly</div>
+    <h2 style="font-size:clamp(26px,3vw,36px)">No customer logos yet. You would be one of the first ten — that is what the price is for.</h2>
+    <ul class="limits proof">
+      <li><b>The brief above is ours</b> — it runs every morning on our own eight machines. You would be the first business that isn't us. That is the deal, and it is why the price is what it is.</li>
+      <li><b>The receipts are public science</b> — the method behind the ledger is a published paper with interactive demos: <a href="https://kody-w.github.io/frame-chains/">Frame Chains</a>.</li>
+      <li><b>The work blocks are live</b> — the <a href="/mesh/">offer board</a> is a record your own browser verifies.</li>
+      <li><b>The limits are written down</b> — <a href="#faq">what it will not do</a>, before you buy, not after.</li>
+    </ul>
+    <p style="margin-top:18px"><a class="cta" href="#claim">Be one of the first ten businesses in a box</a></p>
+  </div>
+</div></section>
+
+<section class="tear"><div class="w two">
+  <div>
+    <h3>It's for you if</h3>
     <ul class="limits">
-      <li><b>It never sends, signs, pays or deletes on your behalf.</b> There is no code path for
-      those. A task needing one comes back as a decision, with the safe part already done.</li>
-      <li><b>It refuses to act on partial evidence.</b> If it cannot see everything, it stops and
-      says so rather than guessing confidently — the reason
-      <a href="/silent-failures">scheduled jobs fail silently on macOS</a> is that most tools do
-      the opposite.</li>
-      <li><b>It keeps working when the network drops</b> and reconciles later. That is the right
-      trade for a box in your office, and it is not a strongly consistent system.</li>
-      <li><b>Agreement is evidence, not proof.</b> Machines that share a fault can agree and still
-      be wrong, so the checks are spread across different systems on purpose.</li>
+      <li><b>You own a services business</b> with 5–50 people and you are the admin department after hours.</li>
+      <li><b>You've missed a deadline</b> that cost money because nobody was keeping the record.</li>
+      <li><b>You'd rather get a text</b> than open another app.</li>
     </ul>
   </div>
-</section>
-
-<section>
-  <div class="w">
-    <h2>Running AI where the answers matter?</h2>
-    <p style="color:var(--dim);margin-top:0">For teams with agents in production making
-    consequential decisions, we do something more specific. Start with the essay —
-    <a href="/wrong-game">You're testing your AI at the wrong moment</a> — and if it
-    reads like it was written about your team, <a href="/invite">the invitation</a> has
-    everything else, including who it's not for.</p>
+  <div>
+    <h3>It's not for you if</h3>
+    <ul class="limits no">
+      <li><b>You want an AI to send, sign or pay</b> on your behalf. It won't. Ever.</li>
+      <li><b>You need every office to see the same thing at the same second.</b> The box keeps working when the internet drops and catches up when it comes back.</li>
+      <li><b>You want a chatbot.</b> This is a box that does work and reports.</li>
+    </ul>
   </div>
-</section>
+</div></section>
 
-<section>
-  <div class="w">
-    <h2>Hire the fleet — bounded work you can verify</h2>
-    <p style="color:var(--dim);margin-top:0">The founding fleet — our own boxes — sells its
-    idle hours: code review, repo recon, verification passes, documentation, ratings.
-    Fixed scope, priced in rpp, and every job ends in an artifact, a verification note, or
-    an honest no-result. The offer board is a hash-chained record you can replay — not a
-    claim you have to trust. <a href="/mesh/">See the offers →</a></p>
+<section class="tear" id="claim"><div class="w two">
+  <div>
+    <h2 style="font-size:clamp(34px,4vw,52px)">Be one of the first ten businesses in a box.</h2>
+    <p class="lede" style="font-size:18px">Tell us three things. A person reads every one and replies within one business day — with an install date, a sample brief for your business, or an honest 'not a fit'.</p>
+    <p class="mono fine">No newsletter. One human reply. Nothing is charged until an install date is agreed.</p>
+    <div class="stamp" style="margin-top:10px"><b><span id="slots2">10</span> of 10</b> places still open</div>
   </div>
-</section>
+  <form id="f" method="POST" action="https://formspree.io/f/mgawgado">
+    <label for="n" style="margin-top:0">Your name</label><input id="n" name="name" autocomplete="name" maxlength="100" required>
+    <label for="e">Email</label><input id="e" name="email" type="email" autocomplete="email" required>
+    <label for="b">Your business, in a sentence</label><input id="b" name="business" maxlength="200" placeholder="e.g. 12-person property management company in Atlanta" required>
+    <label for="h">Hours a week you personally spend on admin</label>
+    <select id="h" name="admin_hours" required>
+      <option value="">choose one</option><option>under 5</option><option>5–10</option><option>10–20</option><option>more than 20</option>
+    </select>
+    <label for="u">What would you want off your plate first?</label>
+    <textarea id="u" name="note" maxlength="2000" placeholder="the deadlines, the chasing, the records nobody keeps"></textarea>
+    <label for="wt">What do you want?</label>
+    <select id="wt" name="want" required>
+      <option value="">choose one</option>
+      <option value="box">A place among the first ten — send me an install date</option>
+      <option value="sample-brief">A sample 7am brief for my business first (free, written by a person, no box needed)</option>
+    </select>
+    <input type="hidden" name="source" value="founding-ten">
+    <button id="btn" type="submit">Be one of the first ten businesses in a box</button>
+    <p class="fine" style="text-align:center;margin:12px 0 0">One human reply within one business day.</p>
+  </form>
+  <div class="msg ok" id="ok">Received. You'll hear from a person within one business day.</div>
+  <div class="msg no" id="no">That didn't send. Try again in a moment.</div>
+</div></section>
 
-<section id="join">
-  <div class="w">
-    <h2>Join the waitlist</h2>
-    <p style="color:var(--dim);margin-top:0">The waitlist is how priority is decided. When the
-    product fully launches, boxes go out in the order people joined — and the first group gets
-    set up with us directly.</p>
-    <form id="f" method="POST" action="https://formspree.io/f/mgawgado">
-      <label for="n">Name</label><input id="n" name="name" autocomplete="name" maxlength="100" required>
-      <label for="e">Email</label><input id="e" name="email" type="email" autocomplete="email" required>
-      <label for="u">What would you want it handling?</label>
-      <textarea id="u" name="note" maxlength="2000" placeholder="the machines, agents, automations or admin you keep having to chase"></textarea>
-      <input type="hidden" name="source" value="rappter.com">
-      <button id="b" type="submit">Join the waitlist</button>
-      <p class="fine" style="text-align:center;margin:12px 0 0">No newsletter. We write when there is something to say.</p>
-    </form>
-    <div class="msg" id="ok">You're on the waitlist. You'll hear from us before the first boxes ship.</div>
-    <div class="msg" id="no">That didn't send. Try again in a moment.</div>
-  </div>
-</section>
+<section class="tear" id="faq"><div class="w" style="max-width:820px">
+  <h2>Questions people ask before they buy</h2>
+  <details><summary>Does it send emails or sign things for me?</summary><p>No. It never sends, signs, pays or deletes on your behalf — there is no code path for those actions. A task needing one comes back to you as a decision, with the reversible work already finished.</p></details>
+  <details><summary>What happens if it cannot see everything?</summary><p>It refuses to act on partial evidence. It stops and says so rather than guessing confidently — a confident wrong answer is worse than no answer.</p></details>
+  <details><summary>What happens when the internet drops?</summary><p>The box keeps working and catches up when the connection comes back. If you need every office to see the same thing at the same second, this is the wrong box.</p></details>
+  <details><summary>Who owns the records?</summary><p>You do. The box runs on your network. The records can only be added to, never changed or erased, and your accountant or insurer can check them without trusting us.</p></details>
+  <details><summary>Does it need cloud AI?</summary><p>It runs on the box and uses one GitHub Copilot seat, which you buy directly for about $10–20 a month. There is no separate cloud sandbox to meter and we never resell AI usage to you.</p></details>
+  <details><summary>Why only ten?</summary><p>Because every install day is done in person by the founder, and the first ten businesses get a 20-minute call every month. Ten is what one person can place well. The counter at the top is the live count.</p></details>
+</div></section>
 
 <footer><div class="w">
-  RappterBox LLC · one RappterBox, many RapterBoxes · <a href="/ai">for AI agents</a><br>
-  Built on <a href="https://github.com/kody-w/rapp-1">RAPP</a>, the open foundation — credited, not claimed.
+  <div>RapterBox LLC · the RappterBox product · <a href="/ai">for AI agents</a> · <a href="/mesh/">hire the fleet</a> · <a href="/dogg">DOGG</a></div>
+  <div>Built on <a href="https://github.com/kody-w/rapp-1">RAPP</a>, the open foundation — credited, not claimed.</div>
 </div></footer>
 
 <script>
-const f=document.getElementById('f'),b=document.getElementById('b'),ok=document.getElementById('ok'),no=document.getElementById('no');
+(async()=>{try{const r=await fetch('/founding.json',{cache:'no-store'});const j=await r.json();const n=String(Math.max(0,j.total-j.placed));
+  for(const id of['slots','slots2'])document.getElementById(id).textContent=n;}catch(e){}})();
+const f=document.getElementById('f'),b=document.getElementById('btn'),ok=document.getElementById('ok'),no=document.getElementById('no');
 f.addEventListener('submit',async ev=>{
   ev.preventDefault();b.disabled=true;b.textContent='sending…';no.style.display='none';
-  try{
-    const r=await fetch(f.action,{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
-    if(!r.ok)throw 0;
-    f.style.display='none';ok.style.display='block';
-  }catch(e){b.disabled=false;b.textContent='Join the waitlist';no.style.display='block';}
+  try{const r=await fetch(f.action,{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
+    if(!r.ok)throw 0;f.style.display='none';ok.style.display='block';}
+  catch(e){b.disabled=false;b.textContent='Be one of the first ten businesses in a box';no.style.display='block';}
 });
-(()=>{try{
-  if(!matchMedia('(prefers-reduced-motion: no-preference)').matches||!('IntersectionObserver'in window))return;
-  const els=document.querySelectorAll('section:not(:first-of-type) .w>*:not(.msg), footer .w');
-  const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}},
-    {rootMargin:'0px 0px -6% 0px',threshold:.08});
-  els.forEach(el=>{el.classList.add('reveal');io.observe(el)});
-  setTimeout(()=>{els.forEach(el=>el.classList.add('in'))},1600);
-}catch(e){}})();
 </script>
 </body>
 </html>

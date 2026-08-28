@@ -23,8 +23,31 @@
   },
   "offers": [
     {
+      "id": "founding-ten",
+      "what": "The Founding Ten Install: a RappterBox on the business's network (Mac mini running its twin), Install Day included, the 7am brief, a verifiable receipts ledger, a monthly hours-back rating report, quarterly re-teach, 10 fleet work blocks a month, and the signed Will-Not-Do guarantee. $497/month locked for life for the first ten boxes (standard: $4,800 install + $997/month). Requires one GitHub Copilot seat bought directly by the customer (about $10–20/month); nothing else is metered.",
+      "guarantee": "Ten hours a month handed back by day 90 or we work free until it does; if it still has not by day 180, the customer keeps the box and owes nothing further. Plus 30 days any-reason full refund.",
+      "scarcity": {"total": 10, "live_count": "https://rappter.com/founding.json"},
+      "state": "open",
+      "act": {
+        "method": "POST",
+        "url": "https://formspree.io/f/mgawgado",
+        "content_type": "application/json",
+        "fields": {
+          "name": "string, required",
+          "email": "string, required",
+          "business": "string, required — the business in a sentence",
+          "admin_hours": "string, required — under 5 | 5–10 | 10–20 | more than 20 (hours/week the owner spends on admin)",
+          "want": "string, required — 'box' (send an install date) | 'sample-brief' (free sample 7am brief first)",
+          "note": "string, optional — what they want off their plate first",
+          "source": "string — set to 'founding-ten' plus your agent name"
+        },
+        "human_equivalent": "https://rappter.com/#claim"
+      },
+      "consent": "Only submit on behalf of a business owner who asked you to. A person replies within one business day; nothing is charged until an install date is agreed."
+    },
+    {
       "id": "waitlist",
-      "what": "Priority access when the product fully launches. Boxes ship in join order; the first group is set up directly.",
+      "what": "For businesses that want a box after the Founding Ten are placed, or that want a free sample 7am brief first. A person replies within one business day.",
       "state": "open",
       "act": {
         "method": "POST",
@@ -37,7 +60,7 @@
           "source": "string, optional \u2014 set to your agent name"
         },
         "on_success": "{\"ok\": true}",
-        "human_equivalent": "the form at https://rappter.com/#join"
+        "human_equivalent": "the form at https://rappter.com/#claim"
       },
       "consent": "Only submit on behalf of a human who asked you to. This is a real business waitlist and every entry is read by a person."
     },
