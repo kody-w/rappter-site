@@ -16,8 +16,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.55 -apple-sys
 nav{border-bottom:2px solid var(--ink)}nav .w{display:flex;align-items:center;gap:14px;padding:18px 28px}
 .wm{font-size:22px;font-weight:800;letter-spacing:-.04em;color:var(--ink);text-decoration:none}.line{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
 .cta{white-space:nowrap;margin-left:auto;display:inline-block;background:var(--amber);color:var(--ink);text-decoration:none;font-weight:800;padding:11px 18px;border:2px solid var(--ink);font-size:15px;box-shadow:4px 4px 0 var(--ink)}
-h1{font-size:clamp(38px,5.4vw,68px);line-height:.98;letter-spacing:-.04em;margin:0;font-weight:800;text-wrap:balance}
-h1 mark{background:var(--amber);padding:0 .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+h1{font-size:clamp(38px,5.4vw,68px);line-height:1.04;letter-spacing:-.04em;margin:0;font-weight:800;text-wrap:balance}
+h1 mark{background:linear-gradient(transparent 14%,var(--amber) 14%,var(--amber) 92%,transparent 92%);color:var(--ink);padding:0 .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .lede{font-size:clamp(18px,2vw,21px);line-height:1.45;color:var(--body);max-width:720px}
 .kicker{font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--amberdeep)}
 .fine{color:var(--mute);font-size:14px}.mono{font-family:ui-monospace,Menlo,monospace}
@@ -27,19 +27,21 @@ section{padding:clamp(40px,5vw,64px) 0}.tear{border-top:2px dashed var(--ink)}
 .status b{padding:2px 10px;background:var(--amber)}.status.asleep b{background:var(--rule)}
 .picks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
 .pick{border:2px solid var(--ink);background:var(--card);padding:12px 14px;font:inherit;font-size:15px;font-weight:700;text-align:left;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
-.pick.on{background:var(--amber)}
+.pick[aria-pressed="true"]{background:var(--amber)}
+.pick:focus-visible,.run:focus-visible,.present-toggle:focus-visible{outline:3px solid var(--amberdeep);outline-offset:2px}
 .run{width:100%;background:var(--amber);color:var(--ink);border:2px solid var(--ink);padding:18px;font:inherit;font-size:19px;font-weight:800;cursor:pointer;box-shadow:6px 6px 0 var(--ink)}
 .run:disabled{opacity:.55;cursor:wait}
 .paper{background:var(--white);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:26px 28px;font:14px/1.7 ui-monospace,Menlo,monospace;min-height:520px;position:relative}
 .paper .h{text-align:center;font-weight:800;letter-spacing:.15em;text-transform:uppercase;font-size:15px}
 .paper .sub{text-align:center;color:var(--mute);font-size:12.5px;margin-bottom:14px}
-.ev{display:flex;gap:12px;border-bottom:1px dotted var(--rule);padding:6px 0;opacity:0;animation:in .35s forwards}
+.ev{display:grid;grid-template-columns:auto auto 1fr;gap:12px;border-bottom:1px dotted var(--rule);padding:6px 0;opacity:0;animation:in .35s forwards}
 @keyframes in{to{opacity:1}}
-.ev .t{color:var(--mute);white-space:nowrap}.ev .k{font-weight:800;white-space:nowrap}.ev .d{color:var(--body);word-break:break-all}
-.out{white-space:pre-wrap;background:var(--card);border:2px solid var(--ink);padding:14px 16px;margin-top:14px;font-size:13.5px}
+.ev .t{color:var(--mute);white-space:nowrap}.ev .k{font-weight:800;white-space:nowrap}.ev .d{color:var(--body);overflow-wrap:anywhere}
+.ev.help .k{color:var(--amberdeep)}.ev.error .k{color:var(--red)}
+.out{white-space:pre-wrap;background:var(--card);border:2px solid var(--ink);padding:14px 16px;margin-top:14px;font-size:13.5px;overflow-wrap:anywhere}
 .seal{position:absolute;top:18px;right:22px;border:3px solid var(--green);color:var(--green);padding:4px 12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;transform:rotate(8deg);font-size:14px;display:none}
 .seal.bad{border-color:var(--red);color:var(--red)}
-.verify{margin-top:14px;font-size:12.5px;color:var(--mute)}
+.verify{margin-top:14px;font-size:12.5px;color:var(--mute);overflow-wrap:anywhere}
 .verify b{color:var(--green)}.verify b.bad{color:var(--red)}
 .cursor::after{content:"▌";animation:blink 1s steps(1) infinite}@keyframes blink{50%{opacity:0}}
 .pitch{border:2px solid var(--ink);background:var(--card);padding:26px 30px;box-shadow:8px 8px 0 var(--green);display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;margin-top:8px}
@@ -48,7 +50,10 @@ section{padding:clamp(40px,5vw,64px) 0}.tear{border-top:2px dashed var(--ink)}
 .present-toggle{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mute);background:none;border:0;cursor:pointer;text-decoration:underline}
 body.present{font-size:22px}body.present .paper{font-size:18px}body.present .out{font-size:18px}body.present nav,body.present .pitch,body.present footer,body.present .lede{display:none}body.present .stage{grid-template-columns:.7fr 1.3fr}
 footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
-@media(max-width:900px){.stage,.pitch{grid-template-columns:1fr}.picks{grid-template-columns:1fr}nav .line{display:none}.paper{padding:18px 16px}}
+@media(prefers-reduced-motion:reduce){.ev,.cursor::after{animation:none;opacity:1}}
+@media(max-width:900px){.stage,.pitch{grid-template-columns:1fr}.picks{grid-template-columns:1fr}nav .line{display:none}.paper{padding:18px 16px}
+  .seal{position:static;display:none;width:max-content;margin:0 auto 10px;transform:rotate(-3deg)}.seal.show{display:block}
+  .ev{grid-template-columns:auto 1fr}.ev .t{grid-column:1/-1;font-size:11px}.ev .d{font-size:12.5px}}
 </style>
 </head>
 <body>
@@ -62,19 +67,19 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
 
 <section class="tear"><div class="w stage">
   <div>
-    <div class="status" id="status"><b>…</b> <span>finding the box</span></div>
-    <p class="fine" style="margin:14px 0 6px">Pick a job:</p>
-    <div class="picks" id="picks"></div>
+    <div class="status" id="status" role="status" aria-live="polite"><b>…</b> <span>finding the box</span></div>
+    <p class="fine" style="margin:14px 0 6px" id="pick-label">Pick a job:</p>
+    <div class="picks" id="picks" role="group" aria-labelledby="pick-label"></div>
     <button class="run" id="run" disabled>Run it on our box now</button>
-    <p class="fine" style="margin-top:12px">One box, one run at a time, three per visitor per ten minutes. It drafts; it never sends, signs, pays or deletes. <button class="present-toggle" id="present">present mode</button></p>
+    <p class="fine" style="margin-top:12px">One box, one run at a time, three runs per ten minutes per address. It drafts; it never sends, signs, pays or deletes. <button class="present-toggle" id="present" aria-pressed="false">present mode</button></p>
   </div>
   <div class="paper" id="paper">
-    <div class="seal" id="seal">Verified</div>
+    <div class="seal" id="seal" role="status">Verified</div>
     <div class="h">RappterBox</div>
     <div class="sub" id="sub">receipt · live run · waiting for you</div>
-    <div id="events"></div>
+    <div id="events" aria-live="polite"></div>
     <div class="out" id="out" style="display:none"></div>
-    <div class="verify" id="verify"></div>
+    <div class="verify" id="verify" aria-live="polite"></div>
   </div>
 </div></section>
 
@@ -94,41 +99,60 @@ const ENDPOINT_JSON='https://raw.githubusercontent.com/kody-w/rappter-prompts/ma
 const LASTRUNS='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/last-runs.json';
 const NAMES={"morning-brief":"The 7am Brief","chase-invoices":"The Invoice Chaser","compliance-calendar":"The Deadline Ledger","review-replies":"The Review Desk","sop-from-memo":"The Playbook Writer","hiring-ad":"The Job Post","weekly-numbers":"The Friday Numbers","vendor-compare":"The Quote Reader","customer-followup":"The Follow-Up Engine","meeting-to-tasks":"The Meeting Cleaner"};
 const $=id=>document.getElementById(id);
-let base=null, routine=(new URLSearchParams(location.search).get('routine')||'morning-brief'), awake=false;
-if(!NAMES[routine])routine='morning-brief';
-// --- rapp/1 verification, same as the reference implementation (no floats profile) ---
-function canonical(v){if(v===null||typeof v==='boolean'||typeof v==='number')return JSON.stringify(v);if(typeof v==='string')return JSON.stringify(v);
-  if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';const ks=Object.keys(v).sort();return '{'+ks.map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';}
+let base=null, awake=false, lastRuns=null;
+let routine=(new URLSearchParams(location.search).get('routine')||'morning-brief'); if(!NAMES[routine])routine='morning-brief';
+// --- rapp/1 verification: same profile as the reference implementation — integers only (|n| ≤ 2^53−1), no floats,
+//     keys sorted by UTF-16 code units, H(space,v)=sha256(space+"\n"+canonical(v)). Anything else is REFUSED.
+function canonical(v){
+  if(v===null||typeof v==='boolean')return JSON.stringify(v);
+  if(typeof v==='number'){if(!Number.isInteger(v)||Math.abs(v)>Number.MAX_SAFE_INTEGER)throw new Error('non-integer or unsafe number in frame');return String(v);}
+  if(typeof v==='string')return JSON.stringify(v);
+  if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';
+  if(typeof v==='object'){const ks=Object.keys(v).sort((a,b)=>a<b?-1:a>b?1:0);return '{'+ks.map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';}
+  throw new Error('non-JSON value in frame');}
 async function H(space,v){const b=new TextEncoder().encode(space+"\n"+canonical(v));const d=await crypto.subtle.digest('SHA-256',b);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('');}
 async function verifyFrame(f){const ph=await H('rapp/1:particle',f.payload);const pre={};for(const k of Object.keys(f))if(k!=='frame_hash'&&k!=='sig')pre[k]=f[k];const fh=await H('rapp/1:wave',pre);return {payload:ph===f.payload_hash,frame:fh===f.frame_hash,ph,fh};}
 // --- UI ---
-function ev(k,d){const e=document.createElement('div');e.className='ev';const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});e.innerHTML=`<span class="t">${t}</span><span class="k">${k}</span><span class="d"></span>`;e.querySelector('.d').textContent=d;$('events').appendChild(e);e.scrollIntoView({block:'nearest'});}
-function reset(){$('events').innerHTML='';$('out').style.display='none';$('out').textContent='';$('verify').textContent='';$('seal').style.display='none';$('seal').className='seal';}
-for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='pick'+(slug===routine?' on':'');b.textContent=name;b.onclick=()=>{routine=slug;document.querySelectorAll('.pick').forEach(x=>x.classList.remove('on'));b.classList.add('on');};$('picks').appendChild(b);}
-$('present').onclick=()=>document.body.classList.toggle('present');
-if(location.search.includes('present'))document.body.classList.add('present');
+function ev(k,d){const e=document.createElement('div');e.className='ev '+k;const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});e.innerHTML=`<span class="t">${t}</span><span class="k">${k}</span><span class="d"></span>`;e.querySelector('.d').textContent=d;$('events').appendChild(e);e.scrollIntoView({block:'nearest'});}
+function plain(s){return String(s).replace(/^#{1,6}\s+/gm,'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/^\s*[-*]{3,}\s*$/gm,'—');}
+function setSeal(ok,text){const s=$('seal');s.style.display='block';s.classList.add('show');s.classList.toggle('bad',!ok);s.textContent=text;}
+function reset(){$('events').innerHTML='';$('out').style.display='none';$('out').textContent='';$('verify').textContent='';const s=$('seal');s.style.display='none';s.className='seal';}
+function setPick(slug){routine=slug;document.querySelectorAll('.pick').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.slug===slug)));if(!awake)showLast();}
+for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='pick';b.dataset.slug=slug;b.setAttribute('aria-pressed',String(slug===routine));b.textContent=name;b.onclick=()=>setPick(slug);$('picks').appendChild(b);}
+$('present').onclick=()=>{const on=document.body.classList.toggle('present');$('present').setAttribute('aria-pressed',String(on));};
+if(location.search.includes('present')){document.body.classList.add('present');$('present').setAttribute('aria-pressed','true');}
 async function findBox(){
   try{const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();base=j.url;
-    const h=await fetch(base+'/try/health',{cache:'no-store'});const hj=await h.json();if(hj.status==='awake'){awake=true;}}catch(e){awake=false;}
-  const s=$('status');if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live, one run at a time</span>';$('run').disabled=false;if(location.search.includes('auto'))$('run').click();}
-  else{s.className='status asleep';s.innerHTML='<b>Asleep</b> <span>showing the last real run instead</span>';$('run').disabled=true;showLast();}
+    const h=await fetch(base+'/try/health',{cache:'no-store'});const hj=await h.json();awake=(hj.status==='awake');}catch(e){awake=false;}
+  const s=$('status');
+  if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live, one run at a time</span>';$('run').disabled=false;if(location.search.includes('auto'))$('run').click();}
+  else{s.className='status asleep';s.innerHTML='<b>Asleep</b> <span>showing the last real run instead</span>';$('run').disabled=true;await showLast();}
 }
-async function showLast(){try{const r=await fetch(LASTRUNS+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();const x=j.routines&&j.routines[routine];if(!x)return;reset();
-  $('sub').textContent='receipt · last real run · '+(j.tested_utc||'').slice(0,16).replace('T',' ')+' UTC';ev('note','the box is asleep right now — this is its last real run of '+NAMES[routine]);
-  $('out').style.display='block';$('out').textContent=x.output||'';$('verify').innerHTML='receipt frame '+(x.frame_hash||'').slice(0,16)+'… (published by the box\'s self-test)';}catch(e){}}
+async function showLast(){
+  try{if(!lastRuns){const r=await fetch(LASTRUNS+'?t='+Date.now(),{cache:'no-store'});lastRuns=await r.json();}
+    const x=lastRuns.routines&&lastRuns.routines[routine];reset();
+    if(!x||x.pass===false){$('sub').textContent='receipt · no published run of '+NAMES[routine]+' yet';ev('note','the box is asleep and has not published a passing run of this job yet — pick another');return;}
+    $('sub').textContent='receipt · last real run · '+(lastRuns.tested_utc||'').slice(0,16).replace('T',' ')+' UTC';
+    ev('note','the box is asleep right now — this is its last real run of '+NAMES[routine]);
+    $('out').style.display='block';$('out').textContent=plain(x.output||'');
+    $('verify').textContent='receipt frame '+(x.frame_hash||'').slice(0,16)+'… (published by the box\'s self-test, verified on the box)';}catch(e){}
+}
 $('run').onclick=()=>{
   reset();$('run').disabled=true;$('sub').textContent='receipt · live run · '+NAMES[routine];$('sub').classList.add('cursor');
   const es=new EventSource(base+'/try/run?routine='+encodeURIComponent(routine));let frame=null;
+  const finish=()=>{es.close();$('run').disabled=false;$('sub').classList.remove('cursor');};
   es.addEventListener('hello',e=>{const d=JSON.parse(e.data);ev('box',d.box+' · '+d.utc);});
-  es.addEventListener('start',e=>{const d=JSON.parse(e.data);ev('start','routine '+d.routine+' on the synthetic business "'+d.business+'"');});
-  es.addEventListener('read',e=>{const d=JSON.parse(e.data);ev('read',d.url.replace('https://raw.githubusercontent.com/','')+' · '+d.bytes+' bytes · sha256 '+d.sha256);});
+  es.addEventListener('help',e=>{const d=JSON.parse(e.data);ev('help',d.why+' — asked '+d.to+' · receipt of the ask '+(d.frame_hash||'').slice(0,16)+'…');});
+  es.addEventListener('start',e=>{const d=JSON.parse(e.data);ev('start','routine '+d.routine+' on the synthetic business "'+d.business+'"'+(d.library_commit?' · inputs pinned to '+d.library_commit:''));});
+  es.addEventListener('read',e=>{const d=JSON.parse(e.data);const u=d.url.replace('https://raw.githubusercontent.com/','').replace(/\/[0-9a-f]{40}\//,'/@/');ev('read',u+' · '+d.bytes+' bytes · '+d.sha256);});
   es.addEventListener('think',e=>{const d=JSON.parse(e.data);ev('think','the box is working on '+d.inputs.join(', ')+' ('+d.chars+' chars of method + data)');});
   es.addEventListener('frame',async e=>{frame=JSON.parse(e.data);ev('write','receipt frame seq '+frame.seq+' · '+frame.frame_hash.slice(0,16)+'…');
-    const v=await verifyFrame(frame);const ok=v.payload&&v.frame;$('seal').style.display='block';if(!ok)$('seal').classList.add('bad');$('seal').textContent=ok?'Verified':'Refused';
-    $('verify').innerHTML=(ok?'<b>✓ your browser recomputed both hashes and they match</b>':'<b class="bad">✕ hashes do not match — do not trust this run</b>')+' · payload '+v.ph.slice(0,12)+'… · frame '+v.fh.slice(0,12)+'… · prev '+(frame.prev||'genesis').slice(0,12)+'…';});
-  es.addEventListener('output',e=>{const d=JSON.parse(e.data);$('out').style.display='block';$('out').textContent=d.output;ev('output',d.seconds+' seconds, start to receipt');});
-  es.addEventListener('error',e=>{try{const d=JSON.parse(e.data);ev('error',d.error);}catch(_){ev('error','the connection to the box dropped');}es.close();$('run').disabled=false;$('sub').classList.remove('cursor');});
-  es.addEventListener('done',e=>{es.close();$('run').disabled=false;$('sub').classList.remove('cursor');ev('done','the box is free again');});
+    try{const v=await verifyFrame(frame);const ok=v.payload&&v.frame;setSeal(ok,ok?'Verified':'Refused');
+      $('verify').innerHTML=(ok?'<b>✓ your browser recomputed both hashes and they match</b>':'<b class="bad">✕ hashes do not match — do not trust this run</b>')+' · payload '+v.ph.slice(0,12)+'… · frame '+v.fh.slice(0,12)+'… · prev '+(frame.prev||'genesis').slice(0,12)+'…';}
+    catch(err){setSeal(false,'Refused');$('verify').innerHTML='<b class="bad">✕ this frame is not a valid rapp/1 frame: '+err.message+'</b>';}});
+  es.addEventListener('output',e=>{const d=JSON.parse(e.data);$('out').style.display='block';$('out').textContent=plain(d.output);ev('output',d.seconds+' seconds, start to receipt');});
+  es.addEventListener('error',e=>{try{const d=JSON.parse(e.data);ev('error',d.error);}catch(_){ev('error','the connection to the box dropped');}finish();});
+  es.addEventListener('done',e=>{finish();ev('done','the box is free again');});
 };
 findBox();
 </script>
