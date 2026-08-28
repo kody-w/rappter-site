@@ -105,16 +105,14 @@ a:hover{text-decoration-color:var(--go)}
   <h2>The hand-off — one click, one paste</h2>
   <p>Everything up to the human seam is yours to pre-fill. The human does exactly two things,
   both requiring a browser and an identity you cannot supply.</p>
-  <div class="step"><b>1. You construct the claim link</b>
-    <pre><code>https://rappter.com/claim?org=&lt;business+name&gt;
-  &amp;contact=&lt;delivery+email&gt;
-  &amp;watch=&lt;what+it+should+watch&gt;</code></pre>
+  <div class="step"><b>1. Pre-launch: put the business on the waitlist</b>
+    <p style="color:var(--dim);margin:4px 0 0">Nothing is for sale yet. The one action is the waitlist: read <a href="/agent.json">agent.json</a> → <code>offers[id=waitlist].act</code> (a POST with name, email, business, optional admin_hours and how_today). Positions are kept in sign-up order; the human equivalent is <a href="/#claim">rappter.com/#claim</a>.</p>
   </div>
-  <div class="step"><b>2. They open it, confirm, and paste back one box token</b>
-    <p style="color:var(--dim);margin:4px 0 0">Shaped <code>rbox_XXXXXXXX</code>. One string, obvious, copy-pasteable.</p>
+  <div class="step"><b>2. Show the owner the box working today</b>
+    <p style="color:var(--dim);margin:4px 0 0">Send them <a href="/try/">rappter.com/try</a> (a real box runs one routine on synthetic data and hands over a receipt) and <a href="/prompts/">rappter.com/prompts</a> (ten free prompts they can run with the AI they already have).</p>
   </div>
-  <div class="step"><b>3. You hatch and install</b>
-    <p style="color:var(--dim);margin:4px 0 0">The twin starts recording from that moment. Nothing before it is invented.</p>
+  <div class="step"><b>3. At launch: hatch and install</b>
+    <p style="color:var(--dim);margin:4px 0 0">The install hand-off (a claim link and a box token) opens when the first install dates are announced — to the list first, in order. The twin starts recording from install; nothing before it is invented.</p>
   </div>
 
   <h2>The boundary that governs the egg</h2>
@@ -136,7 +134,7 @@ a:hover{text-decoration-color:var(--go)}
   line, and make the return a single paste.</p>
 
   <div class="foot">
-    RappterBox LLC · <a href="/">the human page</a> ·
+    RapterBox LLC · <a href="/">the human page</a> ·
     built on <a href="https://github.com/kody-w/rapp-1">RAPP</a>, the open foundation — credited, not claimed.
   </div>
 </div>
