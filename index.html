@@ -23,7 +23,7 @@
   "offers":{"@type":"Offer","price":"497","priceCurrency":"USD","priceSpecification":{"@type":"UnitPriceSpecification","price":"497","priceCurrency":"USD","unitText":"month"}},
   "audience":{"@type":"Audience","audienceType":"Owner-operated services businesses, 5–50 staff"}},
  {"@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"Does it send emails or sign things for me?","acceptedAnswer":{"@type":"Answer","text":"No. It never sends, signs, pays or deletes on your behalf — there is no code path for those actions. A task needing one comes back to you as a decision, with the reversible work already finished."}},
+  {"@type":"Question","name":"Does it send emails or sign things for me?","acceptedAnswer":{"@type":"Answer","text":"No. It never sends, signs, pays or deletes on your behalf — the software has no way to do those things. A task needing one comes back to you as a decision, with the reversible work already finished."}},
   {"@type":"Question","name":"What is the guarantee?","acceptedAnswer":{"@type":"Answer","text":"If the monthly report doesn't show at least ten hours a month handed back to you by day 90, we keep working for free until it does. If it still hasn't by day 180, you keep the box and owe nothing further. Separately: 30 days, any reason, full refund."}},
   {"@type":"Question","name":"Who owns the records?","acceptedAnswer":{"@type":"Answer","text":"You do. The box runs on your network. The records can only be added to, never changed or erased, and your accountant or insurer can check them without trusting us."}}]}]}
 </script>
@@ -120,12 +120,12 @@ footer .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <section class="hero"><div class="w">
   <div class="copy">
-    <div class="stamp"><b><span id="slots">10</span> of 10</b> places for the first ten businesses open · live count · never faked</div>
+    <div class="stamp" style="visibility:hidden"><b><span id="slots">10</span> of 10</b> places for the first ten businesses open · live count · never faked</div>
     <h1>Your evenings back in 90&nbsp;days. <mark>Or you keep the box</mark> and stop paying.</h1>
     <p class="lede">A small box on your network does your business's admin overnight, then texts you the two or three decisions that are actually yours. Everything else: done, with a receipt.</p>
     <div class="row">
       <a class="cta" href="#claim">Be one of the first ten businesses in a box</a>
-      <div class="mono">$497/month, locked for life.<br>Install day included. Not ready? Ask for a free sample brief — same form.</div>
+      <div class="mono">$497/month, locked for life.<br>Install day included. The box at cost, yours to keep. Not ready? Ask for a free sample brief — same form.</div>
     </div>
     <p class="fine" style="margin:0">For owner-operators of services businesses, 5–50 staff. Two guarantees below.</p>
   </div>
@@ -157,18 +157,18 @@ QUIETED
     <p class="lede" style="font-size:18px">Each line is a thing you'd otherwise pay for or do yourself. The number at the bottom is what the first ten businesses actually pay.</p>
     <div class="pricebox">
       <div class="k">Standard</div>
-      <div class="n">$997<small>/month + $4,800 install</small></div>
+      <div class="n">$997<small>/month + $4,800 install + the box at cost</small></div>
       <hr>
       <div class="k hot">The Founding Ten</div>
       <div class="n big">$497<small>/month, locked for life</small></div>
-      <p>Install Day included. Year one: $5,964 total. Lower because you give us the two things a first customer can — a PII-free case study and a 20-minute call each month. Ends at business #10 and never comes back.</p>
+      <p>Install Day included. Year one: $5,964 for the service, plus the best box Apple makes at Apple's price (about $3,500 — receipt attached, no markup). Lower because you give us the two things a first customer can — a written story of what changed for you, with your name and details removed, and a 20-minute call each month. Ends at business #10 and never comes back.</p>
     </div>
   </div>
   <div class="receipt">
     <div class="seal">Founding Ten</div>
     <div class="h">RappterBox</div>
     <div class="sub">receipt · one box · year one</div>
-    <div class="r"><span><b>THE BOX</b> — a Mac mini running your business's twin. You own it and the records.</span><span>vs $45–60k hire</span></div>
+    <div class="r"><span><b>THE BOX</b> — the best Mac mini Apple makes, because you are one of the first ten. We don't ship small. Yours to keep, at Apple's price, receipt attached.</span><span>best for the best</span></div>
     <div class="r"><span><b>INSTALL DAY</b> — we set it up and teach it your business: upload your documents, film a task once, or a 60-minute workshop. First brief next morning.</span><span>$4,800</span></div>
     <div class="r"><span><b>THE 7AM BRIEF</b> — one text a day: needs you / handled / quieted.</span><span>the product</span></div>
     <div class="r"><span><b>THE RECEIPTS LEDGER</b> — records that can only be added to, never changed or erased. Your accountant or insurer can check them without trusting us.</span><span>audit trail</span></div>
@@ -177,8 +177,8 @@ QUIETED
     <div class="r"><span><b>10 WORK BLOCKS / MONTH</b> — bounded jobs from our fleet: reviews, docs, verification passes (<a href="/mesh/">the board</a>).</span><span>$720–1,440/yr</span></div>
     <div class="r"><span><b>WILL-NOT-DO GUARANTEE</b> — signed: it never sends, signs, pays or deletes for you, and refuses to act on partial evidence.</span><span>signed</span></div>
     <div class="t"><span>YEAR ONE, ADDED UP</span><span>$10,320+</span></div>
-    <div class="note">before the admin hire you don't make</div>
-    <div class="pay"><span>FOUNDING TEN PAY</span><span>$5,964</span></div>
+    <div class="note">plus the box at cost · before the admin hire you don't make</div>
+    <div class="pay"><span>FOUNDING TEN PAY</span><span>$5,964 + the box</span></div>
     <div class="note">Why this price: ten hours a month at an owner's rate is $1,500 before a single missed deadline is avoided. The guarantee is written on that number. One outside cost, stated up front: a GitHub Copilot seat you buy directly (about $10–20 a month). Nothing else is metered by us.</div>
     <div class="dots">· · · · · · · · · · · · · · · ·</div>
   </div>
@@ -188,7 +188,7 @@ QUIETED
   <div class="guar">
     <div class="lbl">The Hours-Back Guarantee</div>
     <p class="big">If the monthly report doesn't show at least ten hours a month handed back to you by day 90, we keep working for free until it does. If it still hasn't by day 180, you keep the box and owe nothing further.</p>
-    <p>Separately: <b>30 days, any reason, full refund.</b> We collect the box.</p>
+    <p>Separately: <b>30 days, any reason, full refund — service and box.</b> We collect the box.</p>
     <p class="anti">The anti-guarantee: we will never guarantee it sends, signs, pays or deletes for you. That is the point of it.</p>
   </div>
   <div>
@@ -228,7 +228,7 @@ QUIETED
     <h2 style="font-size:clamp(34px,4vw,52px)">Be one of the first ten businesses in a box.</h2>
     <p class="lede" style="font-size:18px">Tell us three things. A person reads every one and replies within one business day — with an install date, a sample brief for your business, or an honest 'not a fit'.</p>
     <p class="mono fine">No newsletter. One human reply. Nothing is charged until an install date is agreed.</p>
-    <div class="stamp" style="margin-top:10px"><b><span id="slots2">10</span> of 10</b> places still open</div>
+    <div class="stamp" style="margin-top:10px;visibility:hidden"><b><span id="slots2">10</span> of 10</b> places still open</div>
   </div>
   <form id="f" method="POST" action="https://formspree.io/f/mgawgado">
     <label for="n" style="margin-top:0">Your name</label><input id="n" name="name" autocomplete="name" maxlength="100" required>
@@ -256,11 +256,12 @@ QUIETED
 
 <section class="tear" id="faq"><div class="w" style="max-width:820px">
   <h2>Questions people ask before they buy</h2>
-  <details><summary>Does it send emails or sign things for me?</summary><p>No. It never sends, signs, pays or deletes on your behalf — there is no code path for those actions. A task needing one comes back to you as a decision, with the reversible work already finished.</p></details>
+  <details><summary>Does it send emails or sign things for me?</summary><p>No. It never sends, signs, pays or deletes on your behalf — the software has no way to do those things. A task needing one comes back to you as a decision, with the reversible work already finished.</p></details>
   <details><summary>What happens if it cannot see everything?</summary><p>It refuses to act on partial evidence. It stops and says so rather than guessing confidently — a confident wrong answer is worse than no answer.</p></details>
   <details><summary>What happens when the internet drops?</summary><p>The box keeps working and catches up when the connection comes back. If you need every office to see the same thing at the same second, this is the wrong box.</p></details>
   <details><summary>Who owns the records?</summary><p>You do. The box runs on your network. The records can only be added to, never changed or erased, and your accountant or insurer can check them without trusting us.</p></details>
   <details><summary>Does it need cloud AI?</summary><p>It runs on the box and uses one GitHub Copilot seat, which you buy directly for about $10–20 a month. There is no separate cloud sandbox to meter and we never resell AI usage to you.</p></details>
+  <details><summary>Why the best box, and why is it on the receipt?</summary><p>Best for the best. The first ten businesses get the best Mac mini Apple makes, because a slow twin is a bad product and we will not ship one. You pay Apple's price and we hand you the receipt — no markup, we make our money on the service. It is yours to keep, and inside 30 days we take it back with the refund.</p></details>
   <details><summary>Why only ten?</summary><p>Because every install day is done in person by the founder, and the first ten businesses get a 20-minute call every month. Ten is what one person can place well. The counter at the top is the live count.</p></details>
 </div></section>
 
@@ -271,7 +272,7 @@ QUIETED
 
 <script>
 (async()=>{try{const r=await fetch('/founding.json',{cache:'no-store'});const j=await r.json();const n=String(Math.max(0,j.total-j.placed));
-  for(const id of['slots','slots2'])document.getElementById(id).textContent=n;}catch(e){}})();
+  for(const id of['slots','slots2']){const el=document.getElementById(id);el.textContent=n;el.closest('.stamp').style.visibility='visible';}}catch(e){}})();
 const f=document.getElementById('f'),b=document.getElementById('btn'),ok=document.getElementById('ok'),no=document.getElementById('no');
 f.addEventListener('submit',async ev=>{
   ev.preventDefault();b.disabled=true;b.textContent='sending…';no.style.display='none';

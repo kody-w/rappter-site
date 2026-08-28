@@ -24,7 +24,7 @@
   "offers": [
     {
       "id": "founding-ten",
-      "what": "The Founding Ten Install: a RappterBox on the business's network (Mac mini running its twin), Install Day included, the 7am brief, a verifiable receipts ledger, a monthly hours-back rating report, quarterly re-teach, 10 fleet work blocks a month, and the signed Will-Not-Do guarantee. $497/month locked for life for the first ten boxes (standard: $4,800 install + $997/month). Requires one GitHub Copilot seat bought directly by the customer (about $10–20/month); nothing else is metered.",
+      "what": "The Founding Ten Install: a RappterBox on the business's network (the best Mac mini Apple makes — best for the best — bought at Apple's price with the receipt attached, no markup, about $3,500, owned by the customer), Install Day included, the 7am brief, a verifiable receipts ledger, a monthly hours-back rating report, quarterly re-teach, 10 fleet work blocks a month, and the signed Will-Not-Do guarantee. $497/month locked for life for the first ten boxes (standard: $4,800 install + $997/month). Requires one GitHub Copilot seat bought directly by the customer (about $10–20/month); nothing else is metered.",
       "guarantee": "Ten hours a month handed back by day 90 or we work free until it does; if it still has not by day 180, the customer keeps the box and owes nothing further. Plus 30 days any-reason full refund.",
       "scarcity": {"total": 10, "live_count": "https://rappter.com/founding.json"},
       "state": "open",
