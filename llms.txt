@@ -8,3 +8,4 @@
 - DOGG, the global tick network: https://rappter.com/dogg (orient: https://kody-w.github.io/dogg/orient.json)
 - Agent view of this business: https://rappter.com/agent.json
 - rbox mobile (the box in a browser, bring your own key, rapp/1 receipts kept on-device, .egg export/import): https://rappter.com/box/
+- Ask the box out loud (voice in, spoken answer, everything captioned; the box runs the job and writes the receipt): https://rappter.com/voice/

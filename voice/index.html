@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask the box out loud — RappterBox</title>
+<meta name="description" content="Say the job. A real box runs it and reads back the two or three decisions that are yours. No typing, no screen needed — every word is also captioned.">
+<link rel="canonical" href="https://rappter.com/voice/">
+<meta name="theme-color" content="#f3eee4">
+<style>
+:root{--paper:#f3eee4;--card:#fff9ee;--white:#fffdf7;--ink:#141210;--body:#3e3930;--mute:#6b655b;--rule:#b7ad9a;--amber:#ffd60a;--amberdeep:#a16207;--green:#1f7a3f;--red:#b42318}
+*{box-sizing:border-box}html,body{overflow-x:hidden}
+body{margin:0;background:var(--paper);color:var(--ink);font:19px/1.6 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.w{max-width:900px;margin:0 auto;padding:0 24px}a{color:var(--amberdeep)}
+nav{border-bottom:2px solid var(--ink)}nav .w{display:flex;align-items:center;gap:14px;padding:16px 24px}
+.wm{font-size:21px;font-weight:800;letter-spacing:-.04em;color:var(--ink);text-decoration:none}
+.cta{white-space:nowrap;margin-left:auto;display:inline-block;background:var(--amber);color:var(--ink);text-decoration:none;font-weight:800;padding:11px 18px;border:2px solid var(--ink);font-size:15px;box-shadow:4px 4px 0 var(--ink)}
+h1{font-size:clamp(34px,5vw,58px);line-height:1.05;letter-spacing:-.035em;margin:0 0 10px;font-weight:800;text-wrap:balance}
+h1 mark{background:linear-gradient(transparent 14%,var(--amber) 14%,var(--amber) 92%,transparent 92%);padding:0 .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.lede{font-size:20px;color:var(--body);max-width:660px}
+.kicker{font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--amberdeep)}
+section{padding:clamp(28px,4vw,48px) 0}.tear{border-top:2px dashed var(--ink)}
+#talk{width:100%;min-height:190px;background:var(--amber);color:var(--ink);border:3px solid var(--ink);font:800 30px/1.2 inherit;
+  cursor:pointer;box-shadow:9px 9px 0 var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px}
+#talk:disabled{opacity:.6;cursor:wait}#talk:focus-visible{outline:5px solid var(--amberdeep);outline-offset:4px}
+#talk.listening{background:var(--green);color:var(--white)}#talk .sub{font:600 17px/1.3 inherit;opacity:.85}
+.dots span{display:inline-block;width:13px;height:13px;border-radius:50%;background:currentColor;margin:0 4px;animation:p 1.1s infinite}
+.dots span:nth-child(2){animation-delay:.16s}.dots span:nth-child(3){animation-delay:.32s}
+@keyframes p{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-5px)}}
+.caption{border:3px solid var(--ink);background:var(--white);padding:18px 20px;margin-top:18px;min-height:96px;font-size:21px;line-height:1.5}
+.caption .who{font:700 13px ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--amberdeep);display:block;margin-bottom:6px}
+.said{background:var(--card);border:2px solid var(--ink);padding:12px 16px;margin-top:12px;font-size:18px}
+.said b{font-family:ui-monospace,Menlo,monospace;font-size:14px}
+pre.out{white-space:pre-wrap;background:var(--card);border:3px solid var(--ink);padding:18px 20px;margin-top:18px;font:16px/1.7 ui-monospace,Menlo,monospace;overflow-wrap:anywhere}
+.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:16px}
+.job{border:2px solid var(--ink);background:var(--card);padding:15px 16px;font:700 17px inherit;text-align:left;cursor:pointer;box-shadow:4px 4px 0 var(--ink)}
+.job:focus-visible{outline:4px solid var(--amberdeep);outline-offset:3px}
+.status{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--ink);padding:7px 14px;font:700 13px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;background:var(--card)}
+.status b{padding:2px 10px;background:var(--amber)}.status.asleep b{background:var(--rule)}.status.bad b{background:var(--red);color:var(--white)}
+.seal{display:inline-block;border:3px solid var(--green);color:var(--green);padding:4px 12px;font:800 15px ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;margin-top:14px}
+.seal.bad{border-color:var(--red);color:var(--red)}
+.fine{color:var(--mute);font-size:15px}
+footer{padding:24px 0 56px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
+@media(prefers-reduced-motion:reduce){.dots span{animation:none;opacity:.7}}
+@media(max-width:640px){#talk{font-size:25px;min-height:170px}}
+</style>
+</head>
+<body>
+<nav><div class="w"><a class="wm" href="/">RappterBox</a><a class="cta" href="/#claim">Join the waitlist</a></div></nav>
+
+<section><div class="w">
+  <div class="kicker">ASK IT OUT LOUD · NOTHING TO TYPE</div>
+  <h1>Say the job. <mark>The box does it</mark> and reads the decisions back to you.</h1>
+  <p class="lede">It runs on our own box, on a made-up business, and answers out loud. Every word it hears and says is written here too, so it works with the sound off, with a screen reader, or with no screen at all.</p>
+</div></section>
+
+<section class="tear"><div class="w">
+  <p><span class="status" id="status" role="status" aria-live="polite"><b>…</b> <span>finding the box</span></span></p>
+
+  <button id="talk" aria-describedby="talkhelp">
+    <span id="talklabel">Tap and say a job</span>
+    <span class="sub" id="talksub">or press the space bar</span>
+  </button>
+  <p class="fine" id="talkhelp" style="margin-top:10px">Try: “chase my invoices”, “what needs me this morning”, “Friday numbers”, “reply to my reviews”. Say “read the rest” to hear everything.</p>
+
+  <div class="caption" id="caption" aria-live="polite"><span class="who" id="who">The box</span><span id="captiontext">Ready when you are.</span></div>
+  <div class="said" id="said" hidden><b>You said:</b> <span id="saidtext"></span></div>
+  <div id="sealwrap" hidden><span class="seal" id="seal">Verified</span> <span class="fine" id="sealwhy"></span></div>
+  <pre class="out" id="out" hidden></pre>
+
+  <h2 style="margin-top:34px;font-size:23px">Or tap a job — no microphone needed</h2>
+  <div class="jobs" id="jobs"></div>
+</div></section>
+
+<footer><div class="w">RapterBox LLC · the RappterBox product · the box does the work; it never sends, signs, pays or deletes · <a href="/try/">watch it in writing</a> · <a href="/box/">a box in your browser</a></div></footer>
+
+<script>
+const ENDPOINT_JSON='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/try-endpoint.json';
+const API_JSON='https://api.github.com/repos/kody-w/rappter-prompts/contents/starter-pack/try-endpoint.json';
+const LASTRUNS='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/last-runs.json';
+const NAMES={"morning-brief":"The 7am Brief","chase-invoices":"The Invoice Chaser","compliance-calendar":"The Deadline Ledger","review-replies":"The Review Desk","sop-from-memo":"The Playbook Writer","hiring-ad":"The Job Post","weekly-numbers":"The Friday Numbers","vendor-compare":"The Quote Reader","customer-followup":"The Follow-Up Engine","meeting-to-tasks":"The Meeting Cleaner"};
+// what a person actually says → the job they mean
+const WORDS={"chase-invoices":["invoice","invoices","chase","unpaid","owed","owes","owe me","money","collect","collected","paid","paying","pay me","late paying","behind on"],
+ "morning-brief":["morning","brief","today","needs me","what needs","seven","7am","agenda","day"],
+ "compliance-calendar":["deadline","deadlines","license","licence","renewal","renew","compliance","expire","expiring","filing"],
+ "review-replies":["review","reviews","stars","rating","ratings","reply to my reviews","reputation"],
+ "sop-from-memo":["playbook","procedure","how to","write it down","sop","training","steps"],
+ "hiring-ad":["hire","hiring","job post","job ad","advert","applicant","applicants","recruit"],
+ "weekly-numbers":["numbers","friday","week","weekly","cash","runway","how did we do","sales"],
+ "vendor-compare":["quote","quotes","vendor","vendors","bid","bids","compare","lease"],
+ "customer-followup":["follow up","follow-up","followup","thank you","referral","after the job"],
+ "meeting-to-tasks":["meeting","notes","transcript","tasks","action items","who owes"]};
+const $=id=>document.getElementById(id);
+let base=null, awake=false, busy=false, lastText="", speaking=null;
+
+// ---------- rapp/1 check, the same profile as the reference ----------
+function canonical(v){
+  if(v===null||typeof v==='boolean')return JSON.stringify(v);
+  if(typeof v==='number'){if(!Number.isInteger(v)||Math.abs(v)>Number.MAX_SAFE_INTEGER)throw new Error('bad number');return String(v);}
+  if(typeof v==='string')return JSON.stringify(v);
+  if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';
+  if(typeof v==='object'){const ks=Object.keys(v).sort((a,b)=>a<b?-1:a>b?1:0);return '{'+ks.map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';}
+  throw new Error('bad value');}
+async function H(space,v){const b=new TextEncoder().encode(space+"\n"+canonical(v));const d=await crypto.subtle.digest('SHA-256',b);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+async function verifyFrame(f){const ph=await H('rapp/1:particle',f.payload);const pre={};for(const k of Object.keys(f))if(k!=='frame_hash'&&k!=='sig')pre[k]=f[k];const fh=await H('rapp/1:wave',pre);return ph===f.payload_hash&&fh===f.frame_hash;}
+
+// ---------- saying and hearing ----------
+function caption(who,text){$('who').textContent=who;$('captiontext').textContent=text;}
+function speak(text,{caption:cap=true}={}){
+  if(cap)caption('The box',text);
+  try{
+    if(!('speechSynthesis' in window))return Promise.resolve(false);
+    window.speechSynthesis.cancel();
+    return new Promise(res=>{const u=new SpeechSynthesisUtterance(text);u.rate=1.02;u.pitch=1;u.onend=()=>res(true);u.onerror=()=>res(false);speaking=u;window.speechSynthesis.speak(u);});
+  }catch(e){return Promise.resolve(false);}
+}
+function match(said){
+  const s=' '+said.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ')+' ';
+  if(/\b(rest|everything|all of it|more|full)\b/.test(s)&&lastText)return 'REST';
+  let best=null,score=0;
+  for(const [slug,ws] of Object.entries(WORDS)){
+    let n=0;for(const w of ws)if(s.includes(' '+w+' ')||s.includes(w))n+=w.includes(' ')?2:1;
+    if(n>score){score=n;best=slug;}
+  }
+  for(const [slug,name] of Object.entries(NAMES))if(s.includes(name.toLowerCase().replace(/^the /,'')))return slug;
+  return score?best:null;
+}
+// the decisions first: an owner wants "what needs me", not the whole page
+function needsYou(text){
+  const lines=String(text).split('\n');
+  const i=lines.findIndex(l=>/needs you/i.test(l));
+  if(i<0)return null;
+  const out=[];
+  for(let j=i+1;j<lines.length;j++){
+    const l=lines[j].trim();
+    if(!l){if(out.length)break;continue;}
+    if(/^(handled|quieted)\b/i.test(l))break;
+    out.push(l.replace(/^[•\-*]\s*/,''));
+  }
+  return out.length?out:null;
+}
+
+// ---------- the run, on the box ----------
+async function findBox(){
+  try{
+    let j=null;
+    try{const a=await fetch(API_JSON,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(a.ok){const c=await a.json();j=JSON.parse(atob(c.content.replace(/\n/g,'')));}}catch(_){}
+    if(!j){const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
+    base=j.url;const h=await fetch(base+'/try/health',{cache:'no-store'});awake=(await h.json()).status==='awake';
+  }catch(e){awake=false;}
+  const s=$('status');
+  if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live</span>';}
+  else{s.className='status asleep';s.innerHTML='<b>Asleep</b> <span>it will read its last real run instead</span>';}
+}
+function runOnBox(routine,onEvent){
+  return new Promise((resolve,reject)=>{
+    const es=new EventSource(base+'/try/run?routine='+encodeURIComponent(routine));
+    let frame=null,done=false;
+    const finish=(fn,arg)=>{if(done)return;done=true;es.close();fn(arg);};
+    es.addEventListener('read',()=>onEvent&&onEvent('read'));
+    es.addEventListener('think',()=>onEvent&&onEvent('think'));
+    es.addEventListener('frame',e=>{try{frame=JSON.parse(e.data);}catch(_){}});
+    es.addEventListener('output',e=>{try{const d=JSON.parse(e.data);finish(resolve,{text:d.output,frame,seconds:d.seconds});}catch(err){finish(reject,err);}});
+    es.addEventListener('error',e=>{let m='the box could not be reached';try{m=JSON.parse(e.data).error||m;}catch(_){}finish(reject,new Error(m));});
+    es.addEventListener('done',()=>{if(!done)finish(reject,new Error('the box finished without an answer'));});
+  });
+}
+async function lastRun(routine){
+  const r=await fetch(LASTRUNS+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();
+  const x=j.routines&&j.routines[routine];
+  if(!x||x.pass===false)throw new Error('the box has no finished run of that job to read');
+  return {text:x.output,frame:null,seconds:null,old:(j.tested_utc||'').slice(0,10)};
+}
+async function doJob(routine){
+  if(busy)return; busy=true; $('talk').disabled=true;
+  $('out').hidden=true; $('sealwrap').hidden=true;
+  const name=NAMES[routine];
+  try{
+    await speak(awake?`Working on ${name}. Give me a moment.`:`The box is asleep, so I will read its last ${name}.`);
+    let r;
+    if(awake){
+      let saidReading=false;
+      r=await runOnBox(routine,(k)=>{if(k==='read'&&!saidReading){saidReading=true;caption('The box','Reading the method and the sample data…');}
+        if(k==='think')caption('The box','Thinking…');});
+    } else r=await lastRun(routine);
+    lastText=r.text;
+    $('out').hidden=false; $('out').textContent=r.text;
+    if(r.frame){
+      const ok=await verifyFrame(r.frame);
+      $('sealwrap').hidden=false; $('seal').textContent=ok?'Verified':'Refused'; $('seal').classList.toggle('bad',!ok);
+      $('sealwhy').textContent=ok?'this browser recomputed the receipt’s hashes and they match':'the receipt did not check out — do not trust this run';
+    }
+    const needs=needsYou(r.text);
+    if(needs){
+      await speak(`Here is what needs you. ${needs.length} thing${needs.length===1?'':'s'}. ` + needs.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say “read the rest” to hear everything else.');
+    } else {
+      const first=r.text.split('\n').filter(Boolean).slice(0,6).join('. ');
+      await speak(first+' Say “read the rest” to hear everything else.');
+    }
+  }catch(e){
+    caption('The box',e.message||String(e));
+    await speak(`Sorry — ${e.message||'that did not work'}.`,{caption:false});
+  }finally{ busy=false; $('talk').disabled=false; }
+}
+async function heard(said){
+  $('said').hidden=false; $('saidtext').textContent=said;
+  const m=match(said);
+  if(m==='REST'){ await speak('Reading the whole thing. '+lastText.replace(/\n+/g,'. ')); return; }
+  if(!m){ await speak('I did not catch a job in that. Try “chase my invoices”, or tap one of the jobs below.'); return; }
+  await doJob(m);
+}
+
+// ---------- the microphone (and a full life without one) ----------
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null,listening=false;
+function setTalk(state){
+  const b=$('talk');b.classList.toggle('listening',state==='listening');
+  if(state==='listening'){$('talklabel').innerHTML='Listening<span class="dots"><span></span><span></span><span></span></span>';$('talksub').textContent='say a job, then stop talking';}
+  else{$('talklabel').textContent=SR?'Tap and say a job':'Tap a job below';$('talksub').textContent=SR?'or press the space bar':'this browser cannot listen, but it can still read to you';}
+}
+function listen(){
+  if(!SR||listening||busy)return;
+  rec=new SR();rec.lang='en-US';rec.interimResults=true;rec.maxAlternatives=1;
+  listening=true;setTalk('listening');caption('The box','Listening…');
+  let final='';
+  rec.onresult=(e)=>{let interim='';for(const res of e.results){if(res.isFinal)final+=res[0].transcript;else interim+=res[0].transcript;}
+    $('said').hidden=false;$('saidtext').textContent=(final||interim).trim();};
+  rec.onerror=(e)=>{listening=false;setTalk('idle');caption('The box',e.error==='not-allowed'?'I need permission to use the microphone — or just tap a job below.':'I could not hear that. Tap a job below if it is easier.');};
+  rec.onend=()=>{listening=false;setTalk('idle');const s=final.trim();if(s)heard(s);else caption('The box','I did not hear anything. Tap the button and try again, or tap a job.');};
+  try{rec.start();}catch(e){listening=false;setTalk('idle');}
+}
+$('talk').addEventListener('click',()=>{ if(listening){try{rec.stop();}catch(e){} return;} if(!SR){document.querySelector('.job').focus();caption('The box','This browser cannot listen. Tap a job below and I will read the answer out loud.');return;} listen(); });
+document.addEventListener('keydown',e=>{ if(e.code==='Space'&&e.target===document.body){e.preventDefault();$('talk').click();} });
+for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='job';b.type='button';b.textContent=name;b.onclick=()=>doJob(slug);$('jobs').appendChild(b);}
+setTalk('idle');
+window.__voice={hear:heard,doJob,match,needsYou,speak,state:()=>({awake,busy,base,lastText})};
+findBox();
+</script>
+</body></html>
