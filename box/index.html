@@ -294,7 +294,14 @@ async function think(prompt){
 }
 // ---------- one run = one receipt frame on THIS box's stream ----------
 async function runOnce(){
-  reset();$('run').disabled=true;$('sub').textContent='receipt · this browser · '+NAMES[routine];
+  reset();
+  if(!session){          // said before the work, not after: a run that cannot finish should not look like one that might
+    ev('note','Sign in with GitHub first — your box will not think for a device it does not know.');
+    $('who').scrollIntoView({block:'center',behavior:'smooth'});
+    $('signin').focus();
+    return;
+  }
+  $('run').disabled=true;$('sub').textContent='receipt · this browser · '+NAMES[routine];
   const reads=[];const t0=Date.now();
   try{
     ev('box',identity.rappid.slice(0,40)+'… · '+new Date().toISOString().slice(0,19)+'Z');
