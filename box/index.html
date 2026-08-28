@@ -286,9 +286,10 @@ async function readBytes(url,reads){const r=await fetch(url,{cache:'no-store'});
 // so the worst a stray call could do is talk to this same machine.
 let localThinker=null;
 function thinkHere(url){
-  if(typeof url!=='string'||!/^http:\/\/(127\.0\.0\.1|\[::1\]|localhost):\d+\//.test(url))
+  // an origin, with or without a path — and nothing that is not this machine
+  if(typeof url!=='string'||!/^http:\/\/(127\.0\.0\.1|\[::1\]|localhost):\d+(\/|$)/.test(url))
     throw new Error('a thinker must be on this machine');
-  localThinker=url.replace(/\/+$/,'');
+  localThinker=url.replace(/\/+$/,'').replace(/\/v1\/chat\/completions$/,'');   // the caller may pass either shape
   const w=$('who'); if(w)w.textContent='Thinking on this machine, with the Copilot CLI already signed in here.';
   const b=$('signin'); if(b)b.hidden=true;
   return localThinker;
