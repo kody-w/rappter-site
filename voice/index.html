@@ -124,8 +124,8 @@ function match(said){
   for(const [slug,name] of Object.entries(NAMES))if(s.includes(name.toLowerCase().replace(/^the /,'')))return slug;
   return score?best:null;
 }
-// Voice has its own shape: an owner wants the decision and the number, not a page of drafts read aloud.
-// NEEDS YOU when the job produces it; otherwise the few lines that actually carry a fact.
+// Fallback only. The box writes the spoken line itself (rapterbox/senses/voice_sense.py, one definition for
+// every channel); this runs only when an older run has no spoken line — better a rough sentence than silence.
 function spoken(text){
   const needs=needsYou(text);
   if(needs)return {lead:`Here is what needs you. ${needs.length} thing${needs.length===1?'':'s'}.`,facts:needs};
@@ -177,7 +177,7 @@ function runOnBox(routine,onEvent){
     es.addEventListener('read',()=>onEvent&&onEvent('read'));
     es.addEventListener('think',()=>onEvent&&onEvent('think'));
     es.addEventListener('frame',e=>{try{frame=JSON.parse(e.data);}catch(_){}});
-    es.addEventListener('output',e=>{try{const d=JSON.parse(e.data);finish(resolve,{text:d.output,frame,seconds:d.seconds});}catch(err){finish(reject,err);}});
+    es.addEventListener('output',e=>{try{const d=JSON.parse(e.data);finish(resolve,{text:d.output,spoken:d.spoken||null,frame,seconds:d.seconds});}catch(err){finish(reject,err);}});
     es.addEventListener('error',e=>{let m='the box could not be reached';try{m=JSON.parse(e.data).error||m;}catch(_){}finish(reject,new Error(m));});
     es.addEventListener('done',()=>{if(!done)finish(reject,new Error('the box finished without an answer'));});
   });
@@ -186,7 +186,7 @@ async function lastRun(routine){
   const r=await fetch(LASTRUNS+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();
   const x=j.routines&&j.routines[routine];
   if(!x||x.pass===false)throw new Error('the box has no finished run of that job to read');
-  return {text:x.output,frame:null,seconds:null,old:(j.tested_utc||'').slice(0,10)};
+  return {text:x.output,spoken:x.spoken||null,frame:null,seconds:null,old:(j.tested_utc||'').slice(0,10)};
 }
 async function doJob(routine){
   if(busy)return; busy=true; $('talk').disabled=true;
@@ -207,8 +207,9 @@ async function doJob(routine){
       $('sealwrap').hidden=false; $('seal').textContent=ok?'Verified':'Refused'; $('seal').classList.toggle('bad',!ok);
       $('sealwhy').textContent=ok?'this browser recomputed the receipt’s hashes and they match':'the receipt did not check out — do not trust this run';
     }
-    const sp=spoken(r.text);
-    await speak(`${sp.lead} ` + sp.facts.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say “read the rest” to hear everything else.');
+    // the box writes its own spoken line (the voice sense); this page only falls back if it did not
+    if(r.spoken){ await speak(r.spoken); }
+    else { const sp=spoken(r.text); await speak(`${sp.lead} ` + sp.facts.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say read the rest to hear everything else.'); }
   }catch(e){
     caption('The box',e.message||String(e));
     await speak(`Sorry — ${e.message||'that did not work'}.`,{caption:false});
