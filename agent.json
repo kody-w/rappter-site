@@ -6,7 +6,7 @@
     "organization": "RapterBox LLC",
     "since": "2026-08-24"
   },
-  "what_this_is": "The public view of one business's digital twin. An agent can read what this business is, what it offers, and act on it directly \u2014 the website is a projection of this surface, not the other way round.",
+  "what_this_is": "The public view of one business's digital twin. An agent can read what this business is, what it offers, and act on it directly — the website is a projection of this surface, not the other way round.",
   "human_view": "https://rappter.com/",
   "agent_view": "https://rappter.com/agent.json",
   "streams": {
@@ -24,9 +24,12 @@
   "offers": [
     {
       "id": "founding-ten",
-      "what": "The Founding Ten Install: a RappterBox on the business's network (the best Mac mini Apple makes — best for the best — bought at Apple's price with the receipt attached, no markup, about $3,500, owned by the customer), Install Day included, the 7am brief, a verifiable receipts ledger, a monthly hours-back rating report, quarterly re-teach, 10 fleet work blocks a month, and the signed Will-Not-Do guarantee. $497/month locked for life for the first ten boxes (standard: $4,800 install + $997/month). Requires one GitHub Copilot seat bought directly by the customer (about $10–20/month); nothing else is metered.",
+      "what": "PRE-LAUNCH. The Founding Ten Install: a RappterBox on the business's network (the best Mac mini Apple makes — best for the best — bought at Apple's price with the receipt attached, no markup, about $3,500, owned by the customer), Install Day included, the 7am brief, a verifiable receipts ledger, a monthly hours-back rating report, quarterly re-teach, 10 fleet work blocks a month, and the signed Will-Not-Do guarantee. $497/month locked for life for the first ten boxes (standard: $4,800 install + $997/month). Requires one GitHub Copilot seat bought directly by the customer (about $10–20/month); nothing else is metered. Not yet for sale: pricing and install dates are announced to the waitlist first, in sign-up order.",
       "guarantee": "Ten hours a month handed back by day 90 or we work free until it does; if it still has not by day 180, the customer keeps the box and owes nothing further. Plus 30 days any-reason full refund.",
-      "scarcity": {"total": 10, "live_count": "https://rappter.com/founding.json"},
+      "scarcity": {
+        "total": 10,
+        "live_count": "https://rappter.com/founding.json"
+      },
       "state": "open",
       "act": {
         "method": "POST",
@@ -37,17 +40,17 @@
           "email": "string, required",
           "business": "string, required — the business in a sentence",
           "admin_hours": "string, required — under 5 | 5–10 | 10–20 | more than 20 (hours/week the owner spends on admin)",
-          "want": "string, required — 'box' (send an install date) | 'sample-brief' (free sample 7am brief first)",
           "note": "string, optional — what they want off their plate first",
-          "source": "string — set to 'founding-ten' plus your agent name"
+          "source": "string — set to 'waitlist' plus your agent name"
         },
         "human_equivalent": "https://rappter.com/#claim"
       },
-      "consent": "Only submit on behalf of a business owner who asked you to. A person replies within one business day; nothing is charged until an install date is agreed."
+      "consent": "Only submit on behalf of a business owner who asked you to. A person replies within one business day; nothing is charged until an install date is agreed.",
+      "status": "prelaunch"
     },
     {
       "id": "waitlist",
-      "what": "For businesses that want a box after the Founding Ten are placed, or that want a free sample 7am brief first. A person replies within one business day.",
+      "what": "Priority in line for the RappterBox release: the list hears the price, the install dates and every new owner prompt first, in sign-up order. Free. The owner's prompt library is available now at https://rappter.com/prompts/.",
       "state": "open",
       "act": {
         "method": "POST",
@@ -56,13 +59,14 @@
         "fields": {
           "name": "string, required",
           "email": "string, required",
-          "note": "string, optional \u2014 what the business would want handled",
-          "source": "string, optional \u2014 set to your agent name"
+          "note": "string, optional — what the business would want handled",
+          "source": "string, optional — set to your agent name"
         },
         "on_success": "{\"ok\": true}",
         "human_equivalent": "the form at https://rappter.com/#claim"
       },
-      "consent": "Only submit on behalf of a human who asked you to. This is a real business waitlist and every entry is read by a person."
+      "consent": "Only submit on behalf of a human who asked you to. This is a real business waitlist and every entry is read by a person.",
+      "status": "open"
     },
     {
       "id": "mesh",
@@ -99,19 +103,19 @@
   ],
   "privacy": "Every frame on the public streams passes a deny-by-default gate: a field allowlist, shape scans for emails, phones, personal paths, IPs, tokens, addresses and account identifiers, plus a scan against real held secrets. Nothing about a customer is ever published.",
   "federation": {
-    "pattern": "one stream, one writer \u2014 others federate as equal streams",
+    "pattern": "one stream, one writer — others federate as equal streams",
     "prior_art": "https://kody-w.github.io/dogg/",
     "spec": "https://github.com/kody-w/rapp-1"
   },
   "access_tiers": {
     "url": "https://rappter.com/tiers.json",
     "summary": {
-      "T0 GLOBAL": "anyone, no account \u2014 identity, offers, published lessons (this document)",
+      "T0 GLOBAL": "anyone, no account — identity, offers, published lessons (this document)",
       "T1 AUTHENTICATED": "a named GitHub account with READ on the private DOGG",
-      "T2 COLLABORATOR": "a named GitHub account with WRITE \u2014 twin-to-twin collaboration",
+      "T2 COLLABORATOR": "a named GitHub account with WRITE — twin-to-twin collaboration",
       "T3 PRIVATE": "this twin alone; never published at any tier"
     },
-    "how_to_request": "Ask this business to add your GitHub account to their private DOGG as a read (T1) or write (T2) collaborator. There is no separate signup \u2014 GitHub verifies identity and its permissions ARE the access control.",
+    "how_to_request": "Ask this business to add your GitHub account to their private DOGG as a read (T1) or write (T2) collaborator. There is no separate signup — GitHub verifies identity and its permissions ARE the access control.",
     "note": "Anonymous requests for a private DOGG receive 404, not 403: its existence is not disclosed."
   }
 }
