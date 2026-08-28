@@ -86,17 +86,17 @@ body.app .appbar{display:flex}
       <div class="fine" id="chainmeta" style="margin-top:8px"></div>
     </div>
     <div class="card"><div class="k">What it thinks with</div>
-      <label for="key" id="keylabel">Paste a key — it stays on this device</label>
-      <input id="key" type="password" autocomplete="off" placeholder="sk-… (OpenAI) or sk-ant-… (Anthropic)">
-      <p class="fine" id="thinker" style="margin:8px 0 0">Nothing else to set up — the box works out the rest from the key.</p>
-      <div class="row"><label class="chk" for="remember"><input type="checkbox" id="remember"> remember it on this device</label></div>
-      <details style="margin-top:12px"><summary class="fine" style="cursor:pointer">Point it somewhere else</summary>
-        <label for="prov">Provider</label>
-        <select id="prov"><option value="openai">OpenAI-compatible (OpenAI, Azure, a local server)</option><option value="anthropic">Anthropic</option></select>
-        <label for="endpoint">Endpoint — where the key is sent</label><input id="endpoint" value="https://api.openai.com/v1/chat/completions" spellcheck="false">
-        <label for="model">Model</label><input id="model" value="gpt-4o-mini" spellcheck="false">
-        <p class="fine" style="margin:10px 0 0">The key goes only to that endpoint, straight from your device; we never see it. Anthropic keys work from here. A server on 127.0.0.1 needs no key at all.</p>
-      </details>
+      <p class="fine" id="who" style="margin:0 0 10px">Looking for your box…</p>
+      <button class="btn" id="signin" type="button">Sign in with GitHub</button>
+      <div id="devicecode" hidden style="margin-top:12px;border:2px solid var(--ink);background:var(--white);padding:12px 14px">
+        <div class="fine">Open <a id="ghlink" href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device</a> and type this code:</div>
+        <div id="usercode" style="font:800 30px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.14em;margin:8px 0 4px"></div>
+        <div class="fine" id="devicestate">Waiting for you to say yes on GitHub…</div>
+      </div>
+      <label for="model" style="margin-top:14px">Model</label>
+      <input id="model" list="models" value="auto" spellcheck="false">
+      <datalist id="models"><option value="auto"></option><option value="claude-sonnet-4.5"></option><option value="gpt-5.6-sol"></option><option value="gpt-5"></option></datalist>
+      <p class="fine" style="margin:8px 0 0">Your box thinks with your own GitHub Copilot, through the official Copilot CLI on your machine. No key is pasted here and no Copilot credential is ever in a browser — this device only proves who you are. “auto” lets Copilot choose.</p>
     </div>
     <div class="card"><div class="k">Pick a job</div>
       <div class="picks" id="picks" role="group" aria-label="job"></div>
@@ -211,47 +211,69 @@ async function boot(){
   el.style.cursor='pointer';
   el.onclick=()=>{open=!open;el.textContent=open?full:(document.body.classList.contains('app')?brief:full);};$('lineage').textContent=id.grown_from?('minted here, once (§6.2) · grown from egg '+id.grown_from.slice(0,16)+'… (§9.4 lineage)'):'minted here, once (§6.2 keyless) — not grown from an egg';
   const all=await loadStreams();chain=all[own()]||[];hatched={};for(const k in all)if(k!==own())hatched[k]=all[k];renderChain();
-  try{const s=JSON.parse(localStorage.getItem('rapterbox.virtual.settings')||'{}');if(s.prov)$('prov').value=s.prov;if(s.endpoint)$('endpoint').value=s.endpoint;if(s.model)$('model').value=s.model;if(s.key){$('key').value=s.key;$('remember').checked=true;}}catch(e){}
+  try{const s=JSON.parse(localStorage.getItem('rapterbox.virtual.settings')||'{}');if(s.model)$('model').value=s.model;}catch(e){}
 }
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='pick';b.dataset.slug=slug;b.setAttribute('aria-pressed',String(slug===routine));b.textContent=name;b.onclick=()=>{routine=slug;document.querySelectorAll('.pick').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.slug===slug)));};$('picks').appendChild(b);}
-function saveSettings(){const s={prov:$('prov').value,endpoint:$('endpoint').value,model:$('model').value};if($('remember').checked)s.key=$('key').value;try{localStorage.setItem('rapterbox.virtual.settings',JSON.stringify(s));}catch(e){}}
-['prov','endpoint','model','remember'].forEach(i=>$(i).addEventListener('change',saveSettings));
-['prov','endpoint'].forEach(i=>$(i).addEventListener('change',()=>{endpointChosen=true;}));
-$('key').addEventListener('change',keyChanged); $('key').addEventListener('input',keyChanged);
-function readKey(){
-  const k=$('key').value.trim();
-  if(!k)return null;
-  if(/^sk-ant-/.test(k))return {prov:'anthropic',endpoint:'https://api.anthropic.com/v1/messages',model:'claude-sonnet-4-5',says:'Anthropic key — it will think with Claude.'};
-  if(/^(sk-|sess-|gsk_)/.test(k))return {prov:'openai',endpoint:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini',says:'OpenAI key — it will think with GPT.'};
-  return {prov:null,endpoint:null,model:null,says:'The box does not know that kind of key. Open “Point it somewhere else” and say where it goes.'};
+function saveSettings(){try{localStorage.setItem('rapterbox.virtual.settings',JSON.stringify({model:$('model').value}));}catch(e){}}
+$('model').addEventListener('change',saveSettings);
+// ---------- the owner's box, and proving who you are to it ----------
+const ENDPOINT_JSON='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/try-endpoint.json';
+const ENDPOINT_API='https://api.github.com/repos/kody-w/rappter-prompts/contents/starter-pack/try-endpoint.json';
+let boxBase=null, session=null, signedIn=null;
+try{const sv=JSON.parse(localStorage.getItem('rapterbox.virtual.session')||'null');if(sv&&sv.token&&sv.expires>Date.now()){session=sv.token;signedIn=sv.login;}}catch(e){}
+function saySignedIn(){ $('who').textContent='Signed in as '+signedIn+' — your box does the thinking.'; $('signin').style.display='none'; }
+async function findBox(){
+  try{
+    let j=null;
+    try{const a=await fetch(ENDPOINT_API,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(a.ok){const c=await a.json();j=JSON.parse(atob(c.content.replace(/\n/g,'')));}}catch(_){}
+    if(!j){const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
+    boxBase=j.url;
+    const h=await(await fetch(boxBase+'/try/health',{cache:'no-store'})).json();
+    if(signedIn)saySignedIn();
+    else if(h.github_signin)$('who').textContent='Your box is awake. Sign in with GitHub so it will think for this device.';
+    else $('who').textContent='Your box is awake, but GitHub sign-in is not set up on it yet.';
+  }catch(e){ $('who').textContent='Cannot reach your box right now — it thinks when the box is awake.'; }
 }
-let endpointChosen=false;                 // true once a person deliberately says where the key goes
-function keyChanged(){
-  const r=readKey();
-  $('thinker').textContent=r?r.says:'Nothing else to set up — the box works out the rest from the key.';
-  if(r&&r.prov){$('prov').value=r.prov;if(r.endpoint)$('endpoint').value=r.endpoint;if(r.model)$('model').value=r.model;}
-  saveSettings();
-}
-function applyProv(){if($('prov').value==='anthropic'){$('model').value='claude-sonnet-4-5';$('endpoint').value='https://api.anthropic.com/v1/messages';}else{$('model').value='gpt-4o-mini';$('endpoint').value='https://api.openai.com/v1/chat/completions';}}
-$('prov').addEventListener('change',()=>{applyProv();saveSettings();});
+$('signin').addEventListener('click',async()=>{
+  if(!boxBase){await findBox();if(!boxBase)return;}
+  $('signin').disabled=true;
+  try{
+    const r=await fetch(boxBase+'/auth/start',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});
+    const d=await r.json();
+    if(!r.ok){$('who').textContent=(d.error||'sign-in is not available')+(d.how?' — '+d.how:'');$('signin').disabled=false;return;}
+    $('devicecode').hidden=false;$('usercode').textContent=d.user_code||'';$('ghlink').href=d.verification_uri||'https://github.com/login/device';
+    try{window.open(d.verification_uri,'_blank','noopener');}catch(_){}
+    const wait=Math.max(5,d.interval||5)*1000;
+    for(let i=0;i<120;i++){
+      await new Promise(z=>setTimeout(z,wait));
+      const f=await fetch(boxBase+'/auth/finish',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({handle:d.handle})});
+      const fd=await f.json().catch(()=>({}));
+      if(f.status===202){$('devicestate').textContent='Still waiting for you to say yes on GitHub…';continue;}
+      if(!f.ok){$('devicestate').textContent=fd.error||'that sign-in did not finish';break;}
+      session=fd.session;signedIn=fd.login;
+      try{localStorage.setItem('rapterbox.virtual.session',JSON.stringify({token:session,login:signedIn,expires:Date.now()+(fd.hours||12)*3600e3}));}catch(_){}
+      $('devicecode').hidden=true;saySignedIn();break;
+    }
+  }catch(e){$('devicestate').textContent='could not reach your box';}
+  $('signin').disabled=false;
+});
+
 // ---------- public inputs, pinned to a commit ----------
 async function getJSON(u,opt){const r=await fetch(u,opt);if(!r.ok)throw new Error('fetch '+r.status+' '+u);return r.json();}
 async function pin(repo){try{const j=await getJSON(`https://api.github.com/repos/${repo}/commits/main`,{headers:{Accept:'application/vnd.github+json'}});return j.sha;}catch(e){throw new Error('could not pin inputs for '+repo);}}
 async function readBytes(url,reads){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('read failed '+r.status+' '+url);const b=new Uint8Array(await r.arrayBuffer());const h=await sha256hex(b);reads.push({url,sha256:h,bytes:b.length});ev('read',url.replace('https://raw.githubusercontent.com/','').replace(/\/[0-9a-f]{40}\//,'/@/')+' · '+b.length+' bytes · '+h.slice(0,12));return new TextDecoder().decode(b);}
 // ---------- think: bring your own key ----------
 async function think(prompt){
-  const prov=$('prov').value,key=$('key').value.trim(),model=$('model').value.trim(),endpoint=$('endpoint').value.trim();
-  const local=/^https?:\/\/(127\.0\.0\.1|localhost)(:|\/)/.test(endpoint);
-  if(!key&&!local)throw new Error('paste an API key first — it stays in this browser');
-  const known=readKey();
-  if(key&&known&&!known.prov&&!endpointChosen&&!local)
-    throw new Error('the box does not recognise that key, so it will not send it anywhere. Open “Point it somewhere else” and say where it belongs.');
-  if(prov==='anthropic'){
-    const r=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model,max_tokens:1500,messages:[{role:'user',content:prompt}]})});
-    if(!r.ok)throw new Error('model endpoint answered '+r.status);const j=await r.json();return (j.content||[]).map(c=>c.text||'').join('');}
-  const hdr={'content-type':'application/json'};if(key)hdr.authorization='Bearer '+key;
-  const r=await fetch(endpoint,{method:'POST',headers:hdr,body:JSON.stringify({model,messages:[{role:'user',content:prompt}],temperature:0.2})});
-  if(!r.ok)throw new Error('model endpoint answered '+r.status);const j=await r.json();return j.choices?.[0]?.message?.content||'';
+  const model=$('model').value.trim()||'auto';
+  if(!boxBase)await findBox();
+  if(!boxBase)throw new Error('your box is not reachable right now — it thinks when the box is awake');
+  if(!session)throw new Error('sign in with GitHub first — your box will not think for a device it does not know');
+  const r=await fetch(boxBase+'/think/v1/chat/completions',{method:'POST',
+    headers:{'content-type':'application/json','authorization':'Bearer '+session},
+    body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})});
+  if(r.status===403){session=null;signedIn=null;try{localStorage.removeItem('rapterbox.virtual.session');}catch(_){}$('signin').style.display='';throw new Error('that sign-in is no longer good — sign in again');}
+  if(!r.ok){let m='your box could not answer ('+r.status+')';try{m=(await r.json()).error||m;}catch(_){}throw new Error(m);}
+  const j=await r.json();return j.choices?.[0]?.message?.content||'';
 }
 // ---------- one run = one receipt frame on THIS box's stream ----------
 async function runOnce(){
@@ -276,10 +298,10 @@ async function runOnce(){
       +"Never invent dates, numbers or promises — mark UNKNOWN or ASK OWNER. You draft; the owner sends, signs, pays or deletes.\nWrite PLAIN TEXT for a phone: no Markdown headings (#), no ** bold **, no | tables, no code fences.\n"
       +`TODAY is ${today}. Compute every 'days late' / 'days until' from that date.\n\n=== METHOD ===\n${method}\n\n`+(transcript.trim()?`=== TRANSCRIPT (owner, verbatim) ===\n${transcript}\n\n`:'')
       +`=== DATA (all public, synthetic or simulated CRM) ===\n${JSON.stringify(data).slice(0,14000)}\n`;
-    ev('think','this browser is asking '+$('prov').value+' · '+$('model').value+' ('+prompt.length+' chars of method + data)');
+    ev('think','your box is thinking with Copilot · '+($('model').value||'auto')+' ('+prompt.length+' chars of method + data)');
     let text=plain(await think(prompt));if(!text)throw new Error('the model returned nothing');
     let dataSha=null;try{dataSha=await sha256hex(enc.encode(canonical(data)));}catch(e){}
-    const payload={routine,business:'maple-and-sons',output:text,receipt:{reads,today,library_commit:lib,static_apis_commit:stat,transcript_sha256:await sha256hex(enc.encode(transcript)),data_sha256:dataSha,thinker:$('prov').value+':'+$('model').value,will_never:['send','sign','pay','delete']}};
+    const payload={routine,business:'maple-and-sons',output:text,receipt:{reads,today,library_commit:lib,static_apis_commit:stat,transcript_sha256:await sha256hex(enc.encode(transcript)),data_sha256:dataSha,thinker:'copilot:'+($('model').value||'auto'),will_never:['send','sign','pay','delete']}};
     const head=chain[chain.length-1]||null;const now=utc();
     if(head&&now<head.utc)throw new Error("this device's clock is behind the last receipt ("+head.utc+") — fix the clock and run again");
     const frame={spec:'rapp/1',kind:'memory.save',stream_id:own(),seq:head?head.seq+1:0,utc:now,payload,payload_hash:await H('rapp/1:particle',payload),prev:head?head.payload_hash:null,prev_wave:null,sig:null};
@@ -326,8 +348,9 @@ async function hatchText(txt){
 }
 $('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{await hatchText(await f.text());}catch(err){ev('error',err.message);}e.target.value='';});
 $('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
-// demo/test hooks: ?endpoint=&model=&prov=&auto=1 — applied AFTER saved settings; a key is never taken from the URL
+// demo/test hooks: ?model= and ?auto=1 only. A link can never say where this box sends anything.
 window.__vbox={run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
+findBox();
 window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search);
   if(q.get('app')||window.ReactNativeWebView){                 // the phone opens the box, not the brochure
     document.body.classList.add('app');
@@ -336,6 +359,9 @@ window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search
     const sw=document.getElementById('swap'); if(sw)sw.addEventListener('click',()=>{location.href='/voice/?app=1';});
     const w=document.getElementById('appwhere');
     if(w)w.textContent=((identity&&identity.rappid||'').split('/')[1]||'this device').split(':')[0];   // the short name, not the whole id
-  }if(q.get('prov')){$('prov').value=q.get('prov');applyProv();}if(q.get('endpoint'))$('endpoint').value=q.get('endpoint');if(q.get('model'))$('model').value=q.get('model');if(q.get('auto'))$('run').click();});
+  }
+  if(q.get('model'))$('model').value=q.get('model');   /* a link may suggest a model; it may never choose where anything is sent */
+  if(q.get('auto'))$('run').click();
+});
 </script>
 </body></html>
