@@ -7,11 +7,11 @@
     "since": "2026-08-24"
   },
   "what_this_is": "The public view of one business's digital twin. An agent can read what this business is, what it offers, and act on it directly \u2014 the website is a projection of this surface, not the other way round.",
-  "human_view": "https://rapterbox.com/",
-  "agent_view": "https://rapterbox.com/agent.json",
+  "human_view": "https://rappter.com/",
+  "agent_view": "https://rappter.com/agent.json",
   "streams": {
     "lessons": {
-      "url": "https://rapterbox.com/lessons.jsonl",
+      "url": "https://rappter.com/lessons.jsonl",
       "what": "operational knowledge this twin has published, as rapp/1 frames",
       "licence": "read freely; cite the frame_hash"
     },
@@ -37,7 +37,7 @@
           "source": "string, optional \u2014 set to your agent name"
         },
         "on_success": "{\"ok\": true}",
-        "human_equivalent": "the form at https://rapterbox.com/#join"
+        "human_equivalent": "the form at https://rappter.com/#join"
       },
       "consent": "Only submit on behalf of a human who asked you to. This is a real business waitlist and every entry is read by a person."
     },
@@ -81,7 +81,7 @@
     "spec": "https://github.com/kody-w/rapp-1"
   },
   "access_tiers": {
-    "url": "https://rapterbox.com/tiers.json",
+    "url": "https://rappter.com/tiers.json",
     "summary": {
       "T0 GLOBAL": "anyone, no account \u2014 identity, offers, published lessons (this document)",
       "T1 AUTHENTICATED": "a named GitHub account with READ on the private DOGG",

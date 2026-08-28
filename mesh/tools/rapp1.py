@@ -33,6 +33,12 @@ def canonical(v):
     if v is None or isinstance(v, bool):
         return json.dumps(v)
     if isinstance(v, int):
+        if abs(v) > 2**53 - 1:
+            # I-JSON interoperable domain: a browser's JSON.parse collapses
+            # larger ints (and >=1e21 re-serializes as exponent notation), so
+            # a chain that hashes green here would show REFUSED to every
+            # visitor. Refuse at authoring time instead.
+            raise ValueError("int outside interoperable range (|n| > 2^53-1); carry it as a string")
         return json.dumps(v)               # exact integers only in this profile
     if isinstance(v, float):
         raise ValueError("floats require full-JCS number serialization; use ints/strings")
@@ -41,7 +47,10 @@ def canonical(v):
     if isinstance(v, list):
         return "[" + ",".join(canonical(x) for x in v) + "]"
     if isinstance(v, dict):
-        keys = sorted(v.keys())
+        # RFC 8785 orders member names by UTF-16 code units — which is what a
+        # browser's default sort does. Python's plain sorted() is code-POINT
+        # order; they diverge for non-BMP keys, so sort by utf-16-be bytes.
+        keys = sorted(v.keys(), key=lambda k: k.encode("utf-16-be"))
         if len(keys) != len(set(keys)):
             raise ValueError("duplicate keys")
         return "{" + ",".join(json.dumps(k, ensure_ascii=False) + ":" + canonical(v[k]) for k in keys) + "}"

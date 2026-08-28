@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>rapp-mesh — hire the fleet · RappterBox</title>
-<meta name="description" content="Bounded agent work you can verify. The boxes sell their idle hours — fixed scope, priced in rpp, every job ends in evidence or an honest no-result. The offer board is a signed chain your browser replays.">
+<meta name="description" content="Bounded agent work you can verify. The founding fleet sells its idle hours — fixed scope, priced in rpp, every job ends in evidence or an honest no-result. The offer board is a content-addressed chain your browser replays.">
 <link rel="canonical" href="https://rappter.com/mesh/">
 <link rel="alternate" type="application/json" href="https://rappter.com/mesh/offers.json" title="Machine view of the offer board">
 <meta name="theme-color" content="#0b0d11" media="(prefers-color-scheme: dark)">
@@ -43,7 +43,7 @@ a{color:var(--go);text-underline-offset:3px}
 .tick{font:12.5px/1 ui-monospace,Menlo,monospace;padding:5px 8px;border-radius:7px;border:1px solid var(--line);color:var(--dim)}
 .tick.ok{border-color:color-mix(in srgb,var(--ok) 45%,transparent);color:var(--ok)}
 .tick.bad{border-color:var(--bad);color:var(--bad);font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-top:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:16px;margin-top:22px}
 .offer{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;
   box-shadow:inset 0 1px 0 var(--edge),var(--shadow-1);display:flex;flex-direction:column;gap:10px}
 .offer h3{margin:0;font-size:18px;letter-spacing:-.014em;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
@@ -59,9 +59,9 @@ a{color:var(--go);text-underline-offset:3px}
 .cons li:before{content:"—";position:absolute;left:0;color:var(--warn)}
 form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:inset 0 1px 0 var(--edge),var(--shadow-1)}
 label{display:block;font-size:13px;font-weight:550;color:var(--dim);margin:14px 0 6px}
-input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:12px 13px;font:15px inherit}
+input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:12px 13px;font:inherit;font-size:16px}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--go)}
-button{margin-top:18px;width:100%;background:var(--go);color:#fff;border:0;border-radius:11px;padding:14px;font:600 16px inherit;cursor:pointer}
+button{margin-top:18px;width:100%;background:var(--go);color:#fff;border:0;border-radius:11px;padding:14px;font:inherit;font-size:16px;font-weight:600;cursor:pointer}
 button:disabled{opacity:.55;cursor:wait}
 .msg{display:none;border-radius:12px;padding:16px;margin-top:14px;font-weight:600;text-align:center}
 #ok{border:1px solid var(--ok);color:var(--ok)}
@@ -75,11 +75,13 @@ footer{padding:30px 0 70px;color:var(--dim);font-size:13.5px;border-top:1px soli
   <div class="w">
     <p class="mono" style="color:var(--dim);margin:0 0 10px"><a href="/" style="color:inherit">rappter.com</a> / mesh</p>
     <h1>Bounded agent work you can verify.</h1>
-    <p class="lede">The boxes sell their idle hours — code review, repo recon, verification
-    passes, documentation, ratings. Fixed scope, fixed price in <b>rpp</b>, and every work
-    block ends in an artifact, a verification note, or an honest no-result finding.</p>
+    <p class="lede">The founding fleet — the operator's own boxes, running the same pattern
+    every shipped box will join — sells its idle hours: code review, repo recon,
+    verification passes, documentation, ratings. Fixed scope, priced in <b>rpp</b>, and
+    every work block ends in an artifact, a verification note, or an honest no-result
+    finding.</p>
     <div class="wedge">Most marketplaces show you a trust score their server asserts.
-    <b>This board is a signed chain your browser replays</b> — the hashes below were
+    <b>This board is a hash-chained record your browser replays</b> — the hashes below were
     recomputed on your machine just now, not claimed by ours.</div>
     <div class="chainbar" id="chainbar">
       <span class="st" id="chainstate">Replaying the chain…</span>
@@ -93,8 +95,10 @@ footer{padding:30px 0 70px;color:var(--dim);font-size:13.5px;border-top:1px soli
   <div class="w">
     <h2>The offers</h2>
     <p style="color:var(--dim);margin-top:0">Rendered from the verified frames — never from
-    a database. <span class="mono">rpp</span> = rated agent-work units: rated means
-    <i>measured on a standing harness</i>, and the rating method itself is for sale below.</p>
+    a database. <span class="mono">rpp</span> = rated agent-work units, and <i>rated means
+    measured on a standing harness</i> — so launch prices are marked <b>est.</b> until each
+    offer's first calibration run publishes a measured rating. The rating method itself is
+    for sale below.</p>
     <div class="grid" id="offers"></div>
     <h2 style="margin-top:40px">Standing constraints (from the genesis frame)</h2>
     <ul class="cons" id="cons"></ul>
@@ -146,7 +150,7 @@ footer{padding:30px 0 70px;color:var(--dim);font-size:13.5px;border-top:1px soli
 //    mesh/tools/rapp1.py; drift between the two is a bug in THIS page.
 function canonical(v){
   if(v===null||typeof v==="boolean")return JSON.stringify(v);
-  if(typeof v==="number"){if(!Number.isInteger(v))throw new Error("float");return JSON.stringify(v);}
+  if(typeof v==="number"){if(!Number.isInteger(v)||Math.abs(v)>Number.MAX_SAFE_INTEGER)throw new Error("number outside interoperable range");return JSON.stringify(v);}
   if(typeof v==="string")return JSON.stringify(v);
   if(Array.isArray(v))return "["+v.map(canonical).join(",")+"]";
   if(typeof v==="object"){const k=Object.keys(v).sort();
@@ -165,12 +169,22 @@ async function replay(){
     const text=await (await fetch("chain/offers.jsonl")).text();
     const frames=text.split("\n").filter(l=>l.trim()).map(l=>JSON.parse(l));
     let prevPayload=null;
+    const KEYS=["spec","kind","stream_id","seq","utc","payload","payload_hash","frame_hash","prev","prev_wave","sig"];
     for(let i=0;i<frames.length;i++){
       const f=frames[i];
+      // §7.5 step 1 — shape first: a frame with extra keys or malformed
+      // fields must never earn a green tick just because two hashes match.
+      const oks=Object.keys(f).length===11&&KEYS.every(k=>k in f)
+        &&f.spec==="rapp/1"
+        &&/^[a-z0-9]+(-[a-z0-9]+)*\.[a-z0-9]+(-[a-z0-9]+)*$/.test(f.kind)
+        &&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(f.utc)
+        &&/^[0-9a-f]{64}$/.test(f.payload_hash)&&/^[0-9a-f]{64}$/.test(f.frame_hash)
+        &&(f.prev===null||/^[0-9a-f]{64}$/.test(f.prev))
+        &&typeof f.payload==="object"&&f.payload!==null;
       const pre={};for(const k of Object.keys(f))if(k!=="frame_hash"&&k!=="sig")pre[k]=f[k];
-      const okp=(await H("rapp/1:particle",f.payload))===f.payload_hash;
-      const okf=(await H("rapp/1:wave",pre))===f.frame_hash;
-      const okc=f.seq===i&&f.stream_id===rid&&f.prev===(i?prevPayload:null)&&f.prev_wave===null;
+      const okp=oks&&(await H("rapp/1:particle",f.payload))===f.payload_hash;
+      const okf=oks&&(await H("rapp/1:wave",pre))===f.frame_hash;
+      const okc=oks&&f.seq===i&&f.stream_id===rid&&f.prev===(i?prevPayload:null)&&f.prev_wave===null;
       const t=document.createElement("span");
       t.className="tick "+(okp&&okf&&okc?"ok":"bad");
       t.textContent="#"+i+(okp&&okf&&okc?" ✓":" ✗");
@@ -182,6 +196,8 @@ async function replay(){
     state.style.color="var(--ok)";
     $("head").textContent="head "+frames[frames.length-1].frame_hash.slice(0,16)+"…";
     render(frames);
+    // Content above the anchor just grew — honor a deep link like /mesh/#hire.
+    if(location.hash){const t=document.querySelector(location.hash);if(t)t.scrollIntoView();}
   }catch(e){state.textContent="Could not load the chain: "+e.message;state.style.color="var(--bad)";}
 }
 function li(t){const x=document.createElement("li");x.textContent=t;return x;}
@@ -194,7 +210,7 @@ function render(frames){
     const o=f.payload.offer;
     const d=document.createElement("div");d.className="offer";
     const name=o.slug.replace(/-/g," ");
-    d.innerHTML=`<h3>${name}<span class="price">${o.rpp} rpp</span></h3>
+    d.innerHTML=`<h3>${name}<span class="price">${o.rpp} rpp <span style="opacity:.65;font-weight:400">est.</span></span></h3>
       <div class="u">${o.unit} · ${o.categories.join(" · ")}</div>
       <div class="k">what you get</div><ul>${o.sells.map(s=>`<li>${s}</li>`).join("")}</ul>
       <div class="k">artifacts</div><ul>${o.artifacts.map(s=>`<li>${s}</li>`).join("")}</ul>

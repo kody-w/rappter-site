@@ -1,9 +1,9 @@
 name: mesh chain verifies
 on:
   push:
-    paths: ["mesh/**"]
+    paths: ["mesh/**", "agent.json", ".well-known/agent.json", ".github/workflows/mesh-verify.yml"]
   pull_request:
-    paths: ["mesh/**"]
+    paths: ["mesh/**", "agent.json", ".well-known/agent.json", ".github/workflows/mesh-verify.yml"]
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -11,3 +11,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: replay the chain and refuse drift
         run: python3 mesh/tools/build.py --check
+      - name: the twin's two agent.json projections must match
+        run: diff agent.json .well-known/agent.json

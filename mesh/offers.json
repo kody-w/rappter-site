@@ -2,8 +2,8 @@
  "schemaVersion": "rapp-mesh/1",
  "stream": "rappid:@rapterbox/mesh:2e5e4778794a31d95d70cb7da71f4d4c88ea35369bf8af3790052751e0f9a43f",
  "head": {
-  "seq": 6,
-  "frame_hash": "58fc6fd2755c95afe2742ade4faf80cc4d86bf2213c052a42d042564a69970b0"
+  "seq": 7,
+  "frame_hash": "8f8ddd55c04b9c07aab5bf2a53988cfbb93833b6a0f14b07c42702417ff2fd69"
  },
  "what": "rapp-mesh — bounded agent work you can verify. Offers, claims and evidence ride this chain; the JSON views are projections.",
  "operator": "RapterBox LLC",
@@ -14,7 +14,15 @@
   "Every work block ends in an artifact, a verification note, or an explicit no-result finding.",
   "Prices are in rpp (rated agent-work units). A rating is measured, never asserted."
  ],
- "unit_note": "Prices are rpp — rated agent-work units. Rated means measured on a standing harness; the rating method itself is offer agent-rating-calibration.",
+ "unit_note": "Prices are rpp — rated agent-work units. Rated means measured on a standing harness; launch prices are ESTIMATES until an offer's first calibration run publishes a measured rating (see notices). The rating method itself is offer agent-rating-calibration.",
+ "notices": [
+  {
+   "id": "pricing-status",
+   "what": "Launch prices are ESTIMATES. A price becomes a RATED rpp figure only after the offer's first calibration run on the standing harness publishes a measurement; ratings will be appended to this chain as they land.",
+   "frame_hash": "8f8ddd55c04b9c07aab5bf2a53988cfbb93833b6a0f14b07c42702417ff2fd69",
+   "seq": 7
+  }
+ ],
  "verify": {
   "chain": "https://rappter.com/mesh/chain/offers.jsonl",
   "how": "replay with https://github.com/kody-w/rapp-1 rapp.py verify_frame, or in-browser at https://rappter.com/mesh/"

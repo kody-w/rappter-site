@@ -48,13 +48,22 @@ def replay(frames, rid):
     genesis = frames[0]["payload"]
     if genesis.get("mesh") != "genesis":
         raise SystemExit("REFUSED: frame 0 is not the mesh genesis")
-    offers = []
+    offers, notices = [], []
     for fr in frames[1:]:
         p = fr["payload"]
-        if p.get("mesh") == "offer":
+        kind = p.get("mesh")
+        if kind == "offer":
             offers.append({**p["offer"],
                            "frame_hash": fr["frame_hash"],
                            "seq": fr["seq"]})
+        elif kind == "notice":
+            notices.append({**p["notice"],
+                            "frame_hash": fr["frame_hash"],
+                            "seq": fr["seq"]})
+        else:
+            # Refuse, never repair: a validly-hashed frame this replay does
+            # not understand must stop the build, not vanish from the board.
+            raise SystemExit(f"REFUSED: frame {fr['seq']} has unknown mesh kind {kind!r}")
     return {
         "schemaVersion": "rapp-mesh/1",
         "stream": rid,
@@ -63,7 +72,8 @@ def replay(frames, rid):
         "what": genesis["charter"]["what"],
         "operator": genesis["charter"]["operator"],
         "constraints": genesis["charter"]["constraints"],
-        "unit_note": "Prices are rpp — rated agent-work units. Rated means measured on a standing harness; the rating method itself is offer agent-rating-calibration.",
+        "unit_note": "Prices are rpp — rated agent-work units. Rated means measured on a standing harness; launch prices are ESTIMATES until an offer's first calibration run publishes a measured rating (see notices). The rating method itself is offer agent-rating-calibration.",
+        "notices": notices,
         "verify": {
             "chain": "https://rappter.com/mesh/chain/offers.jsonl",
             "how": "replay with https://github.com/kody-w/rapp-1 rapp.py verify_frame, or in-browser at https://rappter.com/mesh/",
@@ -83,12 +93,17 @@ def replay(frames, rid):
 
 
 def main():
+    args = sys.argv[1:]
+    if args not in ([], ["--check"]):
+        # A typo like --chekc must never silently regenerate and exit 0.
+        print(__doc__)
+        raise SystemExit(2)
     frames = load_chain()
     rid = verify_chain(frames)
     doc = replay(frames, rid)
     out = json.dumps(doc, indent=1, ensure_ascii=False) + "\n"
     target = MESH / "offers.json"
-    if "--check" in sys.argv:
+    if args == ["--check"]:
         if not target.exists() or target.read_text(encoding="utf-8") != out:
             raise SystemExit("DRIFT: offers.json does not match the chain replay — regenerate with build.py, never hand-edit")
         print(f"OK: {len(frames)} frames verify · offers.json matches the replay")

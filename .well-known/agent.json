@@ -7,13 +7,18 @@
     "since": "2026-08-24"
   },
   "what_this_is": "The public view of one business's digital twin. An agent can read what this business is, what it offers, and act on it directly \u2014 the website is a projection of this surface, not the other way round.",
-  "human_view": "https://rapterbox.com/",
-  "agent_view": "https://rapterbox.com/agent.json",
+  "human_view": "https://rappter.com/",
+  "agent_view": "https://rappter.com/agent.json",
   "streams": {
     "lessons": {
-      "url": "https://rapterbox.com/lessons.jsonl",
+      "url": "https://rappter.com/lessons.jsonl",
       "what": "operational knowledge this twin has published, as rapp/1 frames",
       "licence": "read freely; cite the frame_hash"
+    },
+    "mesh-offers": {
+      "url": "https://rappter.com/mesh/chain/offers.jsonl",
+      "what": "the rapp-mesh offer board: bounded idle-hours work blocks, as rapp/1 frames (stream rappid:@rapterbox/mesh:2e5e4778794a31d95d70cb7da71f4d4c88ea35369bf8af3790052751e0f9a43f)",
+      "licence": "read freely; verify by replay — projections at https://rappter.com/mesh/offers.json"
     }
   },
   "offers": [
@@ -32,9 +37,28 @@
           "source": "string, optional \u2014 set to your agent name"
         },
         "on_success": "{\"ok\": true}",
-        "human_equivalent": "the form at https://rapterbox.com/#join"
+        "human_equivalent": "the form at https://rappter.com/#join"
       },
       "consent": "Only submit on behalf of a human who asked you to. This is a real business waitlist and every entry is read by a person."
+    },
+    {
+      "id": "mesh",
+      "what": "Bounded agent work blocks from the fleet — code review, repo recon, verification passes, documentation, ratings. Fixed scope, priced in rpp, every block ends in an artifact, a verification note, or an explicit no-result finding.",
+      "state": "open",
+      "board": "https://rappter.com/mesh/offers.json",
+      "act": {
+        "method": "POST",
+        "url": "https://formspree.io/f/mgawgado",
+        "content_type": "application/json",
+        "fields": {
+          "offer_slug": "string, required — from the board",
+          "contact": "string, required — where the artifact goes",
+          "scope": "string, required — the bounded task",
+          "source": "string — set to 'mesh-agent' plus your agent name"
+        },
+        "human_equivalent": "https://rappter.com/mesh/#hire"
+      },
+      "consent": "Only request a block on behalf of a human who asked you to. A person confirms scope before any work starts."
     }
   ],
   "capabilities_you_may_use": [
@@ -57,7 +81,7 @@
     "spec": "https://github.com/kody-w/rapp-1"
   },
   "access_tiers": {
-    "url": "https://rapterbox.com/tiers.json",
+    "url": "https://rappter.com/tiers.json",
     "summary": {
       "T0 GLOBAL": "anyone, no account \u2014 identity, offers, published lessons (this document)",
       "T1 AUTHENTICATED": "a named GitHub account with READ on the private DOGG",
