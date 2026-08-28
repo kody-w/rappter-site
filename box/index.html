@@ -208,13 +208,14 @@ $('run').onclick=async()=>{
 };
 // ---------- eggs: §9 session variant (JSON) — the chain travels; secrets never do ----------
 async function packEgg(){
-  const manifest={schema:'rapp/1-egg',variant:'session',rappid:identity.rappid,created_utc:utc(),contents:[],payload:{runtime:'rapterbox-virtual/mk0',transcript:chain,identity:{kind:identity.kind,what:identity.what,grown_from:identity.grown_from}},sig:null};
+  const manifest={schema:'rapp/1-egg',variant:'session',rappid:identity.rappid,created_utc:utc(),contents:[],payload:{runtime:'rapterbox-virtual/mk0',transcript:chain},sig:null};   // §9.2: session payload is exactly {runtime, transcript}
   const noSig={};for(const k of Object.keys(manifest))if(k!=='sig')noSig[k]=manifest[k];
   const egg_hash=await H('rapp/1:egg-manifest',noSig);return {octets:canonical(manifest),egg_hash};
 }
 $('export').onclick=async()=>{try{const {octets,egg_hash}=await packEgg();const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([octets],{type:'application/json'}));a.download=identity.rappid.split('/')[1].split(':')[0]+'-'+egg_hash.slice(0,12)+'.egg';a.click();ev('egg','packed '+chain.length+' frames · egg '+egg_hash.slice(0,16)+'… · nothing secret inside, ever');}catch(e){ev('error',e.message);}};
 $('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const txt=await f.text();const m=JSON.parse(txt);
-  if(m.schema!=='rapp/1-egg'||m.variant!=='session'||!Array.isArray(m.contents)||m.contents.length)throw new Error('not a rapp/1 session egg');
+  const members=Object.keys(m).sort().join(',');
+  if(members!=='contents,created_utc,payload,rappid,schema,sig,variant'||m.schema!=='rapp/1-egg'||m.variant!=='session'||!Array.isArray(m.contents)||m.contents.length||Object.keys(m.payload||{}).sort().join(',')!=='runtime,transcript'||typeof m.payload.runtime!=='string'||!Array.isArray(m.payload.transcript))throw new Error('not a rapp/1 session egg (§9.1/§9.2 shape)');
   const noSig={};for(const k of Object.keys(m))if(k!=='sig')noSig[k]=m[k];const egg_hash=await H('rapp/1:egg-manifest',noSig);
   if(canonical(m)!==txt.trim())ev('note','egg was re-serialized somewhere; identity still checks by egg_hash');
   const frames=m.payload.transcript||[];let prev=null;for(const fr of frames){const v=await verifyFrame(fr,prev);if(!v.ok)throw new Error('frame '+fr.seq+' in the egg does not verify — refused');prev=fr;}
