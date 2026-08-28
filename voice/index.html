@@ -160,6 +160,9 @@ function sayOne(part){
 async function speak(text,{caption:cap=true}={}){
   if(cap)caption('The box',text);
   if(!('speechSynthesis' in window))return false;
+  // A hidden tab (or a phone with the screen off) does not speak, and its timers are throttled to a crawl.
+  // Speaking is how the answer is presented, never how it is produced — so here we simply do not.
+  if(document.hidden)return false;
   try{ window.speechSynthesis.cancel();
     for(const part of pieces(text)){ if(!await sayOne(part))return false; }
     return true;
@@ -272,7 +275,7 @@ async function doJob(routine){
   await freshEnough();                    // ask the box how it is before telling the person how it is
   const live=awake;                       // then decided once: what it says and what it does must be the same run
   try{
-    await speak(live?`Working on ${name}. Give me a moment.`:`The box is asleep, so I will read what it last did for ${name}.`);
+    speak(live?`Working on ${name}. Give me a moment.`:`The box is asleep, so I will read what it last did for ${name}.`);   // said while it works, not before
     let r;
     if(live){
       let saidReading=false;
@@ -292,7 +295,7 @@ async function doJob(routine){
     let saidAloud;
     if(r.spoken){ saidAloud=r.spoken+verdict; }
     else { const sp=spoken(r.text); saidAloud=`${sp.lead} ` + sp.facts.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say read the rest to hear everything else.' + verdict; }
-    turn(NAMES[routine], saidAloud);
+    turn(NAMES[routine], saidAloud);       // written down first: the answer is not the speaking of it
     await speak(saidAloud);
   }catch(e){
     const why=e.message||String(e);
@@ -305,6 +308,7 @@ async function heard(said){
   $('said').hidden=false; $('saidtext').textContent=said;
   const m=match(said);
   if(m==='REST'){ await speak('Reading the whole thing. '+readable(lastText)); return; }
+
   if(!m){ await speak('I did not catch a job in that. Try “chase my invoices”, or tap one of the jobs below.'); return; }
   await doJob(m);
 }
