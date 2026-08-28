@@ -52,11 +52,22 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--amberdeep)
 .chain div{border-bottom:1px dotted var(--rule);padding:3px 0;overflow-wrap:anywhere}
 .warn{border:2px solid var(--ink);background:var(--card);padding:12px 14px;font-size:14px;color:var(--body);box-shadow:5px 5px 0 var(--green)}
 footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
+/* app mode: the product face. No nav, no hero, no marketing — the box, its jobs, its receipts. */
+body.app nav,body.app .hero,body.app footer,body.app .lede,body.app .kicker,body.app h1{display:none}
+body.app section{padding:14px 0}
+body.app .w{padding:0 14px}
+body.app .stage{grid-template-columns:1fr;gap:16px}
+body.app .tear{border-top:0}
+body.app .appbar{display:flex}
+.appbar{display:none;align-items:center;gap:10px;padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--card);position:sticky;top:0;z-index:5}
+.appbar .wm{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.appbar .about{margin-left:auto;font-size:13px;color:var(--amberdeep);text-decoration:underline;text-underline-offset:3px}
 @media(max-width:900px){.stage{grid-template-columns:1fr}.picks{grid-template-columns:1fr}nav .line{display:none}.paper{padding:18px 16px}
   .ev{grid-template-columns:auto 1fr}.ev .t{grid-column:1/-1;font-size:11px}}
 </style>
 </head>
 <body>
+<header class="appbar"><span class="wm">rbox</span><span class="fine" id="appwhere">this device</span><a class="about" href="/box/" target="_blank" rel="noopener">what is this?</a></header>
 <nav><div class="w"><a class="wm" href="/">RappterBox</a><span class="line">Rapter see, rapter do.</span><a class="cta" href="/#claim">Join the waitlist</a></div></nav>
 
 <section><div class="w">
@@ -73,14 +84,18 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
       <div class="row"><button class="btn" id="export">Export .egg (backup)</button><label for="import" class="btn" style="margin:0">Hatch an .egg here<input id="import" type="file" accept=".egg,.json,application/json" style="display:none"></label><button class="btn" id="wipe">Forget this box</button></div>
       <div class="fine" id="chainmeta" style="margin-top:8px"></div>
     </div>
-    <div class="card"><div class="k">Think with</div>
-      <label for="prov">Model provider</label>
-      <select id="prov"><option value="openai">OpenAI-compatible (OpenAI, Azure, local server)</option><option value="anthropic">Anthropic</option></select>
-      <label for="endpoint">Endpoint — where your key is sent</label><input id="endpoint" value="https://api.openai.com/v1/chat/completions" spellcheck="false">
-      <label for="model">Model</label><input id="model" value="gpt-4o-mini" spellcheck="false">
-      <label for="key">API key — stays in this browser</label><input id="key" type="password" autocomplete="off" placeholder="paste your key">
-      <div class="row"><label class="chk" for="remember"><input type="checkbox" id="remember"> remember key on this device</label></div>
-      <p class="fine" style="margin:10px 0 0">The key goes only to the endpoint above, straight from your browser; we never see it. This page sends Anthropic's direct-browser-access header, so Anthropic keys work from here. A local server on 127.0.0.1 needs no key. If an endpoint refuses browser requests, run a local proxy or watch the office box at <a href="/try/">/try</a>.</p>
+    <div class="card"><div class="k">What it thinks with</div>
+      <label for="key" id="keylabel">Paste a key — it stays on this device</label>
+      <input id="key" type="password" autocomplete="off" placeholder="sk-… (OpenAI) or sk-ant-… (Anthropic)">
+      <p class="fine" id="thinker" style="margin:8px 0 0">Nothing else to set up — the box works out the rest from the key.</p>
+      <div class="row"><label class="chk" for="remember"><input type="checkbox" id="remember"> remember it on this device</label></div>
+      <details style="margin-top:12px"><summary class="fine" style="cursor:pointer">Point it somewhere else</summary>
+        <label for="prov">Provider</label>
+        <select id="prov"><option value="openai">OpenAI-compatible (OpenAI, Azure, a local server)</option><option value="anthropic">Anthropic</option></select>
+        <label for="endpoint">Endpoint — where the key is sent</label><input id="endpoint" value="https://api.openai.com/v1/chat/completions" spellcheck="false">
+        <label for="model">Model</label><input id="model" value="gpt-4o-mini" spellcheck="false">
+        <p class="fine" style="margin:10px 0 0">The key goes only to that endpoint, straight from your device; we never see it. Anthropic keys work from here. A server on 127.0.0.1 needs no key at all.</p>
+      </details>
     </div>
     <div class="card"><div class="k">Pick a job</div>
       <div class="picks" id="picks" role="group" aria-label="job"></div>
@@ -193,7 +208,21 @@ async function boot(){
 }
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='pick';b.dataset.slug=slug;b.setAttribute('aria-pressed',String(slug===routine));b.textContent=name;b.onclick=()=>{routine=slug;document.querySelectorAll('.pick').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.slug===slug)));};$('picks').appendChild(b);}
 function saveSettings(){const s={prov:$('prov').value,endpoint:$('endpoint').value,model:$('model').value};if($('remember').checked)s.key=$('key').value;try{localStorage.setItem('rapterbox.virtual.settings',JSON.stringify(s));}catch(e){}}
-['prov','endpoint','model','key','remember'].forEach(i=>$(i).addEventListener('change',saveSettings));
+['prov','endpoint','model','remember'].forEach(i=>$(i).addEventListener('change',saveSettings));
+$('key').addEventListener('change',keyChanged); $('key').addEventListener('input',keyChanged);
+function readKey(){
+  const k=$('key').value.trim();
+  if(!k)return null;
+  if(/^sk-ant-/.test(k))return {prov:'anthropic',endpoint:'https://api.anthropic.com/v1/messages',model:'claude-sonnet-4-5',says:'Anthropic key — it will think with Claude.'};
+  if(/^(sk-|sess-|gsk_)/.test(k))return {prov:'openai',endpoint:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini',says:'OpenAI key — it will think with GPT.'};
+  return {prov:null,endpoint:null,model:null,says:'The box does not know that kind of key. Open “Point it somewhere else” and say where it goes.'};
+}
+function keyChanged(){
+  const r=readKey();
+  $('thinker').textContent=r?r.says:'Nothing else to set up — the box works out the rest from the key.';
+  if(r&&r.prov){$('prov').value=r.prov;if(r.endpoint)$('endpoint').value=r.endpoint;if(r.model)$('model').value=r.model;}
+  saveSettings();
+}
 function applyProv(){if($('prov').value==='anthropic'){$('model').value='claude-sonnet-4-5';$('endpoint').value='https://api.anthropic.com/v1/messages';}else{$('model').value='gpt-4o-mini';$('endpoint').value='https://api.openai.com/v1/chat/completions';}}
 $('prov').addEventListener('change',()=>{applyProv();saveSettings();});
 // ---------- public inputs, pinned to a commit ----------
@@ -287,6 +316,11 @@ $('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)
 $('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
 // demo/test hooks: ?endpoint=&model=&prov=&auto=1 — applied AFTER saved settings; a key is never taken from the URL
 window.__vbox={run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
-window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search);if(q.get('prov')){$('prov').value=q.get('prov');applyProv();}if(q.get('endpoint'))$('endpoint').value=q.get('endpoint');if(q.get('model'))$('model').value=q.get('model');if(q.get('auto'))$('run').click();});
+window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search);
+  if(q.get('app')||window.ReactNativeWebView){                 // the phone opens the box, not the brochure
+    document.body.classList.add('app');
+    document.title='rbox';
+    const w=document.getElementById('appwhere'); if(w)w.textContent=(identity&&identity.rappid||'').split('/')[1]||'this device';
+  }if(q.get('prov')){$('prov').value=q.get('prov');applyProv();}if(q.get('endpoint'))$('endpoint').value=q.get('endpoint');if(q.get('model'))$('model').value=q.get('model');if(q.get('auto'))$('run').click();});
 </script>
 </body></html>
