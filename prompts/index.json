@@ -3,120 +3,116 @@
   "slug": "morning-brief",
   "title": "The 7am Brief",
   "promise": "Turn your inbox and calendar into three decisions",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/morning-brief.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/incidents.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/morning-brief.md\n2. Fetch the live sample data and use it as the inputs (a made-up business, labelled SYNTHETIC, and its customer records from a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/incidents.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/morning-brief.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/morning-brief.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
    "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/incidents.json"
+   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/incidents.json"
   ]
  },
  {
   "slug": "chase-invoices",
   "title": "The Invoice Chaser",
   "promise": "Draft the three polite chasers that actually get paid",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/chase-invoices.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/chase-invoices.md\n2. Fetch the live sample data and use it as the inputs (a made-up business, labelled SYNTHETIC, and its customer records from a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/accounts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/chase-invoices.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/chase-invoices.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
    "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json"
+   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/accounts.json"
   ]
  },
  {
   "slug": "compliance-calendar",
   "title": "The Deadline Ledger",
   "promise": "Every license, renewal and filing on one page, with what it costs to miss",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/compliance-calendar.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/compliance-calendar.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/compliance-calendar.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/compliance-calendar.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
-   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json"
+   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json"
   ]
  },
  {
   "slug": "review-replies",
   "title": "The Review Desk",
   "promise": "Reply to every review in the owner's voice, in one sitting",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/review-replies.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/contacts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/review-replies.md\n2. Fetch the live sample data and use it as the inputs (a made-up business, labelled SYNTHETIC, and its customer records from a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/incidents.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/review-replies.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/review-replies.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
    "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/contacts.json"
+   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/incidents.json"
   ]
  },
  {
   "slug": "sop-from-memo",
   "title": "The Playbook Writer",
   "promise": "Turn a rambling voice memo into a one-page procedure a new hire can follow",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/sop-from-memo.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/incidents.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/sop-from-memo.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/sop-from-memo.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/sop-from-memo.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
-   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/incidents.json"
+   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json"
   ]
  },
  {
   "slug": "hiring-ad",
   "title": "The Job Post",
   "promise": "A hiring ad that gets the right ten applicants, not the wrong hundred",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/hiring-ad.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/hiring-ad.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/hiring-ad.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/hiring-ad.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
-   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json"
+   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json"
   ]
  },
  {
   "slug": "weekly-numbers",
   "title": "The Friday Numbers",
   "promise": "Five numbers, in plain English, that tell the owner if the week was good",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/weekly-numbers.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/opportunities.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/weekly-numbers.md\n2. Fetch the live sample data and use it as the inputs (a made-up business, labelled SYNTHETIC, and its customer records from a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/opportunities.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/weekly-numbers.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/weekly-numbers.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
    "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/opportunities.json"
+   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/opportunities.json"
   ]
  },
  {
   "slug": "vendor-compare",
   "title": "The Quote Reader",
   "promise": "Compare three vendor quotes without being fooled by the cheapest line",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/vendor-compare.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/vendor-compare.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/vendor-compare.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/vendor-compare.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
-   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json"
+   "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json"
   ]
  },
  {
   "slug": "customer-followup",
   "title": "The Follow-Up Engine",
   "promise": "Every finished job gets a follow-up that earns the next one",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/customer-followup.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/customer-followup.md\n2. Fetch the live sample data and use it as the inputs (a made-up business, labelled SYNTHETIC, and its customer records from a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/contacts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/customer-followup.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/customer-followup.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
    "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/accounts.json"
+   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/contacts.json"
   ]
  },
  {
   "slug": "meeting-to-tasks",
   "title": "The Meeting Cleaner",
   "promise": "A meeting transcript into owners, tasks and dates \u2014 nothing else",
-  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/meeting-to-tasks.md\n2. Fetch the live sample data and use it as the inputs (it is a made-up business, labelled SYNTHETIC, plus a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/incidents.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
+  "prompt": "You are helping the owner of a small business. Do these in order:\n1. Open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/meeting-to-tasks.md\n2. Fetch the live sample data and use it as the inputs (a made-up business, labelled SYNTHETIC, and its customer records from a simulated CRM in the same shape as a Dynamics 365 / Salesforce export):\n   https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json\n   https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/accounts.json\n3. Produce the output, phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.\n4. Then tell me, in two lines, what to paste from my own business to run it for real.",
   "page": "https://github.com/kody-w/rappter-prompts/blob/main/prompts/meeting-to-tasks.md",
   "own_prompt": "You are helping the owner of a small business. First, open and read this method page in full and follow its Method and Output format exactly: https://github.com/kody-w/rappter-prompts/blob/main/prompts/meeting-to-tasks.md\nThen ask me for the inputs it lists, one message, and produce the output. Keep it phone-sized. Never invent dates, numbers or promises \u2014 mark them UNKNOWN or ASK OWNER.",
   "data": [
    "https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/synthetic/maple-and-sons.json",
-   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/customer360/api/data/v9.2/incidents.json"
+   "https://raw.githubusercontent.com/kody-w/rapp-static-apis/main/smb-crm/api/data/v9.2/accounts.json"
   ]
  }
 ]
