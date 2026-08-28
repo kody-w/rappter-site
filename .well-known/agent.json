@@ -24,12 +24,13 @@
   "offers": [
     {
       "id": "founding-ten",
-      "what": "PRE-LAUNCH. The Founding Ten Install: a RappterBox on the business's network (the best Mac mini Apple makes — best for the best — bought at Apple's price with the receipt attached, no markup, about $3,500, owned by the customer), Install Day included, the 7am brief, a verifiable receipts ledger, a monthly hours-back rating report, quarterly re-teach, 10 fleet work blocks a month, and the signed Will-Not-Do guarantee. $497/month locked for life for the first ten boxes (standard: $4,800 install + $997/month). Requires one GitHub Copilot seat bought directly by the customer (about $10–20/month); nothing else is metered. Not yet for sale: pricing and install dates are announced to the waitlist first, in sign-up order.",
-      "guarantee": "Ten hours a month handed back by day 90 or we work free until it does; if it still has not by day 180, the customer keeps the box and owes nothing further. Plus 30 days any-reason full refund.",
-      "scarcity": {
-        "total": 10,
-        "live_count": "https://rappter.com/founding.json"
-      },
+      "status": "prelaunch",
+      "state": "closed",
+      "what": "Not for sale yet. The first install cohort and its pricing are announced to the waitlist first, in sign-up order. Use the waitlist offer."
+    },
+    {
+      "id": "waitlist",
+      "what": "Priority in line for the RappterBox release: the list hears the price, the install dates and every new owner prompt first, in sign-up order. Free. The owner's prompt library is available now at https://rappter.com/prompts/ and a live box can be watched at https://rappter.com/try/.",
       "state": "open",
       "act": {
         "method": "POST",
@@ -39,33 +40,14 @@
           "name": "string, required",
           "email": "string, required",
           "business": "string, required — the business in a sentence",
-          "admin_hours": "string, required — under 5 | 5–10 | 10–20 | more than 20 (hours/week the owner spends on admin)",
-          "source": "string — set to 'waitlist' plus your agent name",
-          "how_today": "string, optional — how the owner does one admin job today, in their own words; we run it on a real box with synthetic data before any meeting"
-        },
-        "human_equivalent": "https://rappter.com/#claim"
-      },
-      "consent": "Only submit on behalf of a business owner who asked you to. A person replies within one business day; nothing is charged until an install date is agreed.",
-      "status": "prelaunch"
-    },
-    {
-      "id": "waitlist",
-      "what": "Priority in line for the RappterBox release: the list hears the price, the install dates and every new owner prompt first, in sign-up order. Free. The owner's prompt library is available now at https://rappter.com/prompts/.",
-      "state": "open",
-      "act": {
-        "method": "POST",
-        "url": "https://formspree.io/f/mgawgado",
-        "content_type": "application/json",
-        "fields": {
-          "name": "string, required",
-          "email": "string, required",
-          "source": "string, optional — set to your agent name",
-          "how_today": "string, optional — how the owner does one admin job today, in their own words; we run it on a real box with synthetic data before any meeting"
+          "admin_hours": "string, optional — under 5 | 5–10 | 10–20 | more than 20 (hours/week the owner spends on admin)",
+          "how_today": "string, optional — how the owner does one admin job today, in their own words; we run it on a real box with synthetic data before any meeting",
+          "source": "string — set to 'waitlist' plus your agent name"
         },
         "on_success": "{\"ok\": true}",
         "human_equivalent": "the form at https://rappter.com/#claim"
       },
-      "consent": "Only submit on behalf of a human who asked you to. This is a real business waitlist and every entry is read by a person.",
+      "consent": "Only submit on behalf of a business owner who asked you to. This joins a pre-launch waitlist: nothing is charged, no reply time is promised; the list is emailed when the price and install dates are set.",
       "status": "open"
     },
     {

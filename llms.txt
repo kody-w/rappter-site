@@ -2,7 +2,7 @@
 
 > RappterBox: local-first digital organisms for businesses, decision-time AI assurance for teams, and DOGG — the global tick network for orienting AIs.
 
-- The box (SMB) — the Founding Ten offer: $497/mo locked, install included, ten-hours-back-by-day-90 guarantee; live slot count at https://rappter.com/founding.json: https://rappter.com/
+- The box (SMB) — pre-launch; join the waitlist for priority in line: https://rappter.com/#claim · free owner prompts: https://rappter.com/prompts/ · watch a live box: https://rappter.com/try/
 - Hire the fleet — rapp-mesh, bounded agent work you can verify (offers ride a content-addressed chain you can replay): https://rappter.com/mesh/ · machine view: https://rappter.com/mesh/offers.json · chain: https://rappter.com/mesh/chain/offers.jsonl
 - AI assurance (the essay first): https://rappter.com/wrong-game then https://rappter.com/invite
 - DOGG, the global tick network: https://rappter.com/dogg (orient: https://kody-w.github.io/dogg/orient.json)

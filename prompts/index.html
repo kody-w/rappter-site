@@ -24,11 +24,11 @@ h1 mark{background:var(--amber);padding:0 .1em;-webkit-box-decoration-break:clon
 section{padding:clamp(44px,6vw,72px) 0}.tear{border-top:2px dashed var(--ink)}
 .how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
 .how div{border:2px solid var(--ink);background:var(--card);padding:18px 20px;font-size:16px}.how b{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}.grid>*{min-width:0}
 .card{border:2px solid var(--ink);background:var(--card);padding:22px 24px;box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column;gap:8px}
 .card h3{margin:0;font-size:26px;letter-spacing:-.025em;font-weight:800}.card p{margin:0;color:var(--body)}
-pre{background:var(--white);border:2px solid var(--ink);padding:14px;font:13px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap;margin:8px 0 0;max-height:190px;overflow:auto}
-.row{display:flex;align-items:center;gap:16px;margin-top:6px}
+pre{background:var(--white);border:2px solid var(--ink);padding:14px;font:13px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 0;max-height:190px;overflow:auto}
+.row{display:flex;align-items:center;gap:12px;margin-top:6px;flex-wrap:wrap}
 button{background:var(--amber);color:var(--ink);border:2px solid var(--ink);padding:12px 18px;font:inherit;font-size:15px;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 var(--ink)}
 button.done{background:var(--green);color:var(--card)}
 button.alt{background:var(--card)}
@@ -38,7 +38,7 @@ button.alt{background:var(--card)}
 .pitch h2{margin:0 0 10px;font-size:clamp(28px,3.4vw,42px);line-height:1.02;letter-spacing:-.035em;font-weight:800}
 .pitch .big{display:inline-block;background:var(--amber);color:var(--ink);text-decoration:none;font-weight:800;padding:18px 28px;border:2px solid var(--ink);font-size:18px;box-shadow:6px 6px 0 var(--ink)}
 footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
-@media(max-width:900px){.grid,.how,.pitch{grid-template-columns:1fr}nav .line{display:none}}
+@media(max-width:900px){.grid,.how,.pitch{grid-template-columns:minmax(0,1fr)}nav .line{display:none}}
 </style>
 </head>
 <body>
@@ -57,7 +57,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
 
 <section class="tear"><div class="w"><div class="grid">
 <div class="card">
-  <div class="kicker">01 <span class="tested" data-r="morning-brief"></span></div>
+  <div class="kicker">01 <span class="tested" data-r="morning-brief">receipt loading…</span></div>
   <h3>The 7am Brief</h3>
   <p>Turn your inbox and calendar into three decisions.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -70,7 +70,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="0">Copy the prompt</button><button class="alt" data-s="0">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/morning-brief.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">02 <span class="tested" data-r="chase-invoices"></span></div>
+  <div class="kicker">02 <span class="tested" data-r="chase-invoices">receipt loading…</span></div>
   <h3>The Invoice Chaser</h3>
   <p>Draft the three polite chasers that actually get paid.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -83,7 +83,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="1">Copy the prompt</button><button class="alt" data-s="1">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/chase-invoices.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">03 <span class="tested" data-r="compliance-calendar"></span></div>
+  <div class="kicker">03 <span class="tested" data-r="compliance-calendar">receipt loading…</span></div>
   <h3>The Deadline Ledger</h3>
   <p>Every license, renewal and filing on one page, with what it costs to miss.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -96,7 +96,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="2">Copy the prompt</button><button class="alt" data-s="2">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/compliance-calendar.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">04 <span class="tested" data-r="review-replies"></span></div>
+  <div class="kicker">04 <span class="tested" data-r="review-replies">receipt loading…</span></div>
   <h3>The Review Desk</h3>
   <p>Reply to every review in the owner&#x27;s voice, in one sitting.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -109,7 +109,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="3">Copy the prompt</button><button class="alt" data-s="3">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/review-replies.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">05 <span class="tested" data-r="sop-from-memo"></span></div>
+  <div class="kicker">05 <span class="tested" data-r="sop-from-memo">receipt loading…</span></div>
   <h3>The Playbook Writer</h3>
   <p>Turn a rambling voice memo into a one-page procedure a new hire can follow.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -122,7 +122,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="4">Copy the prompt</button><button class="alt" data-s="4">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/sop-from-memo.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">06 <span class="tested" data-r="hiring-ad"></span></div>
+  <div class="kicker">06 <span class="tested" data-r="hiring-ad">receipt loading…</span></div>
   <h3>The Job Post</h3>
   <p>A hiring ad that gets the right ten applicants, not the wrong hundred.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -135,7 +135,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="5">Copy the prompt</button><button class="alt" data-s="5">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/hiring-ad.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">07 <span class="tested" data-r="weekly-numbers"></span></div>
+  <div class="kicker">07 <span class="tested" data-r="weekly-numbers">receipt loading…</span></div>
   <h3>The Friday Numbers</h3>
   <p>Five numbers, in plain English, that tell the owner if the week was good.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -148,7 +148,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="6">Copy the prompt</button><button class="alt" data-s="6">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/weekly-numbers.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">08 <span class="tested" data-r="vendor-compare"></span></div>
+  <div class="kicker">08 <span class="tested" data-r="vendor-compare">receipt loading…</span></div>
   <h3>The Quote Reader</h3>
   <p>Compare three vendor quotes without being fooled by the cheapest line.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -161,7 +161,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="7">Copy the prompt</button><button class="alt" data-s="7">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/vendor-compare.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">09 <span class="tested" data-r="customer-followup"></span></div>
+  <div class="kicker">09 <span class="tested" data-r="customer-followup">receipt loading…</span></div>
   <h3>The Follow-Up Engine</h3>
   <p>Every finished job gets a follow-up that earns the next one.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -174,7 +174,7 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
   <div class="row"><button data-i="8">Copy the prompt</button><button class="alt" data-s="8">Copy for my own data</button><a class="fine" href="https://github.com/kody-w/rappter-prompts/blob/main/prompts/customer-followup.md">read the method</a></div>
 </div>
 <div class="card">
-  <div class="kicker">10 <span class="tested" data-r="meeting-to-tasks"></span></div>
+  <div class="kicker">10 <span class="tested" data-r="meeting-to-tasks">receipt loading…</span></div>
   <h3>The Meeting Cleaner</h3>
   <p>A meeting transcript into owners, tasks and dates — nothing else.</p>
   <pre>You are helping the owner of a small business. Do these in order:
@@ -207,6 +207,6 @@ document.querySelectorAll('button[data-i],button[data-s]').forEach(b=>b.addEvent
 }));
 (async()=>{try{const r=await fetch('https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/tested.json',{cache:'no-store'});const t=await r.json();
   const d=(t.tested_utc||'').slice(0,10);document.querySelectorAll('.tested').forEach(el=>{const x=t.routines[el.dataset.r];if(!x)return;
-  el.textContent=x.pass?`✓ tested on our box ${d} · receipt ${(x.frame_hash||'').slice(0,8)}`:`✕ failed on our box ${d} — being fixed`;if(!x.pass)el.classList.add('no');});}catch(e){}})();
+  el.textContent=x.pass?`✓ tested on our box ${d} · receipt ${(x.frame_hash||'').slice(0,8)}`:`✕ failed on our box ${d} — being fixed`;if(!x.pass)el.classList.add('no');});}catch(e){document.querySelectorAll('.tested').forEach(el=>el.textContent='receipt: see starter-pack/tested.json');}})();
 </script>
 </body></html>
