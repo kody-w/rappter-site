@@ -132,10 +132,11 @@ function spoken(text){
   const lines=String(text).split('\n').map(l=>l.trim().replace(/^[•\-*✓]\s*/,'')).filter(Boolean);
   // noise a person would never want read aloud: run stamps, separators, field labels, bare dates
   const noise=/^(today|run date|generated|as of|date)\b|synthetic data|^[—\-–_=·.\s]+$|^(amount|due|completed|term|status|customer [a-z])\s*:/i;
+  const draft=/^(hi|hey|hello|dear|thanks|thank you|good morning)\b|just checking in|wanted to (see|check)|following up|let me know if/i;
   const wordy=l=>(l.match(/[a-z]{3,}/gi)||[]).length>=4;               // a sentence, not a field
   const isFact=l=>l.length<=160&&wordy(l)&&/(\$[\d,]+|\b\d+\s*(days?|weeks?|months?|percent|%)\b|\bUNKNOWN\b|\bASK OWNER\b|\b(late|overdue|due|owes?|renew|expires?)\b)/i.test(l);
   const headers=/^(day\s*\d+|message\s*\d+|text|quote|vendor\s|customer\s[a-z]$|handled|quieted|needs you|recommendation|next step)/i;
-  const clean=lines.filter(l=>!noise.test(l)&&!headers.test(l));
+  const clean=lines.filter(l=>!noise.test(l)&&!headers.test(l)&&!draft.test(l));   // a drafted message is not a fact
   const facts=clean.filter(isFact).slice(0,3);
   if(facts.length)return {lead:'Here is what it found.',facts};
   return {lead:'Here is the short of it.',facts:clean.filter(wordy).slice(0,2)};
@@ -163,7 +164,11 @@ async function findBox(){
     let j=null;
     try{const a=await fetch(API_JSON,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(a.ok){const c=await a.json();j=JSON.parse(atob(c.content.replace(/\n/g,'')));}}catch(_){}
     if(!j){const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
-    base=j.url;const h=await fetch(base+'/try/health',{cache:'no-store'});awake=(await h.json()).status==='awake';
+    base=j.url;
+    for(let i=0;i<2&&!awake;i++){
+      try{const h=await fetch(base+'/try/health',{cache:'no-store'});awake=(await h.json()).status==='awake';}catch(_){}
+      if(!awake)await new Promise(r=>setTimeout(r,2500));      // a box that is restarting is not a box that is asleep
+    }
   }catch(e){awake=false;}
   const s=$('status');
   if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live</span>';}
@@ -182,8 +187,12 @@ function runOnBox(routine,onEvent){
     es.addEventListener('done',()=>{if(!done)finish(reject,new Error('the box finished without an answer'));});
   });
 }
+const LASTRUNS_API='https://api.github.com/repos/kody-w/rappter-prompts/contents/starter-pack/last-runs.json';
 async function lastRun(routine){
-  const r=await fetch(LASTRUNS+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();
+  let j=null;
+  try{const a=await fetch(LASTRUNS_API,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});
+    if(a.ok){const c=await a.json();j=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(c.content.replace(/\n/g,'')),ch=>ch.charCodeAt(0))));}}catch(_){}
+  if(!j){const r=await fetch(LASTRUNS+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
   const x=j.routines&&j.routines[routine];
   if(!x||x.pass===false)throw new Error('the box has no finished run of that job to read');
   return {text:x.output,spoken:x.spoken||null,frame:null,seconds:null,old:(j.tested_utc||'').slice(0,10)};
@@ -193,7 +202,7 @@ async function doJob(routine){
   $('out').hidden=true; $('sealwrap').hidden=true;
   const name=NAMES[routine];
   try{
-    await speak(awake?`Working on ${name}. Give me a moment.`:`The box is asleep, so I will read its last ${name}.`);
+    await speak(awake?`Working on ${name}. Give me a moment.`:`The box is asleep, so I will read what it last did for ${name}.`);
     let r;
     if(awake){
       let saidReading=false;
