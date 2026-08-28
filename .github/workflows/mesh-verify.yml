@@ -1,0 +1,13 @@
+name: mesh chain verifies
+on:
+  push:
+    paths: ["mesh/**"]
+  pull_request:
+    paths: ["mesh/**"]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: replay the chain and refuse drift
+        run: python3 mesh/tools/build.py --check

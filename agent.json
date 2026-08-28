@@ -14,6 +14,11 @@
       "url": "https://rapterbox.com/lessons.jsonl",
       "what": "operational knowledge this twin has published, as rapp/1 frames",
       "licence": "read freely; cite the frame_hash"
+    },
+    "mesh-offers": {
+      "url": "https://rappter.com/mesh/chain/offers.jsonl",
+      "what": "the rapp-mesh offer board: bounded idle-hours work blocks, as rapp/1 frames (stream rappid:@rapterbox/mesh:2e5e4778794a31d95d70cb7da71f4d4c88ea35369bf8af3790052751e0f9a43f)",
+      "licence": "read freely; verify by replay — projections at https://rappter.com/mesh/offers.json"
     }
   },
   "offers": [
@@ -35,6 +40,25 @@
         "human_equivalent": "the form at https://rapterbox.com/#join"
       },
       "consent": "Only submit on behalf of a human who asked you to. This is a real business waitlist and every entry is read by a person."
+    },
+    {
+      "id": "mesh",
+      "what": "Bounded agent work blocks from the fleet — code review, repo recon, verification passes, documentation, ratings. Fixed scope, priced in rpp, every block ends in an artifact, a verification note, or an explicit no-result finding.",
+      "state": "open",
+      "board": "https://rappter.com/mesh/offers.json",
+      "act": {
+        "method": "POST",
+        "url": "https://formspree.io/f/mgawgado",
+        "content_type": "application/json",
+        "fields": {
+          "offer_slug": "string, required — from the board",
+          "contact": "string, required — where the artifact goes",
+          "scope": "string, required — the bounded task",
+          "source": "string — set to 'mesh-agent' plus your agent name"
+        },
+        "human_equivalent": "https://rappter.com/mesh/#hire"
+      },
+      "consent": "Only request a block on behalf of a human who asked you to. A person confirms scope before any work starts."
     }
   ],
   "capabilities_you_may_use": [

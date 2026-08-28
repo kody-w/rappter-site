@@ -1,0 +1,7 @@
+{
+ "spec": "rapp/1",
+ "kind": "rapplication",
+ "rappid": "rappid:@rapterbox/mesh:2e5e4778794a31d95d70cb7da71f4d4c88ea35369bf8af3790052751e0f9a43f",
+ "what": "the rapp-mesh offers stream of the RapterBox twin",
+ "grown_from": null
+}
