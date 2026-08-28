@@ -357,7 +357,7 @@ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let rec=null,listening=false;
 function setTalk(state){
   const b=$('talk');b.classList.toggle('listening',state==='listening');
-  if(state==='listening'){$('talklabel').innerHTML='Listening<span class="dots"><span></span><span></span><span></span></span>';$('talksub').textContent='say a job, then stop talking';}
+  if(state==='listening'){$('talklabel').innerHTML='Listening<span class="dots"><span></span><span></span><span></span></span>';$('talksub').textContent='say a job, then let go — slide off to cancel';}
   else{$('talklabel').textContent=SR?'Hold and say a job':'Tap a job below';$('talksub').textContent=SR?'or tap once · or press the space bar':'this browser cannot listen, but it can still read to you';}
 }
 function listen(){
@@ -368,15 +368,54 @@ function listen(){
   rec.onresult=(e)=>{let interim='';for(const res of e.results){if(res.isFinal)final+=res[0].transcript;else interim+=res[0].transcript;}
     $('said').hidden=false;$('saidtext').textContent=(final||interim).trim();};
   rec.onerror=(e)=>{listening=false;failed=true;setTalk('idle');caption('The box',e.error==='not-allowed'?'I need permission to use the microphone — or just tap a job below.':'I could not hear that. Tap a job below if it is easier.');};
-  rec.onend=()=>{listening=false;setTalk('idle');const s=final.trim();if(s)heard(s);else if(!failed)caption('The box','I did not hear anything. Tap the button and try again, or tap a job.');};
+  rec.onend=()=>{listening=false;setTalk('idle');
+    if(cancelled){cancelled=false;$('said').hidden=true;caption('The box','Cancelled — nothing was sent.');return;}
+    const s=final.trim();if(s)heard(s);else if(!failed)caption('The box','I did not hear anything. Tap the button and try again, or tap a job.');};
   try{rec.start();}catch(e){listening=false;setTalk('idle');}
 }
-let held=false;
-$('talk').addEventListener('pointerdown',()=>{ if(!SR||busy||listening)return; held=true; listen(); });
-$('talk').addEventListener('pointerup',()=>{ if(held&&listening){held=false;setTimeout(()=>{try{rec.stop();}catch(e){}},250);} });
-$('talk').addEventListener('pointerleave',()=>{ if(held&&listening){held=false;try{rec.stop();}catch(e){}} });
-$('talk').addEventListener('click',()=>{ if(held){held=false;return;} if(listening){try{rec.stop();}catch(e){} return;} if(!SR){const j=document.querySelector('.job');if(j)j.focus();caption('The box','This browser cannot listen. Tap a job below and I will read the answer out loud.');return;} listen(); });
-document.addEventListener('keydown',e=>{ if(e.code==='Space'&&e.target===document.body){e.preventDefault();$('talk').click();} });
+// One gesture, one owner. The click that follows a real tap used to fall through to the toggle branch and
+// stop the microphone two milliseconds after the hold had opened it — so "tap once", which this button
+// promises in its own sub-label, could never work. A pointer gesture now owns the click it produces, a short
+// press latches listening open, a long press is a hold, and sliding off cancels instead of sending.
+let held=false, fromPointer=false, stopTimer=null, pressAt=0, cancelled=false;
+const TAP_MS=400;
+function clearStop(){ if(stopTimer){clearTimeout(stopTimer);stopTimer=null;} }   // a stale stop must never reach the NEXT recording
+function stopSoon(){ const r=rec; clearStop(); stopTimer=setTimeout(()=>{stopTimer=null;try{r.stop();}catch(e){}},250); }
+function startHold(){ clearStop(); cancelled=false; held=true; pressAt=Date.now(); listen(); }
+function endHold(){
+  if(!held||!listening)return;
+  held=false;
+  if(Date.now()-pressAt<TAP_MS){ $('talksub').textContent='tap again when you are done'; return; }   // a tap latches it open
+  stopSoon();
+}
+$('talk').addEventListener('pointerdown',()=>{
+  if(!SR||busy)return;
+  fromPointer=true;
+  if(listening){ clearStop(); held=false; try{rec.stop();}catch(e){} return; }   // the second tap of a tap-to-talk pair
+  startHold();
+});
+$('talk').addEventListener('pointerup',endHold);
+$('talk').addEventListener('pointercancel',()=>{ if(held&&listening){held=false;cancelled=true;try{rec.abort();}catch(e){try{rec.stop();}catch(_){}}} });
+$('talk').addEventListener('pointerleave',()=>{
+  if(!held||!listening)return;
+  held=false; cancelled=true;                       // sliding off is how a person takes it back — it must not send
+  $('talksub').textContent='cancelled';
+  try{rec.abort();}catch(e){try{rec.stop();}catch(_){}}
+});
+$('talk').addEventListener('click',()=>{
+  if(fromPointer){fromPointer=false;return;}         // the pointer already handled this gesture
+  if(listening){clearStop();try{rec.stop();}catch(e){}return;}
+  if(!SR){const j=document.querySelector('.job');if(j)j.focus();caption('The box','This browser cannot listen. Tap a job below and I will read the answer out loud.');return;}
+  listen();                                          // a keyboard or assistive click: no pointer, so this is the whole gesture
+});
+document.addEventListener('keydown',e=>{
+  if(e.code!=='Space'||e.target!==document.body)return;
+  e.preventDefault();
+  if(e.repeat)return;                                // holding space repeats; it must not thrash the microphone
+  if(!SR||busy||listening)return;
+  startHold();
+});
+document.addEventListener('keyup',e=>{ if(e.code==='Space'&&e.target===document.body){e.preventDefault();endHold();} });
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='job';b.type='button';b.textContent=name;b.disabled=true;b.onclick=()=>doJob(slug);$('jobs').appendChild(b);}
 $('talk').disabled=true;                    // nothing is pressable until we know whether the box is there
 setTalk('idle');

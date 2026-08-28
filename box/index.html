@@ -53,11 +53,17 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--amberdeep)
 .warn{border:2px solid var(--ink);background:var(--card);padding:12px 14px;font-size:14px;color:var(--body);box-shadow:5px 5px 0 var(--green)}
 footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
 /* app mode: the product face. No nav, no hero, no marketing — the box, its jobs, its receipts. */
+html.app nav,html.app .hero,html.app footer,html.app .lede,html.app .kicker,html.app h1,
 body.app nav,body.app .hero,body.app footer,body.app .lede,body.app .kicker,body.app h1{display:none}
+html.app section{padding:14px 0}
 body.app section{padding:14px 0}
+html.app .w{padding:0 14px}
 body.app .w{padding:0 14px}
+html.app .stage{grid-template-columns:1fr;gap:16px}
 body.app .stage{grid-template-columns:1fr;gap:16px}
+html.app .tear{border-top:0}
 body.app .tear{border-top:0}
+html.app .appbar{display:flex}
 body.app .appbar{display:flex}
 .appbar{display:none;align-items:center;gap:10px;padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--card);position:sticky;top:0;z-index:5}
 .appbar .wm{font-size:17px;font-weight:800;letter-spacing:-.03em;flex:none}
@@ -123,6 +129,8 @@ body.app .appbar{display:flex}
 <footer><div class="w">RapterBox LLC · the RappterBox product · <a href="https://github.com/kody-w/rapp-1">rapp/1</a>, the receipt and egg format, is open · <a href="https://github.com/kody-w/rappter-prompts">the prompts and sample data</a></div></footer>
 
 <script>
+/* app mode is decided before the first paint — a phone must never flash the brochure it is not here for */
+(function(){try{if(new URLSearchParams(location.search).get('app')||window.ReactNativeWebView){document.documentElement.className='app';document.title='rbox';}}catch(_){}})();
 // ---------- rapp/1 primitives — the same profile as the reference implementation (rapp-1/rapp.py) ----------
 const RE_RAPPID=/^rappid:@([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*):([0-9a-f]{64})$/;
 const RE_LCLABEL=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -234,12 +242,17 @@ async function findBox(){
     else $('who').textContent='Your box is awake, but GitHub sign-in is not set up on it yet.';
   }catch(e){ $('who').textContent='Cannot reach your box right now — it thinks when the box is awake.'; }
 }
+function nameTheBar(){    // the bar names the box that is actually here now, not the one that was
+  const w=document.getElementById('appwhere');
+  if(!w||!document.body.classList.contains('app'))return;
+  w.textContent=((identity&&identity.rappid||'').split('/')[1]||'this device').split(':')[0];
+}
 $('signin').addEventListener('click',async()=>{
   if(!boxBase){await findBox();if(!boxBase)return;}
   $('signin').disabled=true;
   try{
     const r=await fetch(boxBase+'/auth/start',{method:'POST',headers:{'content-type':'application/json'},body:'{}'});
-    const d=await r.json();
+    const d=await r.json().catch(()=>({error:'your box answered with something I could not read'}));
     if(!r.ok){$('who').textContent=(d.error||'sign-in is not available')+(d.how?' — '+d.how:'');$('signin').disabled=false;return;}
     $('devicecode').hidden=false;$('usercode').textContent=d.user_code||'';$('ghlink').href=d.verification_uri||'https://github.com/login/device';
     try{window.open(d.verification_uri,'_blank','noopener');}catch(_){}
@@ -254,7 +267,10 @@ $('signin').addEventListener('click',async()=>{
       try{localStorage.setItem('rapterbox.virtual.session',JSON.stringify({token:session,login:signedIn,expires:Date.now()+(fd.hours||12)*3600e3}));}catch(_){}
       $('devicecode').hidden=true;saySignedIn();break;
     }
-  }catch(e){$('devicestate').textContent='could not reach your box';}
+  }catch(e){                                  // said where the person is looking, not inside a panel that never opened
+    $('who').textContent='Could not reach your box just now — it may be asleep. Try again in a moment.';
+    $('devicecode').hidden=true;
+  }
   $('signin').disabled=false;
 });
 
@@ -357,9 +373,9 @@ window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search
     document.title='rbox';
     if(identity){const sh=(identity.rappid.split('/')[1]||'').split(':');$('rappid').textContent='rappid:@rapterbox/'+sh[0]+':'+(sh[1]||'').slice(0,12)+'…';}
     const sw=document.getElementById('swap'); if(sw)sw.addEventListener('click',()=>{location.href='/voice/?app=1';});
-    const w=document.getElementById('appwhere');
-    if(w)w.textContent=((identity&&identity.rappid||'').split('/')[1]||'this device').split(':')[0];   // the short name, not the whole id
+    nameTheBar();
   }
+  nameTheBar();                       // every boot — including the one after Forget this box — renames the bar
   if(q.get('model'))$('model').value=q.get('model');   /* a link may suggest a model; it may never choose where anything is sent */
   if(q.get('auto'))$('run').click();
 });
