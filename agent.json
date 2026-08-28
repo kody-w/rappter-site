@@ -40,8 +40,8 @@
           "email": "string, required",
           "business": "string, required — the business in a sentence",
           "admin_hours": "string, required — under 5 | 5–10 | 10–20 | more than 20 (hours/week the owner spends on admin)",
-          "note": "string, optional — what they want off their plate first",
-          "source": "string — set to 'waitlist' plus your agent name"
+          "source": "string — set to 'waitlist' plus your agent name",
+          "how_today": "string, optional — how the owner does one admin job today, in their own words; we run it on a real box with synthetic data before any meeting"
         },
         "human_equivalent": "https://rappter.com/#claim"
       },
@@ -59,8 +59,8 @@
         "fields": {
           "name": "string, required",
           "email": "string, required",
-          "note": "string, optional — what the business would want handled",
-          "source": "string, optional — set to your agent name"
+          "source": "string, optional — set to your agent name",
+          "how_today": "string, optional — how the owner does one admin job today, in their own words; we run it on a real box with synthetic data before any meeting"
         },
         "on_success": "{\"ok\": true}",
         "human_equivalent": "the form at https://rappter.com/#claim"
