@@ -78,8 +78,11 @@ const ENDPOINT_JSON='https://raw.githubusercontent.com/kody-w/rappter-prompts/ma
 const API_JSON='https://api.github.com/repos/kody-w/rappter-prompts/contents/starter-pack/try-endpoint.json';
 const LASTRUNS='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/last-runs.json';
 const NAMES={"morning-brief":"The 7am Brief","chase-invoices":"The Invoice Chaser","compliance-calendar":"The Deadline Ledger","review-replies":"The Review Desk","sop-from-memo":"The Playbook Writer","hiring-ad":"The Job Post","weekly-numbers":"The Friday Numbers","vendor-compare":"The Quote Reader","customer-followup":"The Follow-Up Engine","meeting-to-tasks":"The Meeting Cleaner"};
-// what a person actually says → the job they mean
-const WORDS={"chase-invoices":["invoice","invoices","chase","unpaid","owed","owes","owe me","money","collect","collected","paid","paying","pay me","late paying","behind on"],
+// What a person says → the job. The live definition is public and shared with the box's text channel
+// (rappter-prompts/starter-pack/heard.json); this copy is the offline fallback, refreshed on load.
+const HEARD_URL='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/heard.json';
+let MORE_WORDS=['rest','everything','all of it','more','full'];
+let WORDS={"chase-invoices":["invoice","invoices","chase","unpaid","owed","owes","owe me","money","collect","collected","paid","paying","pay me","late paying","behind on"],
  "morning-brief":["morning","brief","today","needs me","what needs","seven","7am","agenda","day"],
  "compliance-calendar":["deadline","deadlines","license","licence","renewal","renew","compliance","expire","expiring","filing"],
  "review-replies":["review","reviews","stars","rating","ratings","reply to my reviews","reputation"],
@@ -115,7 +118,7 @@ function speak(text,{caption:cap=true}={}){
 }
 function match(said){
   const s=' '+said.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ')+' ';
-  if(/\b(rest|everything|all of it|more|full)\b/.test(s)&&lastText)return 'REST';
+  if(MORE_WORDS.some(w=>s.includes(' '+w+' ')||s.includes(w))&&lastText)return 'REST';
   let best=null,score=0;
   for(const [slug,ws] of Object.entries(WORDS)){
     let n=0;for(const w of ws)if(s.includes(' '+w+' ')||s.includes(w))n+=w.includes(' ')?2:1;
@@ -256,6 +259,10 @@ document.addEventListener('keydown',e=>{ if(e.code==='Space'&&e.target===documen
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='job';b.type='button';b.textContent=name;b.onclick=()=>doJob(slug);$('jobs').appendChild(b);}
 setTalk('idle');
 window.__voice={hear:heard,doJob,match,needsYou,spoken,speak,state:()=>({awake,busy,base,lastText})};
+(async()=>{ try{                       // learn any new phrasing without shipping a new page
+  const r=await fetch(HEARD_URL+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();
+  if(j&&j.jobs&&Object.keys(j.jobs).length){WORDS=j.jobs;if(Array.isArray(j.more))MORE_WORDS=j.more;}
+}catch(e){} })();
 findBox();
 </script>
 </body></html>
