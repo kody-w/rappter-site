@@ -211,10 +211,10 @@ async function boot(){
   el.style.cursor='pointer';
   el.onclick=()=>{open=!open;el.textContent=open?full:(document.body.classList.contains('app')?brief:full);};$('lineage').textContent=id.grown_from?('minted here, once (§6.2) · grown from egg '+id.grown_from.slice(0,16)+'… (§9.4 lineage)'):'minted here, once (§6.2 keyless) — not grown from an egg';
   const all=await loadStreams();chain=all[own()]||[];hatched={};for(const k in all)if(k!==own())hatched[k]=all[k];renderChain();
-  try{const s=JSON.parse(localStorage.getItem('rapterbox.virtual.settings')||'{}');if(s.model)$('model').value=s.model;}catch(e){}
+  try{const s=JSON.parse(localStorage.getItem('rapterbox.virtual.settings.v2')||'{}');if(s.model)$('model').value=s.model;}catch(e){}
 }
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='pick';b.dataset.slug=slug;b.setAttribute('aria-pressed',String(slug===routine));b.textContent=name;b.onclick=()=>{routine=slug;document.querySelectorAll('.pick').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.slug===slug)));};$('picks').appendChild(b);}
-function saveSettings(){try{localStorage.setItem('rapterbox.virtual.settings',JSON.stringify({model:$('model').value}));}catch(e){}}
+function saveSettings(){try{localStorage.setItem('rapterbox.virtual.settings.v2',JSON.stringify({model:$('model').value}));}catch(e){}}
 $('model').addEventListener('change',saveSettings);
 // ---------- the owner's box, and proving who you are to it ----------
 const ENDPOINT_JSON='https://raw.githubusercontent.com/kody-w/rappter-prompts/main/starter-pack/try-endpoint.json';
@@ -347,7 +347,7 @@ async function hatchText(txt){
   renderChain();ev('egg','hatched '+frames.length+' verified frames from egg '+egg_hash.slice(0,16)+'… as read-only history · this box keeps its own identity');return egg_hash;
 }
 $('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{await hatchText(await f.text());}catch(err){ev('error',err.message);}e.target.value='';});
-$('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
+$('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings.v2');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
 // demo/test hooks: ?model= and ?auto=1 only. A link can never say where this box sends anything.
 window.__vbox={run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
 findBox();
