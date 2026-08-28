@@ -377,7 +377,7 @@ function listen(){
 // stop the microphone two milliseconds after the hold had opened it — so "tap once", which this button
 // promises in its own sub-label, could never work. A pointer gesture now owns the click it produces, a short
 // press latches listening open, a long press is a hold, and sliding off cancels instead of sending.
-let held=false, fromPointer=false, stopTimer=null, pressAt=0, cancelled=false;
+let held=false, lastPointer=0, stopTimer=null, pressAt=0, cancelled=false;
 const TAP_MS=400;
 function clearStop(){ if(stopTimer){clearTimeout(stopTimer);stopTimer=null;} }   // a stale stop must never reach the NEXT recording
 function stopSoon(){ const r=rec; clearStop(); stopTimer=setTimeout(()=>{stopTimer=null;try{r.stop();}catch(e){}},250); }
@@ -385,12 +385,13 @@ function startHold(){ clearStop(); cancelled=false; held=true; pressAt=Date.now(
 function endHold(){
   if(!held||!listening)return;
   held=false;
-  if(Date.now()-pressAt<TAP_MS){ $('talksub').textContent='tap again when you are done'; return; }   // a tap latches it open
+  if(Date.now()-pressAt<TAP_MS){ $('talksub').textContent='tap (or press space) again when you are done'; return; }   // a tap latches it open
   stopSoon();
 }
 $('talk').addEventListener('pointerdown',()=>{
   if(!SR||busy)return;
-  fromPointer=true;
+  lastPointer=Date.now();      // a moment, not a flag: a gesture that ends without a click cannot leave it stuck on
+
   if(listening){ clearStop(); held=false; try{rec.stop();}catch(e){} return; }   // the second tap of a tap-to-talk pair
   startHold();
 });
@@ -403,7 +404,7 @@ $('talk').addEventListener('pointerleave',()=>{
   try{rec.abort();}catch(e){try{rec.stop();}catch(_){}}
 });
 $('talk').addEventListener('click',()=>{
-  if(fromPointer){fromPointer=false;return;}         // the pointer already handled this gesture
+  if(Date.now()-lastPointer<700)return;              // the pointer already handled this gesture
   if(listening){clearStop();try{rec.stop();}catch(e){}return;}
   if(!SR){const j=document.querySelector('.job');if(j)j.focus();caption('The box','This browser cannot listen. Tap a job below and I will read the answer out loud.');return;}
   listen();                                          // a keyboard or assistive click: no pointer, so this is the whole gesture
