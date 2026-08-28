@@ -204,6 +204,11 @@ function reset(){$('events').innerHTML='';$('out').style.display='none';$('out')
 function renderChain(){const c=$('chain');c.innerHTML='';if(!chain.length)c.innerHTML='<div>empty — run a job</div>';for(const f of chain.slice().reverse()){const d=document.createElement('div');d.textContent=`#${f.seq} ${f.utc} ${f.payload.routine||f.kind} · ${f.frame_hash.slice(0,16)}… ← ${(f.prev||'genesis').slice(0,12)}`;c.appendChild(d);}
   $('chainmeta').textContent=chain.length?`${chain.length} receipt frame${chain.length>1?'s':''} on this device · head ${chain[chain.length-1].frame_hash.slice(0,16)}…`:'no receipts yet';
   const h=$('hatched');h.innerHTML='';const ks=Object.keys(hatched);if(!ks.length)h.innerHTML='<div>none — hatch an .egg to bring another box\'s receipts here</div>';for(const k of ks){const fr=hatched[k];const d=document.createElement('div');d.textContent=`${k.slice(0,48)}… · ${fr.length} frames · head ${fr[fr.length-1].frame_hash.slice(0,12)}…`;h.appendChild(d);}}
+function nameTheBar(){    // the bar names the box that is actually here now, not the one that was
+  const w=document.getElementById('appwhere');
+  if(!w||!document.body.classList.contains('app'))return;
+  w.textContent=((identity&&identity.rappid||'').split('/')[1]||'this device').split(':')[0];
+}
 async function boot(){
   let id=null;try{id=JSON.parse(localStorage.getItem('rapterbox.virtual.identity')||'null');}catch(e){}
   if(!id||!isRappid(id.rappid)){
@@ -218,6 +223,7 @@ async function boot(){
   el.textContent=document.body.classList.contains('app')?brief:full;
   el.style.cursor='pointer';
   el.onclick=()=>{open=!open;el.textContent=open?full:(document.body.classList.contains('app')?brief:full);};$('lineage').textContent=id.grown_from?('minted here, once (§6.2) · grown from egg '+id.grown_from.slice(0,16)+'… (§9.4 lineage)'):'minted here, once (§6.2 keyless) — not grown from an egg';
+  nameTheBar();               // the bar names the box that is here NOW — a wipe re-boots, so a wipe renames it
   const all=await loadStreams();chain=all[own()]||[];hatched={};for(const k in all)if(k!==own())hatched[k]=all[k];renderChain();
   try{const s=JSON.parse(localStorage.getItem('rapterbox.virtual.settings.v2')||'{}');if(s.model)$('model').value=s.model;}catch(e){}
 }
@@ -241,11 +247,6 @@ async function findBox(){
     else if(h.github_signin)$('who').textContent='Your box is awake. Sign in with GitHub so it will think for this device.';
     else $('who').textContent='Your box is awake, but GitHub sign-in is not set up on it yet.';
   }catch(e){ $('who').textContent='Cannot reach your box right now — it thinks when the box is awake.'; }
-}
-function nameTheBar(){    // the bar names the box that is actually here now, not the one that was
-  const w=document.getElementById('appwhere');
-  if(!w||!document.body.classList.contains('app'))return;
-  w.textContent=((identity&&identity.rappid||'').split('/')[1]||'this device').split(':')[0];
 }
 $('signin').addEventListener('click',async()=>{
   if(!boxBase){await findBox();if(!boxBase)return;}
@@ -375,7 +376,6 @@ window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search
     const sw=document.getElementById('swap'); if(sw)sw.addEventListener('click',()=>{location.href='/voice/?app=1';});
     nameTheBar();
   }
-  nameTheBar();                       // every boot — including the one after Forget this box — renames the bar
   if(q.get('model'))$('model').value=q.get('model');   /* a link may suggest a model; it may never choose where anything is sent */
   if(q.get('auto'))$('run').click();
 });
