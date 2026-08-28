@@ -220,6 +220,11 @@ function needsYou(text){
 }
 
 // ---------- the run, on the box ----------
+let checkedAt=0;
+async function freshEnough(){                      // a box that came back (or moved tunnels) must not stay "asleep"
+  if(Date.now()-checkedAt<60000)return;
+  await findBox();
+}
 async function findBox(){
   try{
     let j=null;
@@ -234,6 +239,7 @@ async function findBox(){
   const s=$('status');
   if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live</span>';}
   else{s.className='status asleep';s.innerHTML='<b>Asleep</b> <span>it will read its last real run instead</span>';}
+  checkedAt=Date.now();
   $('talk').disabled=false; document.querySelectorAll('.job').forEach(b=>b.disabled=false);
 }
 function runOnBox(routine,onEvent){
@@ -263,7 +269,8 @@ async function doJob(routine){
   if(busy)return; busy=true; $('talk').disabled=true;
   $('out').hidden=true; $('sealwrap').hidden=true;
   const name=NAMES[routine];
-  const live=awake;                       // decided once: what it says and what it does must be the same run
+  await freshEnough();                    // ask the box how it is before telling the person how it is
+  const live=awake;                       // then decided once: what it says and what it does must be the same run
   try{
     await speak(live?`Working on ${name}. Give me a moment.`:`The box is asleep, so I will read what it last did for ${name}.`);
     let r;
@@ -288,8 +295,10 @@ async function doJob(routine){
     turn(NAMES[routine], saidAloud);
     await speak(saidAloud);
   }catch(e){
-    caption('The box',e.message||String(e));
-    await speak(`Sorry — ${e.message||'that did not work'}.`,{caption:false});
+    const why=e.message||String(e);
+    caption('The box',why);
+    turn(NAMES[routine]||routine, 'Could not do it: '+why);
+    await speak(`Sorry — ${why}.`,{caption:false});
   }finally{ busy=false; $('talk').disabled=false; }
 }
 async function heard(said){
