@@ -7,3 +7,4 @@
 - AI assurance (the essay first): https://rappter.com/wrong-game then https://rappter.com/invite
 - DOGG, the global tick network: https://rappter.com/dogg (orient: https://kody-w.github.io/dogg/orient.json)
 - Agent view of this business: https://rappter.com/agent.json
+- Virtual box (runs in the browser, bring your own key, rapp/1 receipts kept on-device, .egg export/import): https://rappter.com/box/
