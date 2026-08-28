@@ -40,11 +40,24 @@ pre.out{white-space:pre-wrap;background:var(--card);border:3px solid var(--ink);
 .seal.bad{border-color:var(--red);color:var(--red)}
 .fine{color:var(--mute);font-size:15px}
 footer{padding:24px 0 56px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
+/* app mode — the hands-free FACE of the box (the "out there" switch), not a page about us */
+body.app nav,body.app footer,body.app .kicker,body.app h1,body.app .lede{display:none}
+body.app section{padding:12px 0}body.app .w{padding:0 14px}body.app .tear{border-top:0}
+body.app .appbar{display:flex}
+.appbar{display:none;align-items:center;gap:10px;padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--card);position:sticky;top:0;z-index:5}
+.appbar .wm{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.appbar .swap{margin-left:auto;border:2px solid var(--ink);background:var(--paper);padding:7px 11px;font:700 12px ui-monospace,Menlo,monospace;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+body.app #talk{min-height:210px;border-radius:50%;max-width:260px;margin:8px auto 0;box-shadow:7px 7px 0 var(--ink)}
+.turns{margin-top:16px;border-top:2px dashed var(--ink);padding-top:12px}
+.turn{border-left:4px solid var(--rule);padding:4px 0 4px 12px;margin-bottom:10px}
+.turn b{font:700 11px ui-monospace,Menlo,monospace;letter-spacing:.1em;color:var(--amberdeep);display:block}
+.turn .you{font-weight:700}.turn .box{color:var(--body)}
 @media(prefers-reduced-motion:reduce){.dots span{animation:none;opacity:.7}}
 @media(max-width:640px){#talk{font-size:25px;min-height:170px}}
 </style>
 </head>
 <body>
+<header class="appbar"><span class="wm">rbox</span><span class="fine">hands-free</span><button class="swap" id="swap" type="button">Professional view</button></header>
 <nav><div class="w"><a class="wm" href="/">RappterBox</a><a class="cta" href="/#claim">Join the waitlist</a></div></nav>
 
 <section><div class="w">
@@ -69,6 +82,8 @@ footer{padding:24px 0 56px;border-top:2px solid var(--ink);font-family:ui-monosp
 
   <h2 style="margin-top:34px;font-size:23px">Or tap a job — no microphone needed</h2>
   <div class="jobs" id="jobs"></div>
+  <div class="turns" id="turns" hidden><h2 style="font-size:19px;margin:0 0 10px">This conversation</h2><div id="turnlist"></div>
+    <p class="fine">Each exchange is a step in your browser's history — the Back button rewinds the conversation.</p></div>
 </div></section>
 
 <footer><div class="w">RapterBox LLC · the RappterBox product · the box does the work; it never sends, signs, pays or deletes · <a href="/try/">watch it in writing</a> · <a href="/box/">a box in your browser</a></div></footer>
@@ -108,6 +123,17 @@ async function verifyFrame(f){const ph=await H('rapp/1:particle',f.payload);cons
 
 // ---------- saying and hearing ----------
 function caption(who,text){$('who').textContent=who;$('captiontext').textContent=text;}
+let turnN=0;
+function turn(said,answered){
+  turnN++;
+  const d=document.createElement('div');d.className='turn';d.id='turn-'+turnN;
+  d.innerHTML='<b>TURN '+turnN+'</b><div class="you"></div><div class="box"></div>';
+  d.querySelector('.you').textContent='You: '+said;
+  d.querySelector('.box').textContent=answered;
+  $('turnlist').prepend(d);$('turns').hidden=false;
+  try{history.pushState({turn:turnN},'','#turn-'+turnN);}catch(e){}   // Back rewinds the conversation
+}
+window.addEventListener('popstate',()=>{const t=document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView({block:'center'});});
 // Chrome stops an utterance at roughly fifteen seconds unless pause/resume is pumped, and a lost `end`
 // event would hang the page forever. So: speak in sentence-sized pieces, pump while speaking, and never
 // await anything that has no deadline.
@@ -255,8 +281,11 @@ async function doJob(routine){
       verdict=ok?' This browser checked the receipt and it matches.':' Careful — the receipt did not check out, so do not trust this run.';
     }
     // the box writes its own spoken line (the voice sense); this page only falls back if it did not
-    if(r.spoken){ await speak(r.spoken+verdict); }
-    else { const sp=spoken(r.text); await speak(`${sp.lead} ` + sp.facts.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say read the rest to hear everything else.' + verdict); }
+    let saidAloud;
+    if(r.spoken){ saidAloud=r.spoken+verdict; }
+    else { const sp=spoken(r.text); saidAloud=`${sp.lead} ` + sp.facts.map((l,i)=>`${i+1}. ${l}.`).join(' ') + ' Say read the rest to hear everything else.' + verdict; }
+    turn(NAMES[routine], saidAloud);
+    await speak(saidAloud);
   }catch(e){
     caption('The box',e.message||String(e));
     await speak(`Sorry — ${e.message||'that did not work'}.`,{caption:false});
@@ -289,7 +318,11 @@ function listen(){
   rec.onend=()=>{listening=false;setTalk('idle');const s=final.trim();if(s)heard(s);else if(!failed)caption('The box','I did not hear anything. Tap the button and try again, or tap a job.');};
   try{rec.start();}catch(e){listening=false;setTalk('idle');}
 }
-$('talk').addEventListener('click',()=>{ if(listening){try{rec.stop();}catch(e){} return;} if(!SR){document.querySelector('.job').focus();caption('The box','This browser cannot listen. Tap a job below and I will read the answer out loud.');return;} listen(); });
+let held=false;
+$('talk').addEventListener('pointerdown',()=>{ if(!SR||busy||listening)return; held=true; listen(); });
+$('talk').addEventListener('pointerup',()=>{ if(held&&listening){held=false;setTimeout(()=>{try{rec.stop();}catch(e){}},250);} });
+$('talk').addEventListener('pointerleave',()=>{ if(held&&listening){held=false;try{rec.stop();}catch(e){}} });
+$('talk').addEventListener('click',()=>{ if(held){held=false;return;} if(listening){try{rec.stop();}catch(e){} return;} if(!SR){const j=document.querySelector('.job');if(j)j.focus();caption('The box','This browser cannot listen. Tap a job below and I will read the answer out loud.');return;} listen(); });
 document.addEventListener('keydown',e=>{ if(e.code==='Space'&&e.target===document.body){e.preventDefault();$('talk').click();} });
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='job';b.type='button';b.textContent=name;b.disabled=true;b.onclick=()=>doJob(slug);$('jobs').appendChild(b);}
 $('talk').disabled=true;                    // nothing is pressable until we know whether the box is there
@@ -299,6 +332,11 @@ window.__voice={hear:heard,doJob,match,needsYou,spoken,speak,state:()=>({awake,b
   const r=await fetch(HEARD_URL+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();
   if(j&&j.jobs&&Object.keys(j.jobs).length){WORDS=j.jobs;if(Array.isArray(j.more))MORE_WORDS=j.more;}
 }catch(e){} })();
+(function(){
+  const q=new URLSearchParams(location.search);
+  if(q.get('app')||window.ReactNativeWebView){document.body.classList.add('app');document.title='rbox · hands-free';}
+  $('swap').addEventListener('click',()=>{location.href='/box/'+(document.body.classList.contains('app')?'?app=1':'');});
+})();
 findBox();
 </script>
 </body></html>
