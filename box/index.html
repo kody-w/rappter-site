@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your box, in this browser — RappterBox</title>
-<meta name="description" content="A virtual RappterBox that runs in your browser: it reads public sample data, thinks with a key you bring, writes rapp/1 receipts into a chain kept on this device, and packs the chain into a .egg you can back up or carry to a real box.">
+<title>rbox mobile — RappterBox in your browser</title>
+<meta name="description" content="rbox mobile: a RappterBox that runs in your browser — it reads public sample data, thinks with a key you bring, writes rapp/1 receipts into a chain kept on this device, and packs the chain into a .egg you can back up or carry to a real box.">
 <link rel="canonical" href="https://rappter.com/box/">
 <meta name="theme-color" content="#f3eee4">
 <style>
@@ -26,32 +26,33 @@ section{padding:clamp(40px,5vw,64px) 0}.tear{border-top:2px dashed var(--ink)}
 .card .k{font-family:ui-monospace,Menlo,monospace;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amberdeep);margin-bottom:8px}
 .id{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;overflow-wrap:anywhere;color:var(--body)}
 label{display:block;font:700 12px ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em;margin:12px 0 5px}
+label.chk{display:flex;gap:8px;align-items:center;font-family:inherit;font-size:14px;font-weight:400;text-transform:none;letter-spacing:0;margin:0}
 input,select{width:100%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:0;padding:10px 12px;font:inherit;font-size:15px}
+input[type=checkbox]{width:auto}
 input:focus,select:focus,button:focus-visible{outline:3px solid var(--amberdeep);outline-offset:2px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
 .btn{background:var(--card);color:var(--ink);border:2px solid var(--ink);padding:10px 14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
-.btn.primary{background:var(--amber)}.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn:disabled{opacity:.55;cursor:not-allowed}
 .picks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
 .pick{border:2px solid var(--ink);background:var(--card);padding:11px 12px;font:inherit;font-size:14px;font-weight:700;text-align:left;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
 .pick[aria-pressed="true"]{background:var(--amber)}
 .run{width:100%;background:var(--amber);color:var(--ink);border:2px solid var(--ink);padding:16px;font:inherit;font-size:18px;font-weight:800;cursor:pointer;box-shadow:6px 6px 0 var(--ink)}
 .run:disabled{opacity:.55;cursor:wait}
-.paper{background:var(--white);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:26px 28px;font:14px/1.7 ui-monospace,Menlo,monospace;min-height:520px;position:relative}
+.paper{background:var(--white);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:22px 28px 26px;font:14px/1.7 ui-monospace,Menlo,monospace;min-height:520px}
 .paper .h{text-align:center;font-weight:800;letter-spacing:.15em;text-transform:uppercase;font-size:15px}
 .paper .sub{text-align:center;color:var(--mute);font-size:12.5px;margin-bottom:14px}
 .ev{display:grid;grid-template-columns:auto auto 1fr;gap:12px;border-bottom:1px dotted var(--rule);padding:6px 0}
 .ev .t{color:var(--mute);white-space:nowrap}.ev .k{font-weight:800;white-space:nowrap}.ev .d{color:var(--body);overflow-wrap:anywhere}
 .ev.error .k{color:var(--red)}.ev.egg .k{color:var(--amberdeep)}
 .out{white-space:pre-wrap;background:var(--card);border:2px solid var(--ink);padding:14px 16px;margin-top:14px;font-size:13.5px;overflow-wrap:anywhere}
-.seal{position:absolute;top:18px;right:22px;border:3px solid var(--green);color:var(--green);padding:4px 12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;transform:rotate(8deg);font-size:14px;display:none}
-.seal.bad{border-color:var(--red);color:var(--red)}
+.seal{display:none;width:max-content;margin:0 auto 10px;border:3px solid var(--green);color:var(--green);padding:4px 12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;transform:rotate(-3deg);font-size:14px}
+.seal.show{display:block}.seal.bad{border-color:var(--red);color:var(--red)}
 .verify{margin-top:14px;font-size:12.5px;color:var(--mute);overflow-wrap:anywhere}.verify b{color:var(--green)}.verify b.bad{color:var(--red)}
 .chain{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--body);max-height:220px;overflow:auto;border:2px solid var(--ink);background:#fff;padding:8px 10px}
 .chain div{border-bottom:1px dotted var(--rule);padding:3px 0;overflow-wrap:anywhere}
 .warn{border:2px solid var(--ink);background:var(--card);padding:12px 14px;font-size:14px;color:var(--body);box-shadow:5px 5px 0 var(--green)}
 footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
 @media(max-width:900px){.stage{grid-template-columns:1fr}.picks{grid-template-columns:1fr}nav .line{display:none}.paper{padding:18px 16px}
-  .seal{position:static;display:none;width:max-content;margin:0 auto 10px;transform:rotate(-3deg)}.seal.show{display:block}
   .ev{grid-template-columns:auto 1fr}.ev .t{grid-column:1/-1;font-size:11px}}
 </style>
 </head>
@@ -59,9 +60,9 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
 <nav><div class="w"><a class="wm" href="/">RappterBox</a><span class="line">Rapter see, rapter do.</span><a class="cta" href="/#claim">Join the waitlist</a></div></nav>
 
 <section><div class="w">
-  <div class="kicker">VIRTUAL RBOX · MK0 · RUNS IN THIS BROWSER</div>
-  <h1 style="margin-top:10px">This tab is <mark>your box</mark>. It thinks with a key you bring and keeps every receipt on this device.</h1>
-  <p class="lede">Same routines as the office box, same receipts, same verifier — nothing leaves this browser except the request to the model you choose. When you want it somewhere else, pack the chain into an <b>.egg</b> and carry it: to a phone, a laptop, or a real box in your office. Everything here is the sample business; nothing of yours is read.</p>
+  <div class="kicker">RBOX MOBILE · MK0 · RUNS IN THIS BROWSER</div>
+  <h1 style="margin-top:10px"><mark>rbox mobile.</mark> This tab is your box: it thinks with a key you bring and keeps every receipt on this device.</h1>
+  <p class="lede">Same routines as the office box, same receipts, same checks. Nothing leaves this browser except two public reads from GitHub (the method page and the sample data, pinned to a commit) and the request to the model you choose — your key is sent only there and never to us. When you want the box somewhere else, pack its chain into an <b>.egg</b> and hatch it on a phone, a laptop, or a real box in your office. Everything here is the sample business; nothing of yours is read.</p>
 </div></section>
 
 <section class="tear"><div class="w stage">
@@ -69,46 +70,59 @@ footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monosp
     <div class="card"><div class="k">This box</div>
       <div class="id" id="rappid">minting…</div>
       <div class="fine" id="lineage" style="margin-top:6px"></div>
-      <div class="row"><button class="btn" id="export">Export .egg (backup)</button><label for="import" class="btn" style="margin:0">Import .egg<input id="import" type="file" accept=".egg,.json,application/json" style="display:none"></label><button class="btn" id="wipe">Forget this box</button></div>
+      <div class="row"><button class="btn" id="export">Export .egg (backup)</button><label for="import" class="btn" style="margin:0">Hatch an .egg here<input id="import" type="file" accept=".egg,.json,application/json" style="display:none"></label><button class="btn" id="wipe">Forget this box</button></div>
       <div class="fine" id="chainmeta" style="margin-top:8px"></div>
     </div>
     <div class="card"><div class="k">Think with</div>
       <label for="prov">Model provider</label>
       <select id="prov"><option value="openai">OpenAI-compatible (OpenAI, Azure, local server)</option><option value="anthropic">Anthropic</option></select>
-      <label for="endpoint">Endpoint (OpenAI-compatible only)</label><input id="endpoint" value="https://api.openai.com/v1/chat/completions" spellcheck="false">
+      <label for="endpoint">Endpoint — where your key is sent</label><input id="endpoint" value="https://api.openai.com/v1/chat/completions" spellcheck="false">
       <label for="model">Model</label><input id="model" value="gpt-4o-mini" spellcheck="false">
       <label for="key">API key — stays in this browser</label><input id="key" type="password" autocomplete="off" placeholder="paste your key">
-      <div class="row"><label style="margin:0;font:14px inherit;text-transform:none;letter-spacing:0;display:flex;gap:8px;align-items:center"><input type="checkbox" id="remember" style="width:auto"> remember key on this device</label></div>
-      <p class="fine" style="margin:10px 0 0">The key is sent only to the endpoint above, from your browser. We never see it. Anthropic keys need "direct browser access" enabled on their side; if the endpoint refuses browser requests, run a local proxy or use the office box at <a href="/try/">/try</a>.</p>
+      <div class="row"><label class="chk" for="remember"><input type="checkbox" id="remember"> remember key on this device</label></div>
+      <p class="fine" style="margin:10px 0 0">The key goes only to the endpoint above, straight from your browser; we never see it. This page sends Anthropic's direct-browser-access header, so Anthropic keys work from here. A local server on 127.0.0.1 needs no key. If an endpoint refuses browser requests, run a local proxy or watch the office box at <a href="/try/">/try</a>.</p>
     </div>
     <div class="card"><div class="k">Pick a job</div>
       <div class="picks" id="picks" role="group" aria-label="job"></div>
       <button class="run" id="run">Run it in this box</button>
     </div>
-    <div class="warn">This box drafts. It never sends, signs, pays or deletes — there is no code here that could. Every run writes one receipt frame to a chain kept in this browser (IndexedDB); the frame's hashes are checked the moment it is written.</div>
+    <div class="warn">This box drafts. It never sends, signs, pays or deletes anything of yours — the only thing it can erase is its own chain, and only when you press Forget. Every run writes one receipt frame to a chain kept in this browser (IndexedDB), checked against the rapp/1 rules the moment it is written.</div>
   </div>
   <div>
     <div class="paper" id="paper">
       <div class="seal" id="seal" role="status">Verified</div>
-      <div class="h">RappterBox · virtual</div>
+      <div class="h">RappterBox · rbox mobile</div>
       <div class="sub" id="sub">receipt · this browser · waiting for you</div>
       <div id="events" aria-live="polite"></div>
       <div class="out" id="out" style="display:none"></div>
       <div class="verify" id="verify" aria-live="polite"></div>
     </div>
-    <h2 style="margin-top:22px">The chain on this device</h2>
+    <h2 style="margin-top:22px">This box's chain</h2>
     <div class="chain" id="chain"><div>empty — run a job</div></div>
+    <h2 style="margin-top:18px">Chains hatched here (read-only history)</h2>
+    <div class="chain" id="hatched"><div>none — hatch an .egg to bring another box's receipts here</div></div>
   </div>
 </div></section>
 
 <footer><div class="w">RapterBox LLC · the RappterBox product · <a href="https://github.com/kody-w/rapp-1">rapp/1</a>, the receipt and egg format, is open · <a href="https://github.com/kody-w/rappter-prompts">the prompts and sample data</a></div></footer>
 
 <script>
-// ---------- rapp/1 primitives (same profile as the reference: integers only, sorted keys, H = sha256(space+"\n"+canonical)) ----------
+// ---------- rapp/1 primitives — the same profile as the reference implementation (rapp-1/rapp.py) ----------
+const RE_RAPPID=/^rappid:@([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*):([0-9a-f]{64})$/;
+const RE_LCLABEL=/^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const RE_KIND=/^[a-z0-9]+(?:-[a-z0-9]+)*\.[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const RE_UTC=/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+const RE_HEX64=/^[0-9a-f]{64}$/;
+function isRappid(s){const m=RE_RAPPID.exec(s||'');return !!m&&m[1].length<=39&&m[2].length<=100;}
+// §6.1.1: memory-stream = rappid ":" instance | body-stream = rappid | swarm-stream = "net:" lclabel
+function isStream(s){if(typeof s!=='string')return false;if(s.startsWith('net:')){const l=s.slice(4);return RE_LCLABEL.test(l)&&l.length<=64;}
+  const parts=s.split(':');if(parts.length!==3&&parts.length!==4)return false;if(!isRappid(parts.slice(0,3).join(':')))return false;
+  return parts.length===3||(RE_LCLABEL.test(parts[3])&&parts[3].length<=64);}
+function isUtc(s){return RE_UTC.test(s||'')&&new Date(s).toISOString()===s;}
 function canonical(v){
   if(v===null||typeof v==='boolean')return JSON.stringify(v);
   if(typeof v==='number'){if(!Number.isInteger(v)||Math.abs(v)>Number.MAX_SAFE_INTEGER)throw new Error('non-integer or unsafe number');return String(v);}
-  if(typeof v==='string')return JSON.stringify(v);
+  if(typeof v==='string'){const wf=(typeof v.isWellFormed==='function')?v.isWellFormed():!/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(^|[^\uD800-\uDBFF])[\uDC00-\uDFFF]/.test(v);if(!wf)throw new Error('unpaired surrogate in string');return JSON.stringify(v);}
   if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';
   if(typeof v==='object'){const ks=Object.keys(v).sort((a,b)=>a<b?-1:a>b?1:0);return '{'+ks.map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';}
   throw new Error('non-JSON value');}
@@ -116,43 +130,72 @@ const enc=new TextEncoder();
 async function sha256hex(bytes){const d=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('');}
 async function H(space,v){return sha256hex(enc.encode(space+"\n"+canonical(v)));}
 async function Hb(space,bytes){const s=enc.encode(space+"\n");const b=new Uint8Array(s.length+bytes.length);b.set(s);b.set(bytes,s.length);return sha256hex(b);}
-function utc(){const n=new Date();return n.toISOString().replace(/\.(\d{3})Z$/,'.$1Z');}
-async function verifyFrame(f,prev){const ph=await H('rapp/1:particle',f.payload);const pre={};for(const k of Object.keys(f))if(k!=='frame_hash'&&k!=='sig')pre[k]=f[k];const fh=await H('rapp/1:wave',pre);
-  const link=prev?(f.prev===prev.payload_hash&&f.seq===prev.seq+1):(f.prev===null&&f.seq===0);return {ok:ph===f.payload_hash&&fh===f.frame_hash&&link,ph,fh,link};}
+function utc(){return new Date().toISOString();}
+const FRAME_KEYS='frame_hash,kind,payload,payload_hash,prev,prev_wave,seq,sig,spec,stream_id,utc';
+// §7.5 verify_frame, all five steps, mirrored from rapp.py: shape (1, 1a) → particle (2) → wave (3) → link (4) → prev_wave (5)
+async function verifyFrame(f,prev,streamOfRecord){
+  try{
+    if(!f||typeof f!=='object'||Array.isArray(f))return {ok:false,why:'1 not an object'};
+    if(Object.keys(f).sort().join(',')!==FRAME_KEYS)return {ok:false,why:'1 key set != 11'};
+    if(f.spec!=='rapp/1')return {ok:false,why:'1 spec != rapp/1'};
+    if(typeof f.kind!=='string'||!RE_KIND.test(f.kind)||f.kind.split('.').some(x=>x.length>64))return {ok:false,why:'1 kind grammar'};
+    if(typeof f.stream_id!=='string'||!f.stream_id)return {ok:false,why:'1 stream_id type'};   // reference parity: rapp.py checks type only (the §6.1.1 grammar is a pending canon call — the office box writes biz:@… streams)
+    if(streamOfRecord&&f.stream_id!==streamOfRecord)return {ok:false,why:'1a stream_id mismatch (cross-stream replay)'};
+    if(!Number.isInteger(f.seq)||f.seq<0||f.seq>Number.MAX_SAFE_INTEGER)return {ok:false,why:'1 seq not uint53'};
+    if(!isUtc(f.utc))return {ok:false,why:'1 utc not fixed form'};
+    if(!f.payload||typeof f.payload!=='object'||Array.isArray(f.payload))return {ok:false,why:'1 payload not object'};
+    if(!RE_HEX64.test(f.payload_hash)||!RE_HEX64.test(f.frame_hash))return {ok:false,why:'1 hash not 64hex'};
+    if(!(f.prev===null||RE_HEX64.test(f.prev)))return {ok:false,why:'1 prev not null/64hex'};
+    if(f.sig!==null)return {ok:false,why:'1 sig present but this box cannot verify a JWS'};
+    const ph=await H('rapp/1:particle',f.payload);if(ph!==f.payload_hash)return {ok:false,why:'2 payload_hash mismatch',ph};
+    const pre={};for(const k of Object.keys(f))if(k!=='frame_hash'&&k!=='sig')pre[k]=f[k];
+    const fh=await H('rapp/1:wave',pre);if(fh!==f.frame_hash)return {ok:false,why:'3 frame_hash mismatch',ph,fh};
+    if(prev){if(f.seq!==prev.seq+1)return {ok:false,why:'4 seq != head.seq+1',ph,fh};if(f.prev!==prev.payload_hash)return {ok:false,why:'4 prev != head.payload_hash',ph,fh};if(f.utc<prev.utc)return {ok:false,why:'4 utc < head utc',ph,fh};}
+    else if(f.seq!==0||f.prev!==null)return {ok:false,why:'4 genesis must be seq 0 / prev null',ph,fh};
+    if(f.stream_id.startsWith('net:')){if(!(f.prev_wave===null||RE_HEX64.test(f.prev_wave)))return {ok:false,why:'5 prev_wave'};}
+    else if(f.prev_wave!==null)return {ok:false,why:'5 prev_wave must be null off swarm',ph,fh};
+    return {ok:true,why:'ok',ph,fh};
+  }catch(e){return {ok:false,why:'refused: '+e.message};}
+}
 // §6.2 mint-once, keyless: tail = Hb("rapp/1:rappid", uuid4 octets). Never a name hash.
 async function mintRappid(owner,slug){const u=crypto.getRandomValues(new Uint8Array(16));u[6]=(u[6]&0x0f)|0x40;u[8]=(u[8]&0x3f)|0x80;return `rappid:@${owner}/${slug}:${await Hb('rapp/1:rappid',u)}`;}
-// ---------- storage: IndexedDB for the chain, localStorage for identity + settings ----------
-const DB='rapterbox-virtual', STORE='frames';
-function idb(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE,{keyPath:'seq'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
-async function loadChain(){try{const db=await idb();return await new Promise((res,rej)=>{const t=db.transaction(STORE,'readonly').objectStore(STORE).getAll();t.onsuccess=()=>res((t.result||[]).sort((a,b)=>a.seq-b.seq));t.onerror=()=>rej(t.error);});}catch(e){return [];}}
-async function putFrame(f){const db=await idb();await new Promise((res,rej)=>{const t=db.transaction(STORE,'readwrite');t.objectStore(STORE).put(f);t.oncomplete=res;t.onerror=()=>rej(t.error);});}
-async function clearChain(){const db=await idb();await new Promise((res,rej)=>{const t=db.transaction(STORE,'readwrite');t.objectStore(STORE).clear();t.oncomplete=res;t.onerror=()=>rej(t.error);});}
+// ---------- storage: IndexedDB frames keyed by (stream_id, seq); identity + settings in localStorage ----------
+const DB='rapterbox-virtual', STORE='frames2';
+let _db=null;   // one connection per page; a fresh open on every call leaks connections and can block a version change
+function idb(){if(_db)return _db;_db=new Promise((res,rej)=>{const r=indexedDB.open(DB,2);r.onupgradeneeded=()=>{const d=r.result;if(!d.objectStoreNames.contains(STORE)){const s=d.createObjectStore(STORE,{keyPath:['stream_id','seq']});s.createIndex('stream','stream_id');}};
+  r.onblocked=()=>rej(new Error('another tab holds this box open — close it and reload'));r.onsuccess=()=>{const d=r.result;d.onversionchange=()=>{d.close();_db=null;};res(d);};r.onerror=()=>{_db=null;rej(r.error);};});return _db;}
+async function loadStreams(){try{const db=await idb();const all=await new Promise((res,rej)=>{const t=db.transaction(STORE,'readonly').objectStore(STORE).getAll();t.onsuccess=()=>res(t.result||[]);t.onerror=()=>rej(t.error);});const m={};for(const f of all)(m[f.stream_id]=m[f.stream_id]||[]).push(f);for(const k in m)m[k].sort((a,b)=>a.seq-b.seq);return m;}catch(e){return {};}}
+async function putFrames(frames){const db=await idb();await new Promise((res,rej)=>{const t=db.transaction(STORE,'readwrite');const s=t.objectStore(STORE);for(const f of frames)s.put(f);t.oncomplete=res;t.onerror=()=>rej(t.error);});}
+async function clearAll(){const db=await idb();await new Promise((res,rej)=>{const t=db.transaction(STORE,'readwrite');t.objectStore(STORE).clear();t.oncomplete=res;t.onerror=()=>rej(t.error);});}
 const $=id=>document.getElementById(id);
-let identity=null, chain=[], routine='morning-brief';
+let identity=null, chain=[], hatched={}, routine='morning-brief';
+const own=()=>identity.rappid+':browser';
 const NAMES={"morning-brief":"The 7am Brief","chase-invoices":"The Invoice Chaser","compliance-calendar":"The Deadline Ledger","review-replies":"The Review Desk","sop-from-memo":"The Playbook Writer","hiring-ad":"The Job Post","weekly-numbers":"The Friday Numbers","vendor-compare":"The Quote Reader","customer-followup":"The Follow-Up Engine","meeting-to-tasks":"The Meeting Cleaner"};
 // the same data map the office box uses (rapterbox_starter_agent.SOURCES)
 const SOURCES={"chase-invoices":["synthetic:open_invoices","synthetic:business","static:smb-crm/accounts"],"morning-brief":["synthetic:business","synthetic:inbox_subjects","synthetic:calendar_today","synthetic:open_invoices","synthetic:licenses","static:smb-crm/incidents"],"compliance-calendar":["synthetic:business","synthetic:licenses"],"customer-followup":["synthetic:completed_jobs_last_week","synthetic:business","static:smb-crm/contacts"],"weekly-numbers":["synthetic:week_numbers","synthetic:open_invoices","static:smb-crm/opportunities"],"review-replies":["synthetic:reviews","synthetic:owner_voice","synthetic:business","static:smb-crm/incidents"],"sop-from-memo":["synthetic:business"],"hiring-ad":["synthetic:hiring","synthetic:business"],"vendor-compare":["synthetic:quotes","synthetic:vendor_need","synthetic:business"],"meeting-to-tasks":["synthetic:meeting_transcript","synthetic:business","static:smb-crm/accounts"]};
 function ev(k,d){const e=document.createElement('div');e.className='ev '+k;const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});e.innerHTML=`<span class="t">${t}</span><span class="k">${k}</span><span class="d"></span>`;e.querySelector('.d').textContent=d;$('events').appendChild(e);e.scrollIntoView({block:'nearest'});}
 function plain(s){return String(s).replace(/^```[a-z]*\n?/,'').replace(/\n?```\s*$/,'').replace(/^#{1,6}\s+/gm,'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/^\s*[-*_]{3,}\s*$/gm,'—').trim();}
-function setSeal(ok,text){const s=$('seal');s.style.display='block';s.classList.add('show');s.classList.toggle('bad',!ok);s.textContent=text;}
-function reset(){$('events').innerHTML='';$('out').style.display='none';$('out').textContent='';$('verify').textContent='';const s=$('seal');s.style.display='none';s.className='seal';}
-function renderChain(){const c=$('chain');c.innerHTML='';if(!chain.length){c.innerHTML='<div>empty — run a job</div>';}for(const f of chain.slice().reverse()){const d=document.createElement('div');d.textContent=`#${f.seq} ${f.utc} ${f.payload.routine||f.payload.help?.event||f.kind} · ${f.frame_hash.slice(0,16)}… ← ${(f.prev||'genesis').slice(0,12)}`;c.appendChild(d);}
-  $('chainmeta').textContent=chain.length?`${chain.length} receipt frame${chain.length>1?'s':''} on this device · head ${chain[chain.length-1].frame_hash.slice(0,16)}…`:'no receipts yet';}
+function setSeal(ok,text){const s=$('seal');s.classList.add('show');s.classList.toggle('bad',!ok);s.textContent=text;}
+function reset(){$('events').innerHTML='';$('out').style.display='none';$('out').textContent='';$('verify').textContent='';$('seal').className='seal';}
+function renderChain(){const c=$('chain');c.innerHTML='';if(!chain.length)c.innerHTML='<div>empty — run a job</div>';for(const f of chain.slice().reverse()){const d=document.createElement('div');d.textContent=`#${f.seq} ${f.utc} ${f.payload.routine||f.kind} · ${f.frame_hash.slice(0,16)}… ← ${(f.prev||'genesis').slice(0,12)}`;c.appendChild(d);}
+  $('chainmeta').textContent=chain.length?`${chain.length} receipt frame${chain.length>1?'s':''} on this device · head ${chain[chain.length-1].frame_hash.slice(0,16)}…`:'no receipts yet';
+  const h=$('hatched');h.innerHTML='';const ks=Object.keys(hatched);if(!ks.length)h.innerHTML='<div>none — hatch an .egg to bring another box\'s receipts here</div>';for(const k of ks){const fr=hatched[k];const d=document.createElement('div');d.textContent=`${k.slice(0,48)}… · ${fr.length} frames · head ${fr[fr.length-1].frame_hash.slice(0,12)}…`;h.appendChild(d);}}
 async function boot(){
   let id=null;try{id=JSON.parse(localStorage.getItem('rapterbox.virtual.identity')||'null');}catch(e){}
-  if(!id||!/^rappid:@[a-z0-9-]+\/[a-z0-9-]+:[0-9a-f]{64}$/.test(id.rappid)){
+  if(!id||!isRappid(id.rappid)){
     const slug='vbox-'+[...crypto.getRandomValues(new Uint8Array(4))].map(x=>x.toString(16).padStart(2,'0')).join('');
-    id={spec:'rapp/1',kind:'organism',rappid:await mintRappid('rapterbox',slug),what:'a virtual RappterBox (mk0) running in a browser',grown_from:null,minted_utc:utc()};
+    id={spec:'rapp/1',kind:'organism',rappid:await mintRappid('rapterbox',slug),what:'rbox mobile (mk0): a RappterBox running in a browser',grown_from:null,minted_utc:utc()};
     try{localStorage.setItem('rapterbox.virtual.identity',JSON.stringify(id));}catch(e){}
   }
-  identity=id;$('rappid').textContent=id.rappid;$('lineage').textContent=id.grown_from?('grown from egg '+id.grown_from.slice(0,16)+'… (§9.4 lineage)'):'minted here, once (§6.2 keyless) — not hatched from an egg';
-  chain=await loadChain();renderChain();
+  identity=id;$('rappid').textContent=id.rappid;$('lineage').textContent=id.grown_from?('minted here, once (§6.2) · grown from egg '+id.grown_from.slice(0,16)+'… (§9.4 lineage)'):'minted here, once (§6.2 keyless) — not grown from an egg';
+  const all=await loadStreams();chain=all[own()]||[];hatched={};for(const k in all)if(k!==own())hatched[k]=all[k];renderChain();
   try{const s=JSON.parse(localStorage.getItem('rapterbox.virtual.settings')||'{}');if(s.prov)$('prov').value=s.prov;if(s.endpoint)$('endpoint').value=s.endpoint;if(s.model)$('model').value=s.model;if(s.key){$('key').value=s.key;$('remember').checked=true;}}catch(e){}
 }
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='pick';b.dataset.slug=slug;b.setAttribute('aria-pressed',String(slug===routine));b.textContent=name;b.onclick=()=>{routine=slug;document.querySelectorAll('.pick').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.slug===slug)));};$('picks').appendChild(b);}
 function saveSettings(){const s={prov:$('prov').value,endpoint:$('endpoint').value,model:$('model').value};if($('remember').checked)s.key=$('key').value;try{localStorage.setItem('rapterbox.virtual.settings',JSON.stringify(s));}catch(e){}}
 ['prov','endpoint','model','key','remember'].forEach(i=>$(i).addEventListener('change',saveSettings));
-$('prov').addEventListener('change',()=>{if($('prov').value==='anthropic'){$('model').value='claude-sonnet-4-5';$('endpoint').value='https://api.anthropic.com/v1/messages';}else{$('model').value='gpt-4o-mini';$('endpoint').value='https://api.openai.com/v1/chat/completions';}saveSettings();});
+function applyProv(){if($('prov').value==='anthropic'){$('model').value='claude-sonnet-4-5';$('endpoint').value='https://api.anthropic.com/v1/messages';}else{$('model').value='gpt-4o-mini';$('endpoint').value='https://api.openai.com/v1/chat/completions';}}
+$('prov').addEventListener('change',()=>{applyProv();saveSettings();});
 // ---------- public inputs, pinned to a commit ----------
 async function getJSON(u,opt){const r=await fetch(u,opt);if(!r.ok)throw new Error('fetch '+r.status+' '+u);return r.json();}
 async function pin(repo){try{const j=await getJSON(`https://api.github.com/repos/${repo}/commits/main`,{headers:{Accept:'application/vnd.github+json'}});return j.sha;}catch(e){throw new Error('could not pin inputs for '+repo);}}
@@ -169,8 +212,8 @@ async function think(prompt){
   const r=await fetch(endpoint,{method:'POST',headers:hdr,body:JSON.stringify({model,messages:[{role:'user',content:prompt}],temperature:0.2})});
   if(!r.ok)throw new Error('model endpoint answered '+r.status);const j=await r.json();return j.choices?.[0]?.message?.content||'';
 }
-// ---------- one run = one receipt frame ----------
-$('run').onclick=async()=>{
+// ---------- one run = one receipt frame on THIS box's stream ----------
+async function runOnce(){
   reset();$('run').disabled=true;$('sub').textContent='receipt · this browser · '+NAMES[routine];
   const reads=[];const t0=Date.now();
   try{
@@ -186,6 +229,7 @@ $('run').onclick=async()=>{
       if(kind==='synthetic'){data[key]=syn[key];}
       else{const [api,ent]=key.split('/');const reg=JSON.parse(await readBytes(`${STATICP}/${api}/registry.json`,reads));const e=reg.entries.find(x=>x.name===ent);
         if(e){let rows=JSON.parse(await readBytes(e.raw_url.replace('/main/',`/${stat}/`),reads));rows=rows.value||rows;data[`${api}.${ent}`]=Array.isArray(rows)?rows.slice(0,12):rows;}}}
+    // byte-identical to the office box's prompt (rapterbox_starter_agent.py): compact JSON for DATA, same sentences
     const prompt="You are a RappterBox routine running unattended on a small business's box. Follow the METHOD page exactly, produce ONLY the Output format it specifies, phone-sized. "
       +(transcript.trim()?"Honour how the owner does it today (TRANSCRIPT) but fix what the method fixes. ":"")
       +"Never invent dates, numbers or promises — mark UNKNOWN or ASK OWNER. You draft; the owner sends, signs, pays or deletes.\nWrite PLAIN TEXT for a phone: no Markdown headings (#), no ** bold **, no | tables, no code fences.\n"
@@ -193,41 +237,56 @@ $('run').onclick=async()=>{
       +`=== DATA (all public, synthetic or simulated CRM) ===\n${JSON.stringify(data).slice(0,14000)}\n`;
     ev('think','this browser is asking '+$('prov').value+' · '+$('model').value+' ('+prompt.length+' chars of method + data)');
     let text=plain(await think(prompt));if(!text)throw new Error('the model returned nothing');
-    const payload={routine,business:'maple-and-sons',output:text,receipt:{reads,today,library_commit:lib,static_apis_commit:stat,transcript_sha256:await sha256hex(enc.encode(transcript)),data_sha256:await H('rapp/1:particle',data).catch?null:null,thinker:$('prov').value+':'+$('model').value,will_never:['send','sign','pay','delete']}};
-    try{payload.receipt.data_sha256=await sha256hex(enc.encode(canonical(data)));}catch(e){payload.receipt.data_sha256=null;}
-    const head=chain[chain.length-1]||null;
-    const frame={spec:'rapp/1',kind:'memory.save',stream_id:identity.rappid+':browser',seq:head?head.seq+1:0,utc:utc(),payload,payload_hash:await H('rapp/1:particle',payload),prev:head?head.payload_hash:null,prev_wave:null,sig:null};
+    let dataSha=null;try{dataSha=await sha256hex(enc.encode(canonical(data)));}catch(e){}
+    const payload={routine,business:'maple-and-sons',output:text,receipt:{reads,today,library_commit:lib,static_apis_commit:stat,transcript_sha256:await sha256hex(enc.encode(transcript)),data_sha256:dataSha,thinker:$('prov').value+':'+$('model').value,will_never:['send','sign','pay','delete']}};
+    const head=chain[chain.length-1]||null;const now=utc();
+    if(head&&now<head.utc)throw new Error("this device's clock is behind the last receipt ("+head.utc+") — fix the clock and run again");
+    const frame={spec:'rapp/1',kind:'memory.save',stream_id:own(),seq:head?head.seq+1:0,utc:now,payload,payload_hash:await H('rapp/1:particle',payload),prev:head?head.payload_hash:null,prev_wave:null,sig:null};
     const pre={};for(const k of Object.keys(frame))if(k!=='frame_hash'&&k!=='sig')pre[k]=frame[k];frame.frame_hash=await H('rapp/1:wave',pre);
-    const v=await verifyFrame(frame,head);if(!v.ok)throw new Error('refused to write a frame that does not verify');
-    await putFrame(frame);chain.push(frame);renderChain();
+    const v=await verifyFrame(frame,head,own());if(!v.ok)throw new Error('refused to write a frame that does not verify: '+v.why);
+    await putFrames([frame]);chain.push(frame);renderChain();
     ev('write','receipt frame seq '+frame.seq+' · '+frame.frame_hash.slice(0,16)+'… (kept on this device)');
-    setSeal(true,'Verified');$('verify').innerHTML='<b>✓ hashes recomputed and linked to the previous frame</b> · payload '+v.ph.slice(0,12)+'… · frame '+v.fh.slice(0,12)+'… · prev '+(frame.prev||'genesis').slice(0,12)+'…';
+    setSeal(true,'Verified');$('verify').innerHTML='<b>✓ all five rapp/1 checks passed and the frame links to the previous one</b> · payload '+v.ph.slice(0,12)+'… · frame '+v.fh.slice(0,12)+'… · prev '+(frame.prev||'genesis').slice(0,12)+'…';
     $('out').style.display='block';$('out').textContent=text;ev('output',((Date.now()-t0)/1000).toFixed(1)+' seconds, start to receipt');
   }catch(e){ev('error',e.message||String(e));setSeal(false,'No receipt');}
   finally{$('run').disabled=false;}
-};
-// ---------- eggs: §9 session variant (JSON) — the chain travels; secrets never do ----------
+}
+$('run').onclick=runOnce;
+// ---------- eggs: §9.2 session variant (JSON) — this box's chain travels; nothing secret ever does ----------
 async function packEgg(){
-  const manifest={schema:'rapp/1-egg',variant:'session',rappid:identity.rappid,created_utc:utc(),contents:[],payload:{runtime:'rapterbox-virtual/mk0',transcript:chain},sig:null};   // §9.2: session payload is exactly {runtime, transcript}
+  const manifest={schema:'rapp/1-egg',variant:'session',rappid:identity.rappid,created_utc:utc(),contents:[],payload:{runtime:'rbox-mobile/mk0',transcript:chain},sig:null};
   const noSig={};for(const k of Object.keys(manifest))if(k!=='sig')noSig[k]=manifest[k];
   const egg_hash=await H('rapp/1:egg-manifest',noSig);return {octets:canonical(manifest),egg_hash};
 }
 $('export').onclick=async()=>{try{const {octets,egg_hash}=await packEgg();const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([octets],{type:'application/json'}));a.download=identity.rappid.split('/')[1].split(':')[0]+'-'+egg_hash.slice(0,12)+'.egg';a.click();ev('egg','packed '+chain.length+' frames · egg '+egg_hash.slice(0,16)+'… · nothing secret inside, ever');}catch(e){ev('error',e.message);}};
-$('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const txt=await f.text();const m=JSON.parse(txt);
-  const members=Object.keys(m).sort().join(',');
-  if(members!=='contents,created_utc,payload,rappid,schema,sig,variant'||m.schema!=='rapp/1-egg'||m.variant!=='session'||!Array.isArray(m.contents)||m.contents.length||Object.keys(m.payload||{}).sort().join(',')!=='runtime,transcript'||typeof m.payload.runtime!=='string'||!Array.isArray(m.payload.transcript))throw new Error('not a rapp/1 session egg (§9.1/§9.2 shape)');
+// Hatch = integrity, then viability, then the egg's chain lands here as read-only history on the stream it was born with.
+// This device keeps its OWN instance identity and records grown_from (§9.4); it never adopts the egg's identity, so two
+// devices holding one egg can never fork one stream.
+async function hatchText(txt){
+  const m=JSON.parse(txt);
+  if(Object.keys(m).sort().join(',')!=='contents,created_utc,payload,rappid,schema,sig,variant')throw new Error('not a rapp/1 egg: manifest member set (§9.1)');
+  if(m.schema!=='rapp/1-egg'||m.variant!=='session'||!Array.isArray(m.contents)||m.contents.length)throw new Error('not a rapp/1 session egg (§9.2)');
+  if(Object.keys(m.payload||{}).sort().join(',')!=='runtime,transcript'||typeof m.payload.runtime!=='string'||!Array.isArray(m.payload.transcript))throw new Error('session payload must be exactly {runtime, transcript} (§9.2)');
+  if(!isRappid(m.rappid))throw new Error('egg rappid fails the §6.1 grammar');
+  if(!isUtc(m.created_utc))throw new Error('egg created_utc is not the §7.4 form');
+  if(m.sig!==null)throw new Error('signed egg — this box cannot verify a JWS');
+  if(canonical(m)!==txt)throw new Error('egg bytes are not canonical(manifest) — re-serialized or edited (§9.1); refused');
   const noSig={};for(const k of Object.keys(m))if(k!=='sig')noSig[k]=m[k];const egg_hash=await H('rapp/1:egg-manifest',noSig);
-  if(canonical(m)!==txt.trim())ev('note','egg was re-serialized somewhere; identity still checks by egg_hash');
-  const frames=m.payload.transcript||[];let prev=null;for(const fr of frames){const v=await verifyFrame(fr,prev);if(!v.ok)throw new Error('frame '+fr.seq+' in the egg does not verify — refused');prev=fr;}
-  await clearChain();for(const fr of frames)await putFrame(fr);chain=frames.slice();
-  // §9.4: this instance now grows from that egg; the artifact identity inside the egg is reused (canonicalize-on-read)
-  identity={...identity,rappid:m.rappid,grown_from:egg_hash};try{localStorage.setItem('rapterbox.virtual.identity',JSON.stringify(identity));}catch(_){}
-  $('rappid').textContent=identity.rappid;$('lineage').textContent='grown from egg '+egg_hash.slice(0,16)+'… (§9.4 lineage) · '+frames.length+' frames verified on import';renderChain();ev('egg','imported '+frames.length+' verified frames from egg '+egg_hash.slice(0,16)+'…');
-  }catch(err){ev('error',err.message);}e.target.value='';});
-$('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? Export an .egg first if you want it back.'))return;await clearChain();chain=[];localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
-// demo/test hooks: ?endpoint=&model=&prov=&auto=1 (a key is never taken from the URL)
-(function(){const q=new URLSearchParams(location.search);if(q.get('endpoint'))$('endpoint').value=q.get('endpoint');if(q.get('model'))$('model').value=q.get('model');if(q.get('prov'))$('prov').value=q.get('prov');})();
-window.__vbox={run:()=>$('run').click(),chain:()=>chain,identity:()=>identity,packEgg,importText:async t=>{const dt=new DataTransfer();dt.items.add(new File([t],'x.egg',{type:'application/json'}));$('import').files=dt.files;$('import').dispatchEvent(new Event('change'));},wipeSilently:async()=>{await clearChain();chain=[];localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
-boot().then(()=>{if(new URLSearchParams(location.search).get('auto'))$('run').click();});
+  const frames=m.payload.transcript;if(!frames.length)throw new Error('the egg carries no frames');
+  const stream=frames[0]&&frames[0].stream_id;if(typeof stream!=='string'||!stream||frames.some(fr=>fr&&fr.stream_id!==stream))throw new Error('the transcript is not one stream');
+  if(stream===own())throw new Error('this egg is this very box — nothing to hatch');
+  let prev=null;for(const fr of frames){const v=await verifyFrame(fr,prev,stream);if(!v.ok)throw new Error('frame '+(fr&&fr.seq)+' in the egg does not verify ('+v.why+') — refused');prev=fr;}
+  const have=hatched[stream]||[];
+  for(let i=0;i<Math.min(have.length,frames.length);i++)if(have[i].frame_hash!==frames[i].frame_hash)throw new Error('refused: this egg forks a chain already hatched here at frame '+i);
+  if(frames.length<=have.length){ev('egg','nothing new: this chain is already hatched here with '+have.length+' frames');return egg_hash;}
+  await putFrames(frames.slice(have.length));hatched[stream]=frames.slice();
+  if(!identity.grown_from){identity={...identity,grown_from:egg_hash};try{localStorage.setItem('rapterbox.virtual.identity',JSON.stringify(identity));}catch(_){}$('lineage').textContent='minted here, once (§6.2) · grown from egg '+egg_hash.slice(0,16)+'… (§9.4 lineage)';}
+  renderChain();ev('egg','hatched '+frames.length+' verified frames from egg '+egg_hash.slice(0,16)+'… as read-only history · this box keeps its own identity');return egg_hash;
+}
+$('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{await hatchText(await f.text());}catch(err){ev('error',err.message);}e.target.value='';});
+$('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
+// demo/test hooks: ?endpoint=&model=&prov=&auto=1 — applied AFTER saved settings; a key is never taken from the URL
+window.__vbox={run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
+window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search);if(q.get('prov')){$('prov').value=q.get('prov');applyProv();}if(q.get('endpoint'))$('endpoint').value=q.get('endpoint');if(q.get('model'))$('model').value=q.get('model');if(q.get('auto'))$('run').click();});
 </script>
 </body></html>
