@@ -122,7 +122,10 @@ for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('
 $('present').onclick=()=>{const on=document.body.classList.toggle('present');$('present').setAttribute('aria-pressed',String(on));};
 if(location.search.includes('present')){document.body.classList.add('present');$('present').setAttribute('aria-pressed','true');}
 async function findBox(){
-  try{const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});const j=await r.json();base=j.url;
+  try{let j=null;
+    try{const a=await fetch('https://api.github.com/repos/kody-w/rappter-prompts/contents/starter-pack/try-endpoint.json',{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(a.ok){const c=await a.json();j=JSON.parse(atob(c.content.replace(/\n/g,'')));}}catch(_){}
+    if(!j){const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
+    base=j.url;
     const h=await fetch(base+'/try/health',{cache:'no-store'});const hj=await h.json();awake=(hj.status==='awake');}catch(e){awake=false;}
   const s=$('status');
   if(awake){s.className='status';s.innerHTML='<b>Awake</b> <span>our box, live, one run at a time</span>';$('run').disabled=false;if(location.search.includes('auto'))$('run').click();}
