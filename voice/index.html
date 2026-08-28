@@ -45,7 +45,8 @@ body.app nav,body.app footer,body.app .kicker,body.app h1,body.app .lede{display
 body.app section{padding:12px 0}body.app .w{padding:0 14px}body.app .tear{border-top:0}
 body.app .appbar{display:flex}
 .appbar{display:none;align-items:center;gap:10px;padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--card);position:sticky;top:0;z-index:5}
-.appbar .wm{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.appbar .wm{font-size:17px;font-weight:800;letter-spacing:-.03em;flex:none}
+.appbar .fine{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .appbar .swap{margin-left:auto;border:2px solid var(--ink);background:var(--paper);padding:7px 11px;font:700 12px ui-monospace,Menlo,monospace;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
 body.app #talk{min-height:210px;border-radius:50%;max-width:260px;margin:8px auto 0;box-shadow:7px 7px 0 var(--ink)}
 .turns{margin-top:16px;border-top:2px dashed var(--ink);padding-top:12px}
@@ -70,8 +71,8 @@ body.app #talk{min-height:210px;border-radius:50%;max-width:260px;margin:8px aut
   <p><span class="status" id="status" role="status" aria-live="polite"><b>…</b> <span>finding the box</span></span></p>
 
   <button id="talk" aria-describedby="talkhelp">
-    <span id="talklabel">Tap and say a job</span>
-    <span class="sub" id="talksub">or press the space bar</span>
+    <span id="talklabel">Hold and say a job</span>
+    <span class="sub" id="talksub">or tap once · or press the space bar</span>
   </button>
   <p class="fine" id="talkhelp" style="margin-top:10px">Try: “chase my invoices”, “what needs me this morning”, “Friday numbers”, “reply to my reviews”. Say “read the rest” to hear everything.</p>
 
@@ -305,7 +306,7 @@ let rec=null,listening=false;
 function setTalk(state){
   const b=$('talk');b.classList.toggle('listening',state==='listening');
   if(state==='listening'){$('talklabel').innerHTML='Listening<span class="dots"><span></span><span></span><span></span></span>';$('talksub').textContent='say a job, then stop talking';}
-  else{$('talklabel').textContent=SR?'Tap and say a job':'Tap a job below';$('talksub').textContent=SR?'or press the space bar':'this browser cannot listen, but it can still read to you';}
+  else{$('talklabel').textContent=SR?'Hold and say a job':'Tap a job below';$('talksub').textContent=SR?'or tap once · or press the space bar':'this browser cannot listen, but it can still read to you';}
 }
 function listen(){
   if(!SR||listening||busy)return;

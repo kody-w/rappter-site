@@ -60,7 +60,8 @@ body.app .stage{grid-template-columns:1fr;gap:16px}
 body.app .tear{border-top:0}
 body.app .appbar{display:flex}
 .appbar{display:none;align-items:center;gap:10px;padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--card);position:sticky;top:0;z-index:5}
-.appbar .wm{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.appbar .wm{font-size:17px;font-weight:800;letter-spacing:-.03em;flex:none}
+.appbar .fine{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .appbar .swap{margin-left:auto;border:2px solid var(--ink);background:var(--paper);padding:7px 11px;font:700 12px ui-monospace,Menlo,monospace;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
 @media(max-width:900px){.stage{grid-template-columns:1fr}.picks{grid-template-columns:1fr}nav .line{display:none}.paper{padding:18px 16px}
   .ev{grid-template-columns:auto 1fr}.ev .t{grid-column:1/-1;font-size:11px}}
@@ -321,7 +322,8 @@ window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search
     document.body.classList.add('app');
     document.title='rbox';
     const sw=document.getElementById('swap'); if(sw)sw.addEventListener('click',()=>{location.href='/voice/?app=1';});
-    const w=document.getElementById('appwhere'); if(w)w.textContent=(identity&&identity.rappid||'').split('/')[1]||'this device';
+    const w=document.getElementById('appwhere');
+    if(w)w.textContent=((identity&&identity.rappid||'').split('/')[1]||'this device').split(':')[0];   // the short name, not the whole id
   }if(q.get('prov')){$('prov').value=q.get('prov');applyProv();}if(q.get('endpoint'))$('endpoint').value=q.get('endpoint');if(q.get('model'))$('model').value=q.get('model');if(q.get('auto'))$('run').click();});
 </script>
 </body></html>
