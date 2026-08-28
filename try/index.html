@@ -140,22 +140,67 @@ async function showLast(){
     $('out').style.display='block';$('out').textContent=plain(x.output||'');
     $('verify').textContent='receipt frame '+(x.frame_hash||'').slice(0,16)+'… (published by the box\'s self-test, verified on the box)';}catch(e){}
 }
-$('run').onclick=()=>{
+// One run, always ending. EventSource was hiding the HTTP status — so the box's own refusal ("three runs
+// per ten minutes per address") arrived as an unexplained dead button — and in a backgrounded tab it can
+// go silent without firing open OR error, leaving Run disabled forever. Measured. A fetch we can clock,
+// read as it streams, and cancel does all three: real status, real words, a guaranteed end.
+const RUN_DEADLINE=300000, FIRST_BYTE=45000, STALL=120000;
+async function stream(routine,on){
+  const ctrl=new AbortController(); let why='';
+  let t=setTimeout(()=>{why='the box did not answer in time';ctrl.abort();},FIRST_BYTE);
+  const clock=(ms,msg)=>{clearTimeout(t);t=setTimeout(()=>{why=msg;ctrl.abort();},ms);};
+  const hard=setTimeout(()=>{why='the run went on too long, so the page stopped it';ctrl.abort();},RUN_DEADLINE);
+  const stop=()=>{clearTimeout(t);clearTimeout(hard);};
+  let res;
+  try{res=await fetch(base+'/try/run?routine='+encodeURIComponent(routine),{signal:ctrl.signal,cache:'no-store',headers:{Accept:'text/event-stream'}});}
+  catch(e){stop();throw new Error(why||'the box could not be reached');}
+  if(!res.ok||!res.body){stop();let m='';try{m=(await res.json()).error||'';}catch(_){}throw new Error(m||('the box refused the run — '+res.status));}
+  clock(STALL,'the box went quiet part way through');
+  const rd=res.body.getReader(),dec=new TextDecoder(); let buf='';
+  try{
+    for(;;){
+      const {value,done}=await rd.read(); if(done)break;
+      clock(STALL,'the box went quiet part way through');
+      buf+=dec.decode(value,{stream:true});
+      let i;
+      while((i=buf.indexOf('\n\n'))>=0){
+        const block=buf.slice(0,i); buf=buf.slice(i+2);
+        let kind='message',data='';
+        for(const line of block.split('\n')){
+          if(line.startsWith('event:'))kind=line.slice(6).trim();
+          else if(line.startsWith('data:'))data+=(data?'\n':'')+line.slice(5).trim();
+        }
+        let d=null; try{d=JSON.parse(data);}catch(_){}
+        if(on[kind]) await on[kind](d||{});
+        if(kind==='done')return;
+      }
+    }
+  }catch(e){throw new Error(why||'the box stopped sending part way through');}
+  finally{stop();try{rd.cancel();}catch(_){}}
+}
+$('run').onclick=async ()=>{
   reset();$('run').disabled=true;$('sub').textContent='receipt · live run · '+NAMES[routine];$('sub').classList.add('cursor');
-  const es=new EventSource(base+'/try/run?routine='+encodeURIComponent(routine));let frame=null;
-  const finish=()=>{es.close();$('run').disabled=false;$('sub').classList.remove('cursor');};
-  es.addEventListener('hello',e=>{const d=JSON.parse(e.data);ev('box',d.box+' · '+d.utc);});
-  es.addEventListener('help',e=>{const d=JSON.parse(e.data);ev('help',d.why+' — asked '+d.to+' · receipt of the ask '+(d.frame_hash||'').slice(0,16)+'…');});
-  es.addEventListener('start',e=>{const d=JSON.parse(e.data);ev('start','routine '+d.routine+' on the synthetic business "'+d.business+'"'+(d.library_commit?' · inputs pinned to '+d.library_commit:''));});
-  es.addEventListener('read',e=>{const d=JSON.parse(e.data);const u=d.url.replace('https://raw.githubusercontent.com/','').replace(/\/[0-9a-f]{40}\//,'/@/');ev('read',u+' · '+d.bytes+' bytes · '+d.sha256);});
-  es.addEventListener('think',e=>{const d=JSON.parse(e.data);ev('think','the box is working on '+d.inputs.join(', ')+' ('+d.chars+' chars of method + data)');});
-  es.addEventListener('frame',async e=>{frame=JSON.parse(e.data);ev('write','receipt frame seq '+frame.seq+' · '+frame.frame_hash.slice(0,16)+'…');
-    try{const v=await verifyFrame(frame);const ok=v.payload&&v.frame;setSeal(ok,ok?'Verified':'Refused');
-      $('verify').innerHTML=(ok?'<b>✓ your browser recomputed both hashes and they match</b>':'<b class="bad">✕ hashes do not match — do not trust this run</b>')+' · payload '+v.ph.slice(0,12)+'… · frame '+v.fh.slice(0,12)+'… · prev '+(frame.prev||'genesis').slice(0,12)+'…';}
-    catch(err){setSeal(false,'Refused');$('verify').innerHTML='<b class="bad">✕ this frame is not a valid rapp/1 frame: '+err.message+'</b>';}});
-  es.addEventListener('output',e=>{const d=JSON.parse(e.data);$('out').style.display='block';$('out').textContent=plain(d.output);ev('output',d.seconds+' seconds, start to receipt');});
-  es.addEventListener('error',e=>{try{const d=JSON.parse(e.data);ev('error',d.error);}catch(_){ev('error','the connection to the box dropped');}finish();});
-  es.addEventListener('done',e=>{finish();ev('done','the box is free again');});
+  let frame=null;
+  try{
+    await stream(routine,{
+      hello:d=>ev('box',d.box+' · '+d.utc),
+      help:d=>ev('help',d.why+' — asked '+d.to+' · receipt of the ask '+(d.frame_hash||'').slice(0,16)+'…'),
+      start:d=>ev('start','routine '+d.routine+' on the synthetic business "'+d.business+'"'+(d.library_commit?' · inputs pinned to '+d.library_commit:'')),
+      read:d=>ev('read',String(d.url||'').replace('https://raw.githubusercontent.com/','').replace(/\/[0-9a-f]{40}\//,'/@/')+' · '+d.bytes+' bytes · '+d.sha256),
+      think:d=>ev('think','the box is working on '+(d.inputs||[]).join(', ')+' ('+d.chars+' chars of method + data)'),
+      frame:async d=>{frame=d;ev('write','receipt frame seq '+d.seq+' · '+String(d.frame_hash||'').slice(0,16)+'…');
+        try{const v=await verifyFrame(d);const ok=v.payload&&v.frame;setSeal(ok,ok?'Verified':'Refused');
+          $('verify').innerHTML=(ok?'<b>✓ your browser recomputed both hashes and they match</b>':'<b class="bad">✕ hashes do not match — do not trust this run</b>')+' · payload '+v.ph.slice(0,12)+'… · frame '+v.fh.slice(0,12)+'… · prev '+(d.prev||'genesis').slice(0,12)+'…';}
+        catch(err){setSeal(false,'Refused');$('verify').innerHTML='<b class="bad">✕ this frame is not a valid rapp/1 frame: '+err.message+'</b>';}},
+      output:d=>{$('out').style.display='block';$('out').textContent=plain(d.output);ev('output',d.seconds+' seconds, start to receipt');},
+      error:d=>ev('error',d.error||'the box could not finish'),
+      done:()=>ev('done','the box is free again'),
+    });
+  }catch(e){
+    ev('error',e.message||String(e));            // the reason, in the transcript, where the story already is
+  }finally{
+    $('run').disabled=false;$('sub').classList.remove('cursor');   // the button always comes back
+  }
 };
 findBox();
 </script>

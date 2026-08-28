@@ -245,18 +245,57 @@ async function findBox(){
   checkedAt=Date.now();
   $('talk').disabled=false; document.querySelectorAll('.job').forEach(b=>b.disabled=false);
 }
-function runOnBox(routine,onEvent){
-  return new Promise((resolve,reject)=>{
-    const es=new EventSource(base+'/try/run?routine='+encodeURIComponent(routine));
-    let frame=null,done=false;
-    const finish=(fn,arg)=>{if(done)return;done=true;es.close();fn(arg);};
-    es.addEventListener('read',()=>onEvent&&onEvent('read'));
-    es.addEventListener('think',()=>onEvent&&onEvent('think'));
-    es.addEventListener('frame',e=>{try{frame=JSON.parse(e.data);}catch(_){}});
-    es.addEventListener('output',e=>{try{const d=JSON.parse(e.data);finish(resolve,{text:d.output,spoken:d.spoken||null,frame,seconds:d.seconds});}catch(err){finish(reject,err);}});
-    es.addEventListener('error',e=>{let m='the box could not be reached';try{m=JSON.parse(e.data).error||m;}catch(_){}finish(reject,new Error(m));});
-    es.addEventListener('done',()=>{if(!done)finish(reject,new Error('the box finished without an answer'));});
-  });
+// A run always ends: with an answer, or with a reason a person can act on.
+// EventSource cannot do that — it hides the HTTP status (so the box's own refusal, "three runs per ten
+// minutes", never reaches the person), it reconnects behind your back, and in a backgrounded tab it can
+// sit silent forever, firing neither open nor error. Measured, not assumed. So: a plain fetch we can put
+// a clock on, read as it arrives, and cancel.
+const RUN_DEADLINE=300000, FIRST_BYTE=45000, STALL=120000;
+async function runOnBox(routine,onEvent){
+  const ctrl=new AbortController();
+  let why='';                                     // why WE stopped it, so the person is told the truth
+  let timer=setTimeout(()=>{why='the box did not answer in time';ctrl.abort();},FIRST_BYTE);
+  const clock=(ms,msg)=>{clearTimeout(timer);timer=setTimeout(()=>{why=msg;ctrl.abort();},ms);};
+  const hard=setTimeout(()=>{why='the run went on too long, so I stopped it';ctrl.abort();},RUN_DEADLINE);
+  let res;
+  try{
+    res=await fetch(base+'/try/run?routine='+encodeURIComponent(routine),
+      {signal:ctrl.signal,cache:'no-store',headers:{Accept:'text/event-stream'}});
+  }catch(e){ clearTimeout(timer);clearTimeout(hard); throw new Error(why||'the box could not be reached'); }
+  if(!res.ok||!res.body){                          // the box's own words — a refusal is an answer, not a hang
+    clearTimeout(timer);clearTimeout(hard);
+    let m=''; try{m=(await res.json()).error||'';}catch(_){}
+    throw new Error(m||('the box refused the run — '+res.status));
+  }
+  clock(STALL,'the box went quiet part way through');
+  const rd=res.body.getReader(), dec=new TextDecoder();
+  let buf='',frame=null,out=null,failed=null;
+  try{
+    for(;;){
+      const {value,done}=await rd.read();
+      if(done)break;
+      clock(STALL,'the box went quiet part way through');
+      buf+=dec.decode(value,{stream:true});
+      let i;
+      while((i=buf.indexOf('\n\n'))>=0){
+        const block=buf.slice(0,i); buf=buf.slice(i+2);
+        let kind='message',data='';
+        for(const line of block.split('\n')){
+          if(line.startsWith('event:'))kind=line.slice(6).trim();
+          else if(line.startsWith('data:'))data+=(data?'\n':'')+line.slice(5).trim();
+        }
+        if(kind==='read'||kind==='think'){ onEvent&&onEvent(kind); continue; }
+        if(kind==='frame'){ try{frame=JSON.parse(data);}catch(_){} continue; }
+        if(kind==='error'){ try{failed=JSON.parse(data).error;}catch(_){failed='the box could not finish';} continue; }
+        if(kind==='output'){ try{const d=JSON.parse(data);out={text:d.output,spoken:d.spoken||null,frame,seconds:d.seconds};}catch(_){failed='the box sent an answer I could not read';} }
+      }
+      if(out)break;                                 // the answer is here; nothing after it matters
+    }
+  }catch(e){ throw new Error(why||'the box stopped sending part way through'); }
+  finally{ clearTimeout(timer);clearTimeout(hard); try{rd.cancel();}catch(_){} }
+  if(failed)throw new Error(failed);
+  if(!out)throw new Error('the box finished without an answer');
+  return out;
 }
 const LASTRUNS_API='https://api.github.com/repos/kody-w/rappter-prompts/contents/starter-pack/last-runs.json';
 async function lastRun(routine){
