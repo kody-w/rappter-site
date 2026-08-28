@@ -144,7 +144,7 @@ async function showLast(){
 // per ten minutes per address") arrived as an unexplained dead button — and in a backgrounded tab it can
 // go silent without firing open OR error, leaving Run disabled forever. Measured. A fetch we can clock,
 // read as it streams, and cancel does all three: real status, real words, a guaranteed end.
-const RUN_DEADLINE=300000, FIRST_BYTE=45000, STALL=120000;
+const RUN_DEADLINE=480000, FIRST_BYTE=45000, STALL=120000;   // the box beats every 20s while it thinks, so silence really is silence
 async function stream(routine,on){
   const ctrl=new AbortController(); let why='';
   let t=setTimeout(()=>{why='the box did not answer in time';ctrl.abort();},FIRST_BYTE);
@@ -176,7 +176,7 @@ async function stream(routine,on){
       }
     }
   }catch(e){throw new Error(why||'the box stopped sending part way through');}
-  finally{stop();try{rd.cancel();}catch(_){}}
+  finally{stop();rd.cancel().catch(()=>{});}
 }
 $('run').onclick=async ()=>{
   reset();$('run').disabled=true;$('sub').textContent='receipt · live run · '+NAMES[routine];$('sub').classList.add('cursor');

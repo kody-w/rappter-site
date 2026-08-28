@@ -250,7 +250,7 @@ async function findBox(){
 // minutes", never reaches the person), it reconnects behind your back, and in a backgrounded tab it can
 // sit silent forever, firing neither open nor error. Measured, not assumed. So: a plain fetch we can put
 // a clock on, read as it arrives, and cancel.
-const RUN_DEADLINE=300000, FIRST_BYTE=45000, STALL=120000;
+const RUN_DEADLINE=480000, FIRST_BYTE=45000, STALL=120000;   // the box beats every 20s while it thinks, so silence really is silence
 async function runOnBox(routine,onEvent){
   const ctrl=new AbortController();
   let why='';                                     // why WE stopped it, so the person is told the truth
@@ -292,7 +292,7 @@ async function runOnBox(routine,onEvent){
       if(out)break;                                 // the answer is here; nothing after it matters
     }
   }catch(e){ throw new Error(why||'the box stopped sending part way through'); }
-  finally{ clearTimeout(timer);clearTimeout(hard); try{rd.cancel();}catch(_){} }
+  finally{ clearTimeout(timer);clearTimeout(hard); rd.cancel().catch(()=>{}); }
   if(failed)throw new Error(failed);
   if(!out)throw new Error('the box finished without an answer');
   return out;
@@ -376,47 +376,59 @@ function listen(){
 // One gesture, one owner. The click that follows a real tap used to fall through to the toggle branch and
 // stop the microphone two milliseconds after the hold had opened it — so "tap once", which this button
 // promises in its own sub-label, could never work. A pointer gesture now owns the click it produces, a short
-// press latches listening open, a long press is a hold, and sliding off cancels instead of sending.
-let held=false, lastPointer=0, stopTimer=null, pressAt=0, cancelled=false;
+// press latches listening open, and letting go of the button (or the space bar) closes what it opened.
+let held=false, gesturing=false, stopTimer=null, pressAt=0, cancelled=false, owner=null;
 const TAP_MS=400;
 function clearStop(){ if(stopTimer){clearTimeout(stopTimer);stopTimer=null;} }   // a stale stop must never reach the NEXT recording
 function stopSoon(){ const r=rec; clearStop(); stopTimer=setTimeout(()=>{stopTimer=null;try{r.stop();}catch(e){}},250); }
 function startHold(){ clearStop(); cancelled=false; held=true; pressAt=Date.now(); listen(); }
+function stopNow(){ clearStop(); held=false; try{rec.stop();}catch(e){} }
+function giveUp(){                                  // taking it back: nothing is sent
+  if(!listening)return;
+  held=false; cancelled=true; $('talksub').textContent='cancelled';
+  try{rec.abort();}catch(e){try{rec.stop();}catch(_){}}
+}
 function endHold(){
   if(!held||!listening)return;
   held=false;
   if(Date.now()-pressAt<TAP_MS){ $('talksub').textContent='tap (or press space) again when you are done'; return; }   // a tap latches it open
   stopSoon();
 }
-$('talk').addEventListener('pointerdown',()=>{
+$('talk').addEventListener('pointerdown',(e)=>{
+  if(e && e.isPrimary===false)return;               // a second finger must not stop what the first one opened
   if(!SR||busy)return;
-  lastPointer=Date.now();      // a moment, not a flag: a gesture that ends without a click cannot leave it stuck on
-
-  if(listening){ clearStop(); held=false; try{rec.stop();}catch(e){} return; }   // the second tap of a tap-to-talk pair
+  gesturing=true; owner=e?e.pointerId:null;
+  if(listening){ stopNow(); return; }               // the second tap of a tap-to-talk pair
   startHold();
+  // implicit pointer capture keeps boundary events from firing on touch, so the button asks for them back
+  try{ if(e&&e.pointerId!=null&&$('talk').hasPointerCapture(e.pointerId))$('talk').releasePointerCapture(e.pointerId); }catch(_){}
 });
-$('talk').addEventListener('pointerup',endHold);
-$('talk').addEventListener('pointercancel',()=>{ if(held&&listening){held=false;cancelled=true;try{rec.abort();}catch(e){try{rec.stop();}catch(_){}}} });
-$('talk').addEventListener('pointerleave',()=>{
-  if(!held||!listening)return;
-  held=false; cancelled=true;                       // sliding off is how a person takes it back — it must not send
-  $('talksub').textContent='cancelled';
-  try{rec.abort();}catch(e){try{rec.stop();}catch(_){}}
-});
+const mine=(e)=>!e||owner===null||e.pointerId===owner;
+$('talk').addEventListener('pointerup',(e)=>{ if(!mine(e))return; endHold(); });
+$('talk').addEventListener('pointercancel',(e)=>{ if(mine(e))giveUp(); });
+$('talk').addEventListener('pointerleave',(e)=>{ if(mine(e)&&held)giveUp(); });
 $('talk').addEventListener('click',()=>{
-  if(Date.now()-lastPointer<700)return;              // the pointer already handled this gesture
-  if(listening){clearStop();try{rec.stop();}catch(e){}return;}
+  if(gesturing){gesturing=false;return;}             // the pointer already handled this gesture, whenever it ended
+  if(listening){stopNow();return;}
   if(!SR){const j=document.querySelector('.job');if(j)j.focus();caption('The box','This browser cannot listen. Tap a job below and I will read the answer out loud.');return;}
   listen();                                          // a keyboard or assistive click: no pointer, so this is the whole gesture
 });
+// The space bar belongs to the button whether or not the button has focus — and it must be able to CLOSE
+// what it opened, because the page tells the person it can.
+const spaceIsOurs=(e)=>e.code==='Space'&&(e.target===document.body||e.target===$('talk'));
 document.addEventListener('keydown',e=>{
-  if(e.code!=='Space'||e.target!==document.body)return;
-  e.preventDefault();
+  if(!spaceIsOurs(e))return;
+  e.preventDefault();                                // and so the browser never synthesizes a click of its own
   if(e.repeat)return;                                // holding space repeats; it must not thrash the microphone
-  if(!SR||busy||listening)return;
+  if(!SR||busy)return;
+  if(listening){ stopNow(); return; }                // a latched session closes with the same key that opened it
   startHold();
 });
-document.addEventListener('keyup',e=>{ if(e.code==='Space'&&e.target===document.body){e.preventDefault();endHold();} });
+document.addEventListener('keyup',e=>{ if(spaceIsOurs(e)){e.preventDefault();endHold();} });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&listening)giveUp(); });
+// A hold that loses the window never gets its keyup or its pointerup, so the gesture would record forever.
+window.addEventListener('blur',()=>{ if(held)giveUp(); });
+document.addEventListener('visibilitychange',()=>{ if(document.hidden&&held)giveUp(); });
 for(const [slug,name] of Object.entries(NAMES)){const b=document.createElement('button');b.className='job';b.type='button';b.textContent=name;b.disabled=true;b.onclick=()=>doJob(slug);$('jobs').appendChild(b);}
 $('talk').disabled=true;                    // nothing is pressable until we know whether the box is there
 setTalk('idle');

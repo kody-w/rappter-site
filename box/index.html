@@ -243,10 +243,11 @@ async function findBox(){
     if(!j){const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
     boxBase=j.url;
     const h=await(await fetch(boxBase+'/try/health',{cache:'no-store'})).json();
+    if(toldByShell)return;              // the desk thinks on the desk; do not offer it a sign-in it cannot use
     if(signedIn)saySignedIn();
     else if(h.github_signin)$('who').textContent='Your box is awake. Sign in with GitHub so it will think for this device.';
     else $('who').textContent='Your box is awake, but GitHub sign-in is not set up on it yet.';
-  }catch(e){ $('who').textContent='Cannot reach your box right now — it thinks when the box is awake.'; }
+  }catch(e){ if(!toldByShell)$('who').textContent='Cannot reach your box right now — it thinks when the box is awake.'; }
 }
 $('signin').addEventListener('click',async()=>{
   if(!boxBase){await findBox();if(!boxBase)return;}
@@ -285,11 +286,13 @@ async function readBytes(url,reads){const r=await fetch(url,{cache:'no-store'});
 // field: a link must never be able to choose where anything is sent. It accepts loopback and nothing else,
 // so the worst a stray call could do is talk to this same machine.
 let localThinker=null;
+let toldByShell=false;
 function thinkHere(url){
   // an origin, with or without a path — and nothing that is not this machine
   if(typeof url!=='string'||!/^http:\/\/(127\.0\.0\.1|\[::1\]|localhost):\d+(\/|$)/.test(url))
     throw new Error('a thinker must be on this machine');
   localThinker=url.replace(/\/+$/,'').replace(/\/v1\/chat\/completions$/,'');   // the caller may pass either shape
+  toldByShell=true;                 // a shell has spoken for this page; findBox must not talk over it
   const w=$('who'); if(w)w.textContent='Thinking on this machine, with the Copilot CLI already signed in here.';
   const b=$('signin'); if(b)b.hidden=true;
   return localThinker;
@@ -392,9 +395,15 @@ async function hatchText(txt){
   renderChain();ev('egg','hatched '+frames.length+' verified frames from egg '+egg_hash.slice(0,16)+'… as read-only history · this box keeps its own identity');return egg_hash;
 }
 $('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{await hatchText(await f.text());}catch(err){ev('error',err.message);}e.target.value='';});
-$('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings.v2');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
+async function forgetBox(){          // the ONE way a box is forgotten — the paper goes with the chain
+  await clearAll();chain=[];hatched={};
+  localStorage.removeItem('rapterbox.virtual.identity');
+  localStorage.removeItem('rapterbox.virtual.settings.v2');
+  await boot();reset();
+}
+$('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await forgetBox();ev('note','this device forgot the box; a new identity was minted');};
 // demo/test hooks: ?model= and ?auto=1 only. A link can never say where this box sends anything.
-window.__vbox={thinkHere,run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
+window.__vbox={thinkHere,run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await forgetBox();}};
 findBox();
 window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search);
   if(q.get('app')||window.ReactNativeWebView){                 // the phone opens the box, not the brochure
