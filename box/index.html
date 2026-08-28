@@ -279,9 +279,29 @@ $('signin').addEventListener('click',async()=>{
 async function getJSON(u,opt){const r=await fetch(u,opt);if(!r.ok)throw new Error('fetch '+r.status+' '+u);return r.json();}
 async function pin(repo){try{const j=await getJSON(`https://api.github.com/repos/${repo}/commits/main`,{headers:{Accept:'application/vnd.github+json'}});return j.sha;}catch(e){throw new Error('could not pin inputs for '+repo);}}
 async function readBytes(url,reads){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error('read failed '+r.status+' '+url);const b=new Uint8Array(await r.arrayBuffer());const h=await sha256hex(b);reads.push({url,sha256:h,bytes:b.length});ev('read',url.replace('https://raw.githubusercontent.com/','').replace(/\/[0-9a-f]{40}\//,'/@/')+' · '+b.length+' bytes · '+h.slice(0,12));return new TextDecoder().decode(b);}
-// ---------- think: bring your own key ----------
+// ---------- think: the owner's box, or the machine this page is running on ----------
+// A native shell (the Launchpad) runs on the owner's own Mac beside their Copilot CLI, so it has no sign-in
+// to do — it hands the page a thinker directly. That hook is deliberately NOT a URL parameter and NOT a
+// field: a link must never be able to choose where anything is sent. It accepts loopback and nothing else,
+// so the worst a stray call could do is talk to this same machine.
+let localThinker=null;
+function thinkHere(url){
+  if(typeof url!=='string'||!/^http:\/\/(127\.0\.0\.1|\[::1\]|localhost):\d+\//.test(url))
+    throw new Error('a thinker must be on this machine');
+  localThinker=url.replace(/\/+$/,'');
+  const w=$('who'); if(w)w.textContent='Thinking on this machine, with the Copilot CLI already signed in here.';
+  const b=$('signin'); if(b)b.hidden=true;
+  return localThinker;
+}
 async function think(prompt){
   const model=$('model').value.trim()||'auto';
+  if(localThinker){
+    const lr=await fetch(localThinker+'/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})});
+    if(!lr.ok)throw new Error('the thinker on this machine answered '+lr.status);
+    const lj=await lr.json();
+    return ((lj.choices||[])[0]||{}).message?.content||'';
+  }
   if(!boxBase)await findBox();
   if(!boxBase)throw new Error('your box is not reachable right now — it thinks when the box is awake');
   if(!session)throw new Error('sign in with GitHub first — your box will not think for a device it does not know');
@@ -295,7 +315,7 @@ async function think(prompt){
 // ---------- one run = one receipt frame on THIS box's stream ----------
 async function runOnce(){
   reset();
-  if(!session){          // said before the work, not after: a run that cannot finish should not look like one that might
+  if(!session&&!localThinker){          // said before the work, not after: a run that cannot finish should not look like one that might
     ev('note','Sign in with GitHub first — your box will not think for a device it does not know.');
     $('who').scrollIntoView({block:'center',behavior:'smooth'});
     $('signin').focus();
@@ -373,7 +393,7 @@ async function hatchText(txt){
 $('import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{await hatchText(await f.text());}catch(err){ev('error',err.message);}e.target.value='';});
 $('wipe').onclick=async()=>{if(!confirm('Forget this box on this device? This erases its chain and every chain hatched here. Export an .egg first if you want it back.'))return;await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');localStorage.removeItem('rapterbox.virtual.settings.v2');await boot();reset();ev('note','this device forgot the box; a new identity was minted');};
 // demo/test hooks: ?model= and ?auto=1 only. A link can never say where this box sends anything.
-window.__vbox={run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
+window.__vbox={thinkHere,run:()=>$('run').click(),runAsync:runOnce,chain:()=>chain,hatched:()=>hatched,identity:()=>identity,packEgg,hatchText,verifyFrame,canonical,wipeSilently:async()=>{await clearAll();chain=[];hatched={};localStorage.removeItem('rapterbox.virtual.identity');await boot();}};
 findBox();
 window.__vbox.ready=boot().then(()=>{const q=new URLSearchParams(location.search);
   if(q.get('app')||window.ReactNativeWebView){                 // the phone opens the box, not the brochure
