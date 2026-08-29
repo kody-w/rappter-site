@@ -265,7 +265,11 @@ async function findBox(){
     let j=null;
     try{const a=await fetch(ENDPOINT_API,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(a.ok){const c=await a.json();j=JSON.parse(atob(c.content.replace(/\n/g,'')));}}catch(_){}
     if(!j){const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
-    boxBase=j.url;
+    // The endpoint is read from a public repo, and the session bearer token and the whole sign-in go to
+    // whatever it names — so the page checks the shape it expects before it will talk to it.
+    if(!/^https:\/\/[a-z0-9-]+\.trycloudflare\.com\/?$/.test(String(j.url||'')))
+      throw new Error('the published box address does not look like this box');
+    boxBase=String(j.url).replace(/\/+$/,'');
     const h=await(await fetch(boxBase+'/try/health',{cache:'no-store'})).json();
     if(toldByShell)return;              // the desk thinks on the desk; do not offer it a sign-in it cannot use
     if(signedIn)saySignedIn();
