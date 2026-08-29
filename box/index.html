@@ -244,8 +244,15 @@ async function findBox(){
     // desk and the tunnel, and on the desk it needs no sign-in at all — the same reason the grail Brainstem
     // trusts loopback. Going out to the tunnel and back would turn the owner into a stranger to their own box.
     try{
-      const hh=await fetch(HOME_BOX+'/try/health',{cache:'no-store',signal:AbortSignal.timeout(1200)});
-      if(hh.ok){
+      // A clock that cannot fail to fire. AbortSignal alone is not enough here: a page on the public internet
+      // reaching 127.0.0.1 is a private-network request, and a browser may sit on that preflight indefinitely
+      // — which would hang the search for the box behind a convenience.
+      const ctrl=new AbortController();
+      const hh=await Promise.race([
+        fetch(HOME_BOX+'/try/health',{cache:'no-store',signal:ctrl.signal}),
+        new Promise(res=>setTimeout(()=>{try{ctrl.abort();}catch(_){}res(null);},1500)),
+      ]);
+      if(hh&&hh.ok){
         const hj=await hh.json();
         if(hj.desk){
           boxBase=HOME_BOX; onTheDesk=true;
