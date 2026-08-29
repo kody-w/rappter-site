@@ -321,31 +321,46 @@ function thinkHere(url){
   const b=$('signin'); if(b)b.hidden=true;
   return localThinker;
 }
+const THINK_DEADLINE=420000;
+async function askThinker(url,body,auth){
+  // Every wait carries a clock (rbox SDK law XVIII). A think that never returns must end as a sentence the
+  // owner can act on, not as a Run button that never comes back.
+  const ctrl=new AbortController();
+  const t=setTimeout(()=>ctrl.abort(),THINK_DEADLINE);
+  try{
+    const r=await fetch(url,{method:'POST',signal:ctrl.signal,
+      headers:Object.assign({'content-type':'application/json'},auth?{authorization:'Bearer '+auth}:{}),
+      body:JSON.stringify(body)});
+    if(!r.ok){
+      let m=''; try{m=(await r.json()).error||'';}catch(_){}
+      const e=new Error(m||('your box answered '+r.status)); e.status=r.status; throw e;
+    }
+    const j=await r.json();
+    return ((j.choices||[])[0]||{}).message?.content||'';
+  }catch(e){
+    if(ctrl.signal.aborted)throw new Error('your box took too long to think — it may be busy');
+    throw e;
+  }finally{ clearTimeout(t); }
+}
 async function think(prompt){
   const model=$('model').value.trim()||'auto';
-  if(onTheDesk){                      // the box is this machine; it already knows who is asking
-    const dr=await fetch(boxBase+'/think/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json'},
-      body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})});
-    if(!dr.ok)throw new Error('your box answered '+dr.status);
-    const dj=await dr.json();
-    return ((dj.choices||[])[0]||{}).message?.content||'';
-  }
-  if(localThinker){
-    const lr=await fetch(localThinker+'/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json'},
-      body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})});
-    if(!lr.ok)throw new Error('the thinker on this machine answered '+lr.status);
-    const lj=await lr.json();
-    return ((lj.choices||[])[0]||{}).message?.content||'';
-  }
+  const msg={model,messages:[{role:'user',content:prompt}]};
+  if(onTheDesk)return askThinker(boxBase+'/think/v1/chat/completions',msg);   // the box is this machine; it knows who is asking
+  if(localThinker)return askThinker(localThinker+'/v1/chat/completions',msg);
   if(!boxBase)await findBox();
   if(!boxBase)throw new Error('your box is not reachable right now — it thinks when the box is awake');
   if(!session)throw new Error('sign in with GitHub first — your box will not think for a device it does not know');
-  const r=await fetch(boxBase+'/think/v1/chat/completions',{method:'POST',
-    headers:{'content-type':'application/json','authorization':'Bearer '+session},
-    body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})});
-  if(r.status===403){session=null;signedIn=null;try{localStorage.removeItem('rapterbox.virtual.session');}catch(_){}$('signin').style.display='';throw new Error('that sign-in is no longer good — sign in again');}
-  if(!r.ok){let m='your box could not answer ('+r.status+')';try{m=(await r.json()).error||m;}catch(_){}throw new Error(m);}
-  const j=await r.json();return j.choices?.[0]?.message?.content||'';
+  try{
+    return await askThinker(boxBase+'/think/v1/chat/completions',msg,session);
+  }catch(e){
+    if(e.status===403){        // the box no longer knows this device: forget the session and ask again
+      session=null;signedIn=null;
+      try{localStorage.removeItem('rapterbox.virtual.session');}catch(_){}
+      $('signin').style.display='';
+      throw new Error('that sign-in is no longer good — sign in again');
+    }
+    throw e;
+  }
 }
 // ---------- one run = one receipt frame on THIS box's stream ----------
 async function runOnce(){
