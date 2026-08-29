@@ -236,8 +236,25 @@ const ENDPOINT_API='https://api.github.com/repos/kody-w/rappter-prompts/contents
 let boxBase=null, session=null, signedIn=null;
 try{const sv=JSON.parse(localStorage.getItem('rapterbox.virtual.session')||'null');if(sv&&sv.token&&sv.expires>Date.now()){session=sv.token;signedIn=sv.login;}}catch(e){}
 function saySignedIn(){ $('who').textContent='Signed in as '+signedIn+' — your box does the thinking.'; $('signin').style.display='none'; }
+const HOME_BOX='http://127.0.0.1:7093';
+let onTheDesk=false;
 async function findBox(){
   try{
+    // If the box is the machine you are sitting at, talk to it directly. It knows the difference between the
+    // desk and the tunnel, and on the desk it needs no sign-in at all — the same reason the grail Brainstem
+    // trusts loopback. Going out to the tunnel and back would turn the owner into a stranger to their own box.
+    try{
+      const hh=await fetch(HOME_BOX+'/try/health',{cache:'no-store',signal:AbortSignal.timeout(1200)});
+      if(hh.ok){
+        const hj=await hh.json();
+        if(hj.desk){
+          boxBase=HOME_BOX; onTheDesk=true;
+          if(!toldByShell)$('who').textContent='This is your box — it is right here, so it thinks without a sign-in.';
+          const b=$('signin'); if(b)b.hidden=true;
+          return;
+        }
+      }
+    }catch(_){}                        // no box on this machine: the ordinary case, and not an error
     let j=null;
     try{const a=await fetch(ENDPOINT_API,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(a.ok){const c=await a.json();j=JSON.parse(atob(c.content.replace(/\n/g,'')));}}catch(_){}
     if(!j){const r=await fetch(ENDPOINT_JSON+'?t='+Date.now(),{cache:'no-store'});j=await r.json();}
@@ -246,7 +263,7 @@ async function findBox(){
     if(toldByShell)return;              // the desk thinks on the desk; do not offer it a sign-in it cannot use
     if(signedIn)saySignedIn();
     else if(h.github_signin)$('who').textContent='Your box is awake. Sign in with GitHub so it will think for this device.';
-    else $('who').textContent='Your box is awake, but GitHub sign-in is not set up on it yet.';
+    else $('who').textContent='Your box is awake, but this box does not know who owns it yet.';
   }catch(e){ if(!toldByShell)$('who').textContent='Cannot reach your box right now — it thinks when the box is awake.'; }
 }
 $('signin').addEventListener('click',async()=>{
@@ -299,6 +316,13 @@ function thinkHere(url){
 }
 async function think(prompt){
   const model=$('model').value.trim()||'auto';
+  if(onTheDesk){                      // the box is this machine; it already knows who is asking
+    const dr=await fetch(boxBase+'/think/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})});
+    if(!dr.ok)throw new Error('your box answered '+dr.status);
+    const dj=await dr.json();
+    return ((dj.choices||[])[0]||{}).message?.content||'';
+  }
   if(localThinker){
     const lr=await fetch(localThinker+'/v1/chat/completions',{method:'POST',headers:{'content-type':'application/json'},
       body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})});
@@ -319,7 +343,7 @@ async function think(prompt){
 // ---------- one run = one receipt frame on THIS box's stream ----------
 async function runOnce(){
   reset();
-  if(!session&&!localThinker){          // said before the work, not after: a run that cannot finish should not look like one that might
+  if(!session&&!localThinker&&!onTheDesk){   // said before the work, not after: a run that cannot finish should not look like one that might
     ev('note','Sign in with GitHub first — your box will not think for a device it does not know.');
     $('who').scrollIntoView({block:'center',behavior:'smooth'});
     $('signin').focus();
