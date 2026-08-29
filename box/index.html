@@ -252,7 +252,7 @@ async function findBox(){
         fetch(HOME_BOX+'/try/health',{cache:'no-store',signal:ctrl.signal}),
         new Promise(res=>setTimeout(()=>{try{ctrl.abort();}catch(_){}res(null);},1500)),
       ]);
-      if(hh&&hh.ok){
+      if(hh&&hh.ok&&!toldByShell){        // a shell already said where this page thinks; do not overrule it
         const hj=await hh.json();
         if(hj.desk){
           boxBase=HOME_BOX; onTheDesk=true;
@@ -345,8 +345,8 @@ async function askThinker(url,body,auth){
 async function think(prompt){
   const model=$('model').value.trim()||'auto';
   const msg={model,messages:[{role:'user',content:prompt}]};
-  if(onTheDesk)return askThinker(boxBase+'/think/v1/chat/completions',msg);   // the box is this machine; it knows who is asking
-  if(localThinker)return askThinker(localThinker+'/v1/chat/completions',msg);
+  if(localThinker)return askThinker(localThinker+'/v1/chat/completions',msg);  // a shell SAID where to think: that wins
+  if(onTheDesk)return askThinker(boxBase+'/think/v1/chat/completions',msg);    // otherwise, the box is this machine
   if(!boxBase)await findBox();
   if(!boxBase)throw new Error('your box is not reachable right now — it thinks when the box is awake');
   if(!session)throw new Error('sign in with GitHub first — your box will not think for a device it does not know');
