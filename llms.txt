@@ -13,6 +13,7 @@
 - Existing bounded work board: https://rappter.com/mesh/
 - Public agent contract: https://rappter.com/agent.json
 
-All 251 source species are initially RapterBox-owned and undiscovered. A buyer
-later hatches a unique player-owned instance from a revealed species. Source
-species and player instances are products, not company equity or securities.
+All 251 catalog slots are initially controlled by RapterBox and undiscovered;
+candidate source-content rights remain clearance-pending. A buyer later hatches
+a unique player-owned instance from a cleared, revealed species. Species and
+player instances are products, not company equity or securities.
