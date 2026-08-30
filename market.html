@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rappter Official Market — rip, hatch, return, trade</title>
+<meta name="description" content="How the fixed Genesis 251 supply moves: verifiable rip, seven-day First Hatch Promise, official resale, and transparent RapterBox standing bids.">
+<meta property="og:title" content="The Rappter Official Market">
+<meta property="og:description" content="Rip from a fixed pool. Hatch for seven days. Return it or let it enter the official market.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rappter.com/market">
+<link rel="canonical" href="https://rappter.com/market">
+<link rel="alternate" type="application/json" href="https://rappter.com/market-policy.json" title="Machine-readable market policy">
+<style>
+:root{--bg:#07090d;--card:#11151d;--ink:#f4f6fa;--dim:#9ca7b7;--line:#273040;--hot:#ff5c7c;--gold:#ffc857;--go:#72a7ff;--ok:#59d17d}
+@media(prefers-color-scheme:light){:root{--bg:#f8f7f3;--card:#fff;--ink:#17191d;--dim:#626b78;--line:#d9dde5;--hot:#b11f4b;--gold:#9a6500;--go:#075fc9;--ok:#16783a}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--go)}.shell{width:min(76rem,calc(100% - 2.5rem));margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:5rem;border-bottom:1px solid var(--line)}
+.brand{color:var(--ink);font-weight:900;text-decoration:none}.button{display:inline-flex;align-items:center;justify-content:center;min-height:2.8rem;padding:.7rem 1rem;border:1px solid var(--hot);border-radius:.7rem;background:var(--hot);color:#fff;font-weight:800;text-decoration:none}
+.button.alt{background:transparent;color:var(--ink);border-color:var(--line)}
+.hero{padding:clamp(4rem,9vw,8rem) 0}.eyebrow{color:var(--hot);font:800 .78rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.15em}
+h1,h2,h3,p{margin-top:0}h1{max-width:12ch;font-size:clamp(3.2rem,8vw,7rem);line-height:.91;letter-spacing:-.065em}h2{font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:-.045em}.lede{max-width:50rem;color:var(--dim);font-size:clamp(1.1rem,2vw,1.4rem)}
+.actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}section{padding:5rem 0;border-top:1px solid var(--line)}
+.timeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.8rem}.step,.card{padding:1.25rem;border:1px solid var(--line);border-radius:1rem;background:var(--card)}
+.step b{display:block;color:var(--gold);font:800 .8rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.step p,.card p{color:var(--dim)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.promise{padding:1.6rem;border:1px solid var(--hot);border-radius:1rem;background:color-mix(in srgb,var(--hot) 8%,var(--card))}
+.promise strong{color:var(--hot)}.fine{color:var(--dim);font-size:.82rem}footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;border-top:1px solid var(--line);color:var(--dim);font-size:.82rem}
+@media(max-width:880px){.timeline{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}@media(max-width:560px){.shell{width:calc(100% - 2rem)}.timeline{grid-template-columns:1fr}footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="shell"><a class="brand" href="/">R/ Rappter</a><a class="button alt" href="https://kody-w.github.io/holodex/">Open Holodex</a></header>
+<main>
+  <section class="hero" style="border-top:0"><div class="shell">
+    <p class="eyebrow">FIXED SUPPLY / SEVEN-DAY HATCH / OFFICIAL MARKET</p>
+    <h1>Rip it. Hatch it. Keep it or return it.</h1>
+    <p class="lede">Genesis 251 behaves more like a fixed card population than an endlessly minted feed. A verifiable rip assigns one eligible Original. You get seven days to hatch it. Return it for the purchase-price refund, or let title settle and enter the official market.</p>
+    <div class="actions"><a class="button" href="https://kody-w.github.io/holodex/">See the fixed catalog</a><a class="button alt" href="/market-policy.json">Read the machine policy</a></div>
+  </div></section>
+
+  <section><div class="shell">
+    <p class="eyebrow">THE FIRST HATCH LIFECYCLE</p>
+    <div class="timeline">
+      <article class="step"><b>01 / POOL</b><h3>Commit inventory</h3><p>Only rights-cleared, available Originals enter the disclosed eligible pool.</p></article>
+      <article class="step"><b>02 / RIP</b><h3>Draw one</h3><p>The selection must verify against the committed pool and published method.</p></article>
+      <article class="step"><b>03 / HATCH</b><h3>Seven-day trial</h3><p>Use it privately. The title is transfer-locked while the First Hatch Promise is open.</p></article>
+      <article class="step"><b>04 / CHOOSE</b><h3>Return or settle</h3><p>Return title and the transferable Capsule for the refund, or keep it through day seven.</p></article>
+      <article class="step"><b>05 / MARKET</b><h3>Become eligible</h3><p>After day seven, hold it unlisted, post an ask, or accept an eligible bid.</p></article>
+    </div>
+  </div></section>
+
+  <section><div class="shell">
+    <div class="promise">
+      <p class="eyebrow">THE FIRST HATCH PROMISE</p>
+      <h2>Seven days. No reason required.</h2>
+      <p>Return the purchased organism during the protected window and RapterBox takes current title and the transferable Capsule back into inventory, then refunds the purchase price through the original payment path.</p>
+      <p><strong>Your private life is not part of the return.</strong> Credentials, private memory, customer records, private prompts, and independently minted offspring do not come back with the parent.</p>
+      <p class="fine">External taxes, processor fees, currency conversion, and network charges are refunded to the extent recoverable or legally required. Fraud, duplicate refunds, sanctions, chargeback abuse, and prohibited transactions remain refusable.</p>
+    </div>
+  </div></section>
+
+  <section><div class="shell">
+    <p class="eyebrow">ONE FIXED SET / MANY TRANSFERS</p>
+    <div class="grid">
+      <article class="card"><h3>Originals do not multiply</h3><p>The 251 First Edition Originals move between holders and RapterBox inventory. Resale does not mint another Original.</p></article>
+      <article class="card"><h3>Offspring stay distinct</h3><p>Descendants carry their own RAPPIDs, histories, rights, and supply. They are never represented as duplicate Originals.</p></article>
+      <article class="card"><h3>Private state stays private</h3><p>The market moves title, declared transferable artifacts, public lineage, and stated rights—not credentials or private memory.</p></article>
+    </div>
+  </div></section>
+
+  <section><div class="shell">
+    <p class="eyebrow">RAPTERBOX AS MARKET MAKER</p>
+    <h2>A floor is a real bid, not a story.</h2>
+    <p class="lede">RapterBox may publish standing bids or direct buyout offers. Every company bid names the covered organisms, price, quantity or budget, expiry, condition, and settlement terms. While funded and active, that bid is an observable floor only for the inventory it actually covers.</p>
+    <div class="grid">
+      <article class="card"><h3>Transparent conflict</h3><p>RapterBox is issuer, official market operator, and possible bidder. Every company bid says so.</p></article>
+      <article class="card"><h3>Atomic settlement</h3><p>Accepted offers transfer exact current title and declared artifacts to RapterBox inventory.</p></article>
+      <article class="card"><h3>No investment promise</h3><p>No equity, dividend, guaranteed appreciation, guaranteed liquidity, or permanent buyout floor.</p></article>
+    </div>
+  </div></section>
+
+  <section><div class="shell">
+    <p class="eyebrow">PRELAUNCH BOUNDARY</p>
+    <h2>The policy is public before the market is open.</h2>
+    <p class="lede">All Originals remain issuer-held, untransferred, and undiscovered. Commercial launch still requires rights clearance, an auditable selection mechanism, payments review, and age or location controls where required.</p>
+    <div class="actions"><a class="button" href="https://rapterbox.com/MARKETPLACE-POLICY.md">Canonical LLC policy</a><a class="button alt" href="/">Back to First Dimension</a></div>
+  </div></section>
+</main>
+<footer class="shell"><span>RapterBox LLC · Official organism market policy</span><span><a href="/agent.json">Agent view</a> · <a href="https://rapterbox.com/rapp">Why RAPP</a></span></footer>
+</body>
+</html>
