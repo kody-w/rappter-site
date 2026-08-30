@@ -1,278 +1,231 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("scoutTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RappterBox — your evenings back in 90 days, or you keep the box and stop paying (pre-launch)</title>
-<meta name="description" content="A small box on your network does your business's admin overnight and texts you the two or three decisions that are actually yours. At launch: ten hours a month back by day 90, or you keep the box and stop paying. Pre-launch: join the waitlist for priority in line, and get the owner's prompt library today.">
-<meta property="og:title" content="RappterBox — your evenings back. Join the waitlist.">
-<meta property="og:description" content="It does the admin overnight and texts you only the decisions that are yours. At launch: ten hours a month back by day 90, or you keep the box and stop paying. Pre-launch — join the waitlist.">
+<title>Rappter — Genesis 251 First Edition / First Dimension</title>
+<meta name="description" content="251 signed Holo species slots in one First Edition / First Dimension catalog frame. Watch Holodex and request the first cleared reveals.">
+<meta property="og:title" content="Rappter — 251 Holo species, all undiscovered">
+<meta property="og:description" content="The complete sealed First Edition / First Dimension frame. Discovery happens one signed Holo at a time.">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://rappter.com/">
-<link rel="alternate" type="application/json" href="https://rappter.com/agent.json" title="Agent view of this business">
 <meta property="og:url" content="https://rappter.com/">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#f3eee4">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://rappter.com/">
+<link rel="alternate" type="application/json" href="https://rappter.com/agent.json" title="Agent view">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
- {"@type":"Organization","@id":"https://rappter.com/#org","name":"RapterBox LLC","url":"https://rappter.com/",
-  "description":"A small box on your network that does a business's admin in the background and texts the owner only the decisions that are theirs."},
- {"@type":"Product","name":"RappterBox","brand":{"@id":"https://rappter.com/#org"},
-  "description":"Pre-launch. Install day, the 7am brief, a verifiable receipts ledger, a monthly hours-back report. Guarantee at launch: ten hours a month handed back by day 90 or we work free until it is; if it still hasn't by day 180, you keep the box and stop paying.",
-    "audience":{"@type":"Audience","audienceType":"Owner-operated services businesses, 5–50 staff"}},
- {"@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"Does it send emails or sign things for me?","acceptedAnswer":{"@type":"Answer","text":"No. It never sends, signs, pays or deletes on your behalf — the software has no way to do those things. A task needing one comes back to you as a decision, with the reversible work already finished."}},
-  {"@type":"Question","name":"What is the guarantee?","acceptedAnswer":{"@type":"Answer","text":"At launch: if the monthly report doesn't show at least ten hours a month handed back to you by day 90, we keep working for free until it does. If it still hasn't by day 180, you keep the box and owe nothing further. Separately: 30 days, any reason, full refund — service and box; we collect the box."}},
-  {"@type":"Question","name":"Who owns the records?","acceptedAnswer":{"@type":"Answer","text":"You do. The box runs on your network. The records can only be added to, never changed or erased, and your accountant or insurer can check them without trusting us."}}]}]}
+  {"@type":"Organization","@id":"https://rappter.com/#org","name":"RapterBox LLC","url":"https://rappter.com/"},
+  {"@type":"CollectionPage","name":"Genesis 251 First Edition / First Dimension","url":"https://rappter.com/","description":"A sealed 16 by 16 frame containing 251 canonical Holo species and five control tiles."},
+  {"@type":"Dataset","name":"Holodex","url":"https://kody-w.github.io/holodex/","creator":{"@id":"https://rappter.com/#org"}}
+]}
 </script>
 <style>
-:root{--paper:#f3eee4;--card:#fff9ee;--white:#fffdf7;--ink:#141210;--body:#3e3930;--mute:#6b655b;--rule:#b7ad9a;--amber:#ffd60a;--amberdeep:#a16207;--green:#1f7a3f}
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:24px}
-html,body{overflow-x:hidden}
-body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-.w{max-width:1180px;margin:0 auto;padding:0 28px}
-a{color:var(--amberdeep);text-underline-offset:3px}
-.mono{font-family:ui-monospace,Menlo,monospace}
-h1{font-size:clamp(42px,6.4vw,84px);line-height:1.04;letter-spacing:-.04em;margin:0;font-weight:800;text-wrap:balance}
-h1 mark{background:linear-gradient(transparent 14%,var(--amber) 14%,var(--amber) 92%,transparent 92%);color:var(--ink);padding:0 .1em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
-h2{font-size:clamp(30px,3.6vw,46px);line-height:1.02;letter-spacing:-.035em;margin:0 0 14px;font-weight:800;text-wrap:balance}
-h3{font-size:28px;letter-spacing:-.025em;margin:0 0 12px;font-weight:800}
-p{margin:12px 0;text-wrap:pretty}
-.lede{font-size:clamp(19px,2vw,23px);line-height:1.45;color:var(--body);max-width:640px}
-.kicker{font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amberdeep)}
-.fine{color:var(--mute);font-size:14px}
-nav{border-bottom:2px solid var(--ink)}
-nav .w{display:flex;align-items:center;gap:14px;padding-top:18px;padding-bottom:18px}
-nav svg{flex:none}
-.wm{font-size:22px;font-weight:800;letter-spacing:-.04em}
-.line{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
-nav .free{margin-left:auto;font-weight:700;color:var(--ink);font-size:15px;text-decoration:underline;text-underline-offset:4px}
-nav .cta{padding:11px 18px;font-size:15px;box-shadow:4px 4px 0 var(--ink)}
-.cta{display:inline-block;background:var(--amber);color:var(--ink);text-decoration:none;font-weight:800;padding:18px 30px;border:2px solid var(--ink);font-size:18px;box-shadow:6px 6px 0 var(--ink);transition:transform .15s,box-shadow .15s}
-.cta:hover{transform:translate(2px,2px);box-shadow:4px 4px 0 var(--ink)}
-.stamp{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--ink);padding:7px 14px;font-family:ui-monospace,Menlo,monospace;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--card);transform:rotate(-1.5deg)}
-.stamp b{background:var(--amber);padding:2px 10px;font-variant-numeric:tabular-nums;white-space:nowrap}
-section{padding:clamp(52px,7vw,80px) 0}
-.tear{border-top:2px dashed var(--ink)}
-.hero .w{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
-.hero .copy{display:flex;flex-direction:column;gap:24px;align-items:flex-start}
-.hero .row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.hero .row .mono{font-size:14px;color:var(--body);line-height:1.5}
-.phone{width:min(380px,100%);margin:0 auto;background:var(--ink);border-radius:44px;padding:14px;box-shadow:10px 10px 0 var(--ink),0 30px 60px rgba(20,18,16,.25);transform:rotate(2deg)}
-.screen{background:#fff;border-radius:32px;padding:18px 16px 20px;min-height:560px;display:flex;flex-direction:column;gap:12px}
-.ptop{text-align:center;font-size:12px;color:#8a8378;font-weight:600;padding-bottom:8px;border-bottom:1px solid #ece7dc}
-.b{align-self:flex-start;max-width:96%;background:#e9e9eb;color:var(--ink);border-radius:20px 20px 20px 6px;padding:12px 14px;font:12.5px/1.6 ui-monospace,Menlo,monospace;white-space:pre-wrap}
-.b.me{align-self:flex-end;background:var(--amber);border-radius:20px 20px 6px 20px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Inter,Arial,sans-serif}
-.pcap{margin-top:auto;text-align:center;font-size:11px;color:#8a8378}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
-.two.rc{grid-template-columns:.9fr 1.1fr}
-.pricebox{border:2px solid var(--ink);background:var(--card);padding:22px 24px;box-shadow:6px 6px 0 var(--ink);margin-top:8px}
-.pricebox .k{font-size:12px;font-family:ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
-.pricebox .k.hot{color:var(--amberdeep);font-weight:700}
-.pricebox .n{font-size:40px;font-weight:800;letter-spacing:-.04em;line-height:1.1}.pricebox .n.big{font-size:54px}
-.pricebox .n small{font-size:16px;font-weight:600;color:var(--mute);letter-spacing:0}
-.pricebox hr{border:0;height:2px;background:var(--ink);margin:16px 0}
-.pricebox p{font-size:15px;color:var(--body);margin:10px 0 0}
-.receipt{background:var(--white);border:2px solid var(--ink);padding:34px 36px 30px;font:14.5px/1.7 ui-monospace,Menlo,monospace;box-shadow:8px 8px 0 var(--ink);position:relative}
-.receipt .seal{position:absolute;top:22px;right:26px;border:3px solid var(--green);color:var(--green);padding:4px 12px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;transform:rotate(8deg);font-size:15px}
-.receipt .h{text-align:center;font-weight:800;letter-spacing:.15em;text-transform:uppercase;font-size:15px}
-.receipt .sub{text-align:center;color:var(--mute);font-size:12.5px;margin-bottom:18px}
-.receipt .r{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted var(--rule);padding:7px 0}
-.receipt .r span:last-child{white-space:nowrap}
-.receipt .t{display:flex;justify-content:space-between;padding:16px 0 4px;font-weight:800;font-size:16px}
-.receipt .pay{display:flex;justify-content:space-between;padding:14px 0 0;margin-top:10px;border-top:2px solid var(--ink);font-weight:800;font-size:22px;color:var(--amberdeep)}
-.receipt .note{color:var(--mute);font-size:12.5px;margin-top:10px}
-.receipt .dots{text-align:center;color:var(--rule);font-size:12px;margin-top:18px;letter-spacing:3px}
-.guar{border:2px solid var(--ink);background:var(--card);padding:30px 32px;box-shadow:8px 8px 0 var(--green);position:relative;margin-top:18px}
-.guar .lbl{position:absolute;top:-18px;left:24px;background:var(--green);color:var(--card);padding:6px 14px;font-family:ui-monospace,Menlo,monospace;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12.5px}
-.guar .big{font-size:21px;font-weight:700;line-height:1.4;letter-spacing:-.01em;margin:10px 0 0}
-.guar .anti{font-family:ui-monospace,Menlo,monospace;font-size:14px;color:var(--mute)}
-.limits{padding:0;margin:0}.limits li{list-style:none;padding:0 0 12px 30px;position:relative;color:var(--body)}.limits li b{color:var(--ink)}
-.limits li:before{content:"→";position:absolute;left:0;color:var(--amber);font-weight:800}
-.limits.no li:before{content:"✕";color:var(--ink)}
-.proof li:before{content:"✓";color:var(--green)}
-form{background:var(--card);border:2px solid var(--ink);padding:28px;box-shadow:8px 8px 0 var(--ink)}
-label{display:block;font:700 13px ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em;margin:16px 0 6px}
-input,textarea,select{width:100%;background:#fff;border:2px solid var(--ink);color:var(--ink);border-radius:0;padding:12px 14px;font:inherit;font-size:16px}
-input:focus,textarea:focus,select:focus{outline:none;box-shadow:0 0 0 3px var(--amber)}
-textarea{min-height:72px;resize:vertical}
-button{margin-top:20px;width:100%;background:var(--amber);color:var(--ink);border:2px solid var(--ink);padding:17px;font:inherit;font-size:18px;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 var(--ink)}
-button:disabled{opacity:.6;cursor:wait}
-.msg{display:none;border:2px solid var(--ink);padding:18px;margin-top:16px;font-weight:700;text-align:center;background:var(--card)}
-.msg.ok{border-color:var(--green);color:var(--green)}.msg.no{border-color:var(--amberdeep);color:var(--amberdeep)}
-details{border:2px solid var(--ink);padding:12px 16px;margin:10px 0;background:var(--card)}
-summary{cursor:pointer;font-weight:700}details p{color:var(--body);margin:8px 0 2px;font-size:16px}
-footer{padding:26px 0 60px;border-top:2px solid var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mute)}
-footer .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-@media (max-width:900px){.hero .w,.two,.two.rc{grid-template-columns:1fr;gap:36px}.receipt .pay{flex-direction:column;gap:2px;font-size:18px}.receipt .t{flex-direction:column;gap:2px}nav .w{gap:10px}nav .free{display:none}.phone{transform:none;margin-top:8px}.receipt{padding:22px 18px}.receipt .r{flex-direction:column;gap:2px}.receipt .r span:last-child{white-space:normal;color:var(--mute)}.receipt .seal{position:static;display:inline-block;margin-bottom:10px}nav .line{display:none}nav .cta{padding:9px 12px;font-size:13px}.pricebox .n small{display:block;line-height:1.3}.stamp{font-size:11.5px}}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;overflow-x:hidden;background:var(--cp-bg);color:var(--cp-text);font:17px/1.6 "Segoe UI",Aptos,Calibri,-apple-system,BlinkMacSystemFont,sans-serif}
+a{color:var(--cp-link)}
+.shell{width:min(92rem,calc(100% - 2.5rem));margin-inline:auto}
+header{min-height:5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--cp-border)}
+.brand{color:var(--cp-text);font-weight:800;text-decoration:none}
+nav{display:flex;align-items:center;gap:1rem}
+nav a{color:var(--cp-text-muted);text-decoration:none}
+.button{display:inline-flex;justify-content:center;align-items:center;min-height:2.8rem;padding:.7rem 1rem;border:1px solid var(--cp-accent);border-radius:.625rem;color:var(--cp-accent-fg);background:var(--cp-accent);font-weight:700;text-decoration:none;cursor:pointer}
+.button:hover{background:var(--cp-accent-hover)}
+.button.secondary{color:var(--cp-text);background:var(--cp-surface);border-color:var(--cp-border)}
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(20rem,.75fr);gap:3rem;align-items:center;min-height:76vh;padding-block:5rem}
+.eyebrow{margin:0 0 1rem;color:var(--cp-accent);font:700 .78rem/1.2 Consolas,"Courier New",Courier,monospace;letter-spacing:.14em}
+h1,h2,h3,p{margin-top:0;overflow-wrap:anywhere}
+h1{margin-bottom:1.5rem;font-size:clamp(3.2rem,8vw,7.6rem);line-height:.94;letter-spacing:-.07em}
+h2{font-size:clamp(2rem,5vw,4.4rem);line-height:1;letter-spacing:-.055em}
+.lede{max-width:48rem;color:var(--cp-text-muted);font-size:clamp(1.05rem,2vw,1.4rem)}
+.actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:hidden;border:1px solid var(--cp-border);border-radius:16px;background:var(--cp-surface);box-shadow:var(--cp-shadow)}
+.facts div{padding:1.2rem;border:1px solid var(--cp-border)}
+.facts strong{display:block;font-size:1.25rem}
+.facts span{color:var(--cp-text-muted);font-size:.8rem}
+section{padding-block:5rem;border-top:1px solid var(--cp-border)}
+.section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.8fr);gap:2rem;align-items:end;margin-bottom:2rem}
+.muted{color:var(--cp-text-muted)}
+.mini-frame-wrap{overflow:auto;padding:.5rem;border:1px solid var(--cp-border);border-radius:16px;background:var(--cp-bg-elevated);box-shadow:var(--cp-shadow)}
+.mini-frame{display:grid;grid-template-columns:repeat(16,minmax(2.7rem,1fr));min-width:52rem;aspect-ratio:1;gap:.18rem}
+.mini-tile{position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid var(--cp-border);border-radius:.45rem;background:var(--cp-surface)}
+.mini-tile:before,.mini-tile:after{content:"";position:absolute;border-radius:50%;background:var(--cp-text);opacity:.17}
+.mini-tile:before{width:66%;aspect-ratio:1}
+.mini-tile:after{width:32%;aspect-ratio:1;opacity:.72}
+.mini-tile span{position:absolute;left:.2rem;top:.16rem;z-index:2;font:700 .43rem/1 Consolas,"Courier New",Courier,monospace}
+.mini-tile.control{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:.25rem;border-color:var(--cp-accent);background:var(--cp-accent-soft)}
+.mini-tile.control:before,.mini-tile.control:after{display:none}
+.mini-tile.control b{font-size:.47rem}.mini-tile.control small{color:var(--cp-text-muted);font-size:.36rem}
+.steps,.markets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.card{padding:1.25rem;border:1px solid var(--cp-border);border-radius:16px;background:var(--cp-surface);box-shadow:0 0 2px var(--cp-border),0 1px 2px var(--cp-border)}
+.card p{color:var(--cp-text-muted)}
+.number{display:grid;place-items:center;width:2rem;height:2rem;margin-bottom:1rem;border-radius:.625rem;color:var(--cp-accent-fg);background:var(--cp-accent);font:700 .8rem/1 Consolas,"Courier New",Courier,monospace}
+form{max-width:54rem;padding:1.5rem;border:1px solid var(--cp-border);border-radius:16px;background:var(--cp-surface);box-shadow:var(--cp-shadow)}
+label{display:grid;gap:.4rem;margin-top:1rem;font-weight:700;font-size:.86rem}
+input,textarea{width:100%;min-height:2.9rem;padding:.75rem .85rem;border:1px solid var(--cp-border);border-radius:.625rem;color:var(--cp-text);background:var(--cp-bg);font:inherit}
+textarea{min-height:7rem;resize:vertical}
+button{width:100%;margin-top:1rem}
+.message{display:none;margin-top:1rem;color:var(--cp-success);font-weight:700}
+.fine{color:var(--cp-text-muted);font-size:.78rem}
+footer{display:flex;justify-content:space-between;gap:2rem;padding-block:2rem 4rem;border-top:1px solid var(--cp-border);color:var(--cp-text-muted);font-size:.8rem}
+@media(max-width:850px){nav a:not(.button){display:none}.hero,.section-head{grid-template-columns:1fr}.steps,.markets{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.shell{width:calc(100% - 2rem)}header{gap:.5rem}header .button{min-height:2.5rem;padding:.55rem .7rem;font-size:.78rem;white-space:nowrap}.steps,.markets{grid-template-columns:1fr}.actions{width:100%}.actions .button{flex:1 1 10rem}footer{flex-direction:column}}
 </style>
 </head>
 <body>
-
-<nav><div class="w">
-  <svg width="30" height="30" viewBox="0 0 34 34" fill="none" stroke="#141210" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M6 28 L16 6"/><path d="M14 30 L24 8"/><path d="M22 30 L30 14"/></svg>
-  <span class="wm">RappterBox</span>
-  <span class="line">Rapter see, rapter do.</span>
-  <a class="free" href="/try/">Watch it run live</a>
-  <a class="free" href="/prompts/" style="margin-left:0">Free prompts</a>
-  <a class="cta" href="#claim">Join the waitlist</a>
-</div></nav>
-
-<section class="hero"><div class="w">
-  <div class="copy">
-    <div class="stamp"><b>Pre-launch</b> waitlist open · priority in line at release</div>
-    <h1>Your evenings back in 90&nbsp;days. <mark>Or you keep the box</mark> and stop paying.</h1>
-    <p class="lede">A small box on your network does your business's admin overnight, then texts you the two or three decisions that are actually yours. Everything else: done, with a receipt.</p>
-    <div class="row">
-      <a class="cta" href="#claim">Join the waitlist</a>
-      <div class="mono">Sign up and get the owner's prompt library today —<br>ten jobs done with the AI you already have. <a href="/prompts/">See them</a>.</div>
+<header class="shell">
+  <a class="brand" href="/">R/ Rappter</a>
+  <nav>
+    <a href="#frame">First Dimension</a>
+    <a href="#model">How ownership works</a>
+    <a href="https://rapterbox.com/">For business</a>
+    <a class="button" href="#reveal">Request a reveal</a>
+  </nav>
+</header>
+<main>
+  <section style="border-top:0"><div class="shell hero">
+    <div>
+      <p class="eyebrow">GENESIS 251 / FIRST EDITION / FIRST DIMENSION</p>
+      <h1>251 Holo species. Every one still undiscovered.</h1>
+      <p class="lede">One signed 16×16 catalog frame. Every species slot has an authored shadow preview. Candidate Holos and Growls remain private until rights clearance and a signed reveal.</p>
+      <div class="actions">
+        <a class="button" href="https://kody-w.github.io/holodex/">Enter Holodex</a>
+        <a class="button secondary" href="#reveal">Choose what wakes first</a>
+      </div>
     </div>
-    <p class="fine" style="margin:0">For owner-operators of services businesses, 5–50 staff. Pricing and the first install dates go to the list first, in order.</p>
-  </div>
-  <div class="phone"><div class="screen">
-    <div class="ptop">RapterBox — our own box · 7:00 AM</div>
-    <div class="b">Tue 25 Aug — morning brief
-
-NEEDS YOU (3)
-• compliance — subscription lapses in 6 days
-• legal — provisional conversion deadline on file
-• money — invoice unpaid 21 days</div>
-    <div class="b">HANDLED WHILE YOU SLEPT
-✓ 63 drift findings repaired across 4 machines
-✓ duplicate alerts quieted — 485 texts → 95
-✓ 12 records appended, 0 broken
-
-QUIETED
-41 things that did not need you</div>
-    <div class="b me">the invoice reminder → send it</div>
-    <div class="b">Drafted for you to send. I never send, sign, pay or delete.</div>
-    <div class="pcap">Our own box's brief from Tuesday 25 August, redacted — not a mockup.</div>
-  </div></div>
-</div></section>
-
-<section class="tear"><div class="w two rc">
-  <div>
-    <div class="kicker">The receipt</div>
-    <h2>Everything a box comes with, added up.</h2>
-    <p class="lede" style="font-size:18px">Each line is a thing you'd otherwise pay for or do yourself. What you'll pay is announced to the waitlist first — in order.</p>
-    <div class="pricebox">
-      <div class="k hot">Pre-launch</div>
-      <div class="n">Priority in line.</div>
-      <p>The list gets three things first: the price, the install dates, and every new prompt we publish. Positions are kept in sign-up order. No newsletter — one email when each of those is ready.</p>
-      <p style="margin-top:14px"><a class="cta" href="#claim" style="font-size:16px;padding:14px 22px">Join the waitlist</a></p>
+    <div class="facts">
+      <div><strong>251</strong><span>canonical species slots</span></div>
+      <div><strong>0</strong><span>currently revealed</span></div>
+      <div><strong>251 / 251</strong><span>source ownership: RapterBox LLC</span></div>
+      <div><strong>10</strong><span>mutation-market burn-in frames</span></div>
     </div>
-  </div>
-  <div class="receipt">
-    <div class="seal">At launch</div>
-    <div class="h">RappterBox</div>
-    <div class="sub">receipt · one box · year one</div>
-    <div class="r"><span><b>THE BOX</b> — the best Mac mini Apple makes. We don't ship small. Yours to keep, at Apple's price, receipt attached.</span><span>best for the best</span></div>
-    <div class="r"><span><b>INSTALL DAY</b> — we set it up and teach it your business: upload your documents, film a task once, or a 60-minute workshop. First brief next morning.</span><span>included</span></div>
-    <div class="r"><span><b>THE 7AM BRIEF</b> — one text a day: needs you / handled / quieted.</span><span>the product</span></div>
-    <div class="r"><span><b>THE RECEIPTS LEDGER</b> — records that can only be added to, never changed or erased. Your accountant or insurer can check them without trusting us.</span><span>audit trail</span></div>
-    <div class="r"><span><b>MONTHLY HOURS-BACK REPORT</b> — measured hours handed back to you. The number the guarantee is written on.</span><span>the proof</span></div>
-    <div class="r"><span><b>QUARTERLY RE-TEACH</b> — your business changes; 60 minutes, four times a year, teaches the twin the new shape.</span><span>four a year</span></div>
-    <div class="r"><span><b>10 WORK BLOCKS / MONTH</b> — bounded jobs from our fleet: reviews, docs, verification passes (<a href="/mesh/">the board</a>).</span><span>120 a year</span></div>
-    <div class="r"><span><b>WILL-NOT-DO GUARANTEE</b> — signed: it never sends, signs, pays or deletes for you, and refuses to act on partial evidence.</span><span>signed</span></div>
-    <div class="t"><span>YEAR ONE, ADDED UP</span><span>the admin hire you don't make</span></div>
-    <div class="pay"><span>WHAT YOU PAY</span><span>the list hears first</span></div>
-    <div class="note">The guarantee will be written on hours handed back, measured monthly. One outside cost, stated now: a GitHub Copilot seat you buy directly (about $10–20 a month). Nothing else is metered by us.</div>
-    <div class="dots">· · · · · · · · · · · · · · · ·</div>
-  </div>
-</div></section>
+  </div></section>
 
-<section class="tear"><div class="w two">
-  <div class="guar">
-    <div class="lbl">The Hours-Back Guarantee · at launch</div>
-    <p class="big">If the monthly report doesn't show at least ten hours a month handed back to you by day 90, we keep working for free until it does. If it still hasn't by day 180, you keep the box and owe nothing further.</p>
-    <p>Separately: <b>30 days, any reason, full refund — service and box.</b> We collect the box.</p>
-    <p class="anti">The anti-guarantee: we will never guarantee it sends, signs, pays or deletes for you. That is the point of it.</p>
-  </div>
-  <div>
-    <div class="kicker">Proof, honestly</div>
-    <h2 style="font-size:clamp(26px,3vw,36px)">No customer logos yet. We haven't launched. What we can show you today:</h2>
-    <ul class="limits proof">
-      <li><b>The brief above is ours</b> — it runs every morning on our own eight machines. The first businesses that aren't us come from this list, in order.</li>
-      <li><b>The receipts are public science</b> — the method behind the ledger is a published paper with interactive demos: <a href="https://kody-w.github.io/frame-chains/">Frame Chains</a>.</li>
-      <li><b>The work blocks are live</b> — the <a href="/mesh/">offer board</a> is a record your own browser verifies.</li>
-      <li><b>You can watch it run right now</b> — <a href="/try/">press a button</a> and a real box does one owner job on sample data and hands you a receipt your browser verifies. Or <a href="/voice/">just ask it out loud</a>.</li>
-      <li><b>The methods are free</b> — <a href="/prompts/">ten prompts</a> that do these jobs with the AI you already have. The box just runs them for you.</li>
-      <li><b>The limits are written down</b> — <a href="#faq">what it will not do</a>, before you buy, not after.</li>
-    </ul>
-    <p style="margin-top:18px"><a class="cta" href="#claim">Join the waitlist</a></p>
-  </div>
-</div></section>
+  <section id="frame"><div class="shell">
+    <div class="section-head">
+      <div><p class="eyebrow">THE CATALOG FRAME</p><h2>One edition. One dimension. 256 cells.</h2></div>
+      <p class="muted">The first 251 cells are Holo species. The final five carry edition, dimension, burn-in, ownership, and reveal state. The frame can grow in later generations but must always project back through the Generational Ratchet.</p>
+    </div>
+    <div class="mini-frame-wrap"><div class="mini-frame" id="mini-frame" aria-label="Sealed Genesis 251 frame"></div></div>
+  </div></section>
 
-<section class="tear"><div class="w two">
-  <div>
-    <h3>It's for you if</h3>
-    <ul class="limits">
-      <li><b>You own a services business</b> with 5–50 people and you are the admin department after hours.</li>
-      <li><b>You've missed a deadline</b> that cost money because nobody was keeping the record.</li>
-      <li><b>You'd rather get a text</b> than open another app.</li>
-    </ul>
-  </div>
-  <div>
-    <h3>It's not for you if</h3>
-    <ul class="limits no">
-      <li><b>You want an AI to send, sign or pay</b> on your behalf. It won't. Ever.</li>
-      <li><b>You need every office to see the same thing at the same second.</b> The box keeps working when the internet drops and catches up when it comes back.</li>
-      <li><b>You want a chatbot.</b> This is a box that does work and reports.</li>
-    </ul>
-  </div>
-</div></section>
+  <section id="model"><div class="shell">
+    <div class="section-head">
+      <div><p class="eyebrow">FROM SPECIES TO YOUR DIMENSION</p><h2>Hatch a copy. Then grow somewhere nobody else can.</h2></div>
+      <p class="muted">The 251 source species stay with RapterBox. A purchase creates a unique player-owned instance with its own RAPPID, Capsule, dimension branch, Holo successors, Growls, jobs, tips, and market history.</p>
+    </div>
+    <div class="steps">
+      <article class="card"><span class="number">1</span><h3>Clear and reveal</h3><p>After rights clearance, a signed event can replace one species' placeholder with its canonical Holo and Growl.</p></article>
+      <article class="card"><span class="number">2</span><h3>Hatch</h3><p>You purchase a unique instance from that species and receive transferable title plus a local Capsule.</p></article>
+      <article class="card"><span class="number">3</span><h3>Mutate</h3><p>Your instance grows through your own lens frames. Another player can hatch the same species and become completely different.</p></article>
+      <article class="card"><span class="number">4</span><h3>Work</h3><p>Your Rapter can perform bounded supervised jobs, deliver the complete result first, and earn tips.</p></article>
+      <article class="card"><span class="number">5</span><h3>Patronize</h3><p>Tips can buy mutation frames, lens influence, compute, and premium review. Money can change what happens next.</p></article>
+      <article class="card"><span class="number">6</span><h3>Trade</h3><p>Certified instances can move through the official spot market with title, history, and rights transferred atomically.</p></article>
+    </div>
+  </div></section>
 
-<section class="tear" id="claim"><div class="w two">
-  <div>
-    <h2 style="font-size:clamp(34px,4vw,52px)">Join the waitlist. Get the prompts today.</h2>
-    <p class="lede" style="font-size:18px">Your place is kept in sign-up order. You get the ten prompts now, every new one first, and the price and install dates before anyone else.</p>
-    <p class="mono fine">No newsletter. Nothing to pay. Leave any time.</p>
-    <div class="stamp" style="margin-top:10px"><b>Pre-launch</b> positions kept in order</div>
-  </div>
-  <form id="f" method="POST" action="https://formspree.io/f/mgawgado">
-    <label for="n" style="margin-top:0">Your name</label><input id="n" name="name" autocomplete="name" maxlength="100" required>
-    <label for="e">Email</label><input id="e" name="email" type="email" autocomplete="email" required>
-    <label for="b">Your business, in a sentence</label><input id="b" name="business" maxlength="200" placeholder="e.g. 12-person property management company in Atlanta" required>
-    <label for="h">Hours a week you personally spend on admin</label>
-    <select id="h" name="admin_hours">
-      <option value="">choose one</option><option>under 5</option><option>5–10</option><option>10–20</option><option>more than 20</option>
-    </select>
-    <label for="u">Pick one job and tell us how you do it today — like you'd tell a new hire (optional)</label>
-    <textarea id="u" name="how_today" maxlength="4000" placeholder="e.g. Every Friday I open the bank app, check who paid, then text the ones who didn't…"></textarea>
-    <p class="fine" style="margin:6px 0 0">If you do, we run it on a real box with made-up data before we ever talk, and show you the receipt.</p>
-        <input type="hidden" name="source" value="waitlist">
-    <button id="btn" type="submit">Join the waitlist</button>
-    <p class="fine" style="text-align:center;margin:12px 0 0">You'll get a link to the prompt library right away.</p>
-  </form>
-  <div class="msg ok" id="ok">You're on the list, in order. The prompts are yours now: <a href="/prompts/">rappter.com/prompts</a>. We'll email when the price and install dates are set.</div>
-  <div class="msg no" id="no">That didn't send. Try again in a moment.</div>
-</div></section>
+  <section><div class="shell">
+    <div class="section-head">
+      <div><p class="eyebrow">PUBLIC QUALITY, PRIVATE FREEDOM</p><h2>Mutate anything. Publish only what earns the mark.</h2></div>
+      <p class="muted">Owners control their local copy. Official Holodex listing, RapterWorks jobs, certified dealer support, and the RapterBox Verified mark require a current public DOGG conformance profile. Certification never changes ownership.</p>
+    </div>
+    <div class="markets">
+      <article class="card"><h3>Technical quality</h3><p>Tests, correctness, reliability, safety, defects, and compatibility—unweighted by money.</p></article>
+      <article class="card"><h3>Patronage quality</h3><p>Raw tips, whale concentration, sponsored lens weight, compute, review, and market alpha—intentionally money-sensitive.</p></article>
+      <article class="card"><h3>Certified dealers</h3><p>Authorized sellers can demo, hatch, transfer, install, verify, and support. They cannot mint supply or alter protocol truth.</p></article>
+    </div>
+    <p class="fine" style="margin-top:1.5rem">Holo species and player instances are products with active utility, not company shares, dividends, securities, or guaranteed appreciation.</p>
+  </div></section>
 
-<section class="tear" id="faq"><div class="w" style="max-width:820px">
-  <h2>Questions people ask before they buy</h2>
-  <details><summary>Does it send emails or sign things for me?</summary><p>No. It never sends, signs, pays or deletes on your behalf — the software has no way to do those things. A task needing one comes back to you as a decision, with the reversible work already finished.</p></details>
-  <details><summary>What happens if it cannot see everything?</summary><p>It refuses to act on partial evidence. It stops and says so rather than guessing confidently — a confident wrong answer is worse than no answer.</p></details>
-  <details><summary>What happens when the internet drops?</summary><p>The box keeps working and catches up when the connection comes back. If you need every office to see the same thing at the same second, this is the wrong box.</p></details>
-  <details><summary>Who owns the records?</summary><p>You do. The box runs on your network. The records can only be added to, never changed or erased, and your accountant or insurer can check them without trusting us.</p></details>
-  <details><summary>Does it need cloud AI?</summary><p>It runs on the box and uses one GitHub Copilot seat, which you buy directly for about $10–20 a month. There is no separate cloud sandbox to meter and we never resell AI usage to you.</p></details>
-  <details><summary>Why the best box?</summary><p>Best for the best. A slow twin is a bad product and we will not ship one. You'll pay Apple's price for the box and we hand you the receipt — no markup, we make our money on the service.</p></details>
-  <details><summary>When does it launch, and what will it cost?</summary><p>When the first install can be done well. The waitlist hears the date and the price first, in sign-up order, and the first install dates go to the top of the list.</p></details>
-</div></section>
-
-<footer><div class="w">
-  <div>RapterBox LLC · the RappterBox product · <a href="/ai">for AI agents</a> · <a href="/mesh/">hire the fleet</a> · <a href="/dogg">DOGG</a></div>
-  <div>Built on <a href="https://github.com/kody-w/rapp-1">RAPP</a>, the open foundation — credited, not claimed.</div>
-</div></footer>
-
+  <section id="reveal"><div class="shell">
+    <div class="section-head">
+      <div><p class="eyebrow">OWNER-SCHEDULED DISCOVERY</p><h2>Which slot should wake first?</h2></div>
+      <p class="muted">Tell RapterBox which sealed ID you are watching and the first real outcome you want that Holo organism to prove.</p>
+    </div>
+    <form id="reveal-form" action="https://formspree.io/f/mgawgado" method="POST">
+      <label for="name">Name<input id="name" name="name" autocomplete="name" required></label>
+      <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" required></label>
+      <label for="slot">Species slot<input id="slot" name="species_id" placeholder="G001" pattern="G[0-9]{3}" required></label>
+      <label for="job">What should it prove when it wakes?<textarea id="job" name="first_job" required></textarea></label>
+      <input type="hidden" name="source" value="rappter.com-first-dimension">
+      <button class="button" type="submit">Request this reveal</button>
+      <p class="fine">No purchase, investment, or reveal is promised by this request.</p>
+    </form>
+    <p class="message" id="message">Reveal request received.</p>
+  </div></section>
+</main>
+<footer class="shell">
+  <span>RapterBox LLC · First Edition / First Dimension</span>
+  <span><a href="https://kody-w.github.io/holodex/">Holodex API</a> · <a href="https://rapterbox.com/">RapterBox for business</a> · <a href="/agent.json">Agent view</a></span>
+</footer>
 <script>
-const f=document.getElementById('f'),b=document.getElementById('btn'),ok=document.getElementById('ok'),no=document.getElementById('no');
-f.addEventListener('submit',async ev=>{
-  ev.preventDefault();b.disabled=true;b.textContent='sending…';no.style.display='none';
-  try{const r=await fetch(f.action,{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
-    if(!r.ok)throw 0;f.style.display='none';ok.style.display='block';}
-  catch(e){b.disabled=false;b.textContent='Join the waitlist';no.style.display='block';}
-});
+const frame=document.getElementById("mini-frame");
+for(let i=0;i<251;i++){const tile=document.createElement("span");tile.className="mini-tile";const id=document.createElement("span");id.textContent=`G${String(i+1).padStart(3,"0")}`;tile.append(id);frame.append(tile)}
+[
+  ["EDITION","FIRST EDITION"],["DIMENSION","FIRST DIMENSION"],["BURN","10 FRAMES"],["OWNER","251 / 251"],["STATE","SEALED"]
+].forEach(([id,title])=>{const tile=document.createElement("span");tile.className="mini-tile control";const label=document.createElement("span");label.textContent=id;const strong=document.createElement("b");strong.textContent=title;const small=document.createElement("small");small.textContent=id==="OWNER"?"RapterBox LLC":"undiscovered";tile.append(label,strong,small);frame.append(tile)});
+const form=document.getElementById("reveal-form"),message=document.getElementById("message");
+form.addEventListener("submit",async event=>{event.preventDefault();const button=form.querySelector("button");button.disabled=true;try{const response=await fetch(form.action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});if(!response.ok)throw new Error();form.hidden=true;message.style.display="block"}catch(error){button.disabled=false;button.textContent="Try again"}});
 </script>
 </body>
 </html>

@@ -1,11 +1,18 @@
 # rappter.com
 
-> RappterBox: local-first digital organisms for businesses, decision-time AI assurance for teams, and DOGG — the global tick network for orienting AIs.
+> The consumer entry point for Genesis 251 First Edition / First Dimension:
+> 251 signed species slots and authored shadow previews. Cleared Holo reveals,
+> owner instances, RapterWorks jobs, tips, paid evolution, DOGG certification,
+> and markets follow separate gates.
 
-- The box (SMB) — pre-launch; join the waitlist for priority in line: https://rappter.com/#claim · free owner prompts: https://rappter.com/prompts/ · watch a live box: https://rappter.com/try/
-- Hire the fleet — rapp-mesh, bounded agent work you can verify (offers ride a content-addressed chain you can replay): https://rappter.com/mesh/ · machine view: https://rappter.com/mesh/offers.json · chain: https://rappter.com/mesh/chain/offers.jsonl
-- AI assurance (the essay first): https://rappter.com/wrong-game then https://rappter.com/invite
-- DOGG, the global tick network: https://rappter.com/dogg (orient: https://kody-w.github.io/dogg/orient.json)
-- Agent view of this business: https://rappter.com/agent.json
-- rbox mobile (the box in a browser, bring your own key, rapp/1 receipts kept on-device, .egg export/import): https://rappter.com/box/
-- Ask the box out loud (voice in, spoken answer, everything captioned; the box runs the job and writes the receipt): https://rappter.com/voice/
+- First Dimension: https://rappter.com/
+- Holodex viewer and API: https://kody-w.github.io/holodex/
+- Release stamp: https://kody-w.github.io/holodex/api/v1/release/latest.json
+- Species index: https://kody-w.github.io/holodex/api/v1/species/index.json
+- RapterBox for business: https://rapterbox.com/
+- Existing bounded work board: https://rappter.com/mesh/
+- Public agent contract: https://rappter.com/agent.json
+
+All 251 source species are initially RapterBox-owned and undiscovered. A buyer
+later hatches a unique player-owned instance from a revealed species. Source
+species and player instances are products, not company equity or securities.

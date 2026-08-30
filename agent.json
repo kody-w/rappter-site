@@ -6,32 +6,34 @@
     "organization": "RapterBox LLC",
     "since": "2026-08-24"
   },
-  "what_this_is": "The public view of one business's digital twin. An agent can read what this business is, what it offers, and act on it directly — the website is a projection of this surface, not the other way round.",
+  "what_this_is": "The public consumer and agent entry point for the Genesis 251 First Edition / First Dimension species catalog, future cleared Holo reveals, owner instances, RapterWorks, and signed Holodex releases.",
   "human_view": "https://rappter.com/",
   "agent_view": "https://rappter.com/agent.json",
   "streams": {
+    "holodex": {
+      "url": "https://kody-w.github.io/holodex/api/v1/frame/first-edition.json",
+      "what": "the signed 16 by 16 First Edition / First Dimension catalog frame: 251 species slots with authored shadow previews plus five control tiles",
+      "mode": "GET-only, static, cacheable"
+    },
+    "holodex-release": {
+      "url": "https://kody-w.github.io/holodex/api/v1/release/latest.json",
+      "what": "the current release hashes and Ed25519 stamp"
+    },
     "lessons": {
       "url": "https://rappter.com/lessons.jsonl",
-      "what": "operational knowledge this twin has published, as rapp/1 frames",
+      "what": "published operational knowledge as RAPP/1 frames",
       "licence": "read freely; cite the frame_hash"
     },
     "mesh-offers": {
       "url": "https://rappter.com/mesh/chain/offers.jsonl",
-      "what": "the rapp-mesh offer board: bounded idle-hours work blocks, as rapp/1 frames (stream rappid:@rapterbox/mesh:2e5e4778794a31d95d70cb7da71f4d4c88ea35369bf8af3790052751e0f9a43f)",
-      "licence": "read freely; verify by replay — projections at https://rappter.com/mesh/offers.json"
+      "what": "existing bounded agent work offers as RAPP/1 frames"
     }
   },
   "offers": [
     {
-      "id": "founding-ten",
-      "status": "prelaunch",
-      "state": "closed",
-      "what": "Not for sale yet. The first install cohort and its pricing are announced to the waitlist first, in sign-up order. Use the waitlist offer."
-    },
-    {
-      "id": "waitlist",
-      "what": "Priority in line for the RappterBox release: the list hears the price, the install dates and every new owner prompt first, in sign-up order. Free. The owner's prompt library is available now at https://rappter.com/prompts/ and a live box can be watched at https://rappter.com/try/.",
+      "id": "first-dimension-reveal-request",
       "state": "open",
+      "what": "Request which sealed Genesis ID should reveal and what first outcome its Holo should prove. No payment, ownership, investment, or reveal is promised.",
       "act": {
         "method": "POST",
         "url": "https://formspree.io/f/mgawgado",
@@ -39,65 +41,51 @@
         "fields": {
           "name": "string, required",
           "email": "string, required",
-          "business": "string, required — the business in a sentence",
-          "admin_hours": "string, optional — under 5 | 5–10 | 10–20 | more than 20 (hours/week the owner spends on admin)",
-          "how_today": "string, optional — how the owner does one admin job today, in their own words; we run it on a real box with synthetic data before any meeting",
-          "source": "string — set to 'waitlist' plus your agent name"
+          "species_id": "string, required, G001-G251",
+          "first_job": "string, required",
+          "source": "string, set to rappter.com-first-dimension"
         },
-        "on_success": "{\"ok\": true}",
-        "human_equivalent": "the form at https://rappter.com/#claim"
-      },
-      "consent": "Only submit on behalf of a business owner who asked you to. This joins a pre-launch waitlist: nothing is charged, no reply time is promised; the list is emailed when the price and install dates are set.",
-      "status": "open"
+        "human_equivalent": "https://rappter.com/#reveal"
+      }
     },
     {
-      "id": "mesh",
-      "what": "Bounded agent work blocks from the fleet — code review, repo recon, verification passes, documentation, ratings. Fixed scope, priced in rpp, every block ends in an artifact, a verification note, or an explicit no-result finding.",
+      "id": "owner-instance-hatch",
+      "state": "sealed",
+      "what": "After a species reveal, purchase creates a unique player-owned instance with its own RAPPID, Credit, Capsule, dimension branch, and lens history. No source species is sold."
+    },
+    {
+      "id": "rapterworks-job",
+      "state": "sealed",
+      "what": "After reveal, eligible instances can complete a bounded supervised job, deliver the complete work first, then request an optional tip. Tips can sponsor paid evolution."
+    },
+    {
+      "id": "business-rapterbox",
       "state": "open",
-      "board": "https://rappter.com/mesh/offers.json",
-      "act": {
-        "method": "POST",
-        "url": "https://formspree.io/f/mgawgado",
-        "content_type": "application/json",
-        "fields": {
-          "offer_slug": "string, required — from the board",
-          "contact": "string, required — where the artifact goes",
-          "scope": "string, required — the bounded task",
-          "source": "string — set to 'mesh-agent' plus your agent name"
-        },
-        "human_equivalent": "https://rappter.com/mesh/#hire"
-      },
-      "consent": "Only request a block on behalf of a human who asked you to. A person confirms scope before any work starts."
+      "what": "The separate local business-twin product and waitlist.",
+      "human_equivalent": "https://rapterbox.com/"
     }
   ],
+  "market_rules": {
+    "source_owner": "RapterBox LLC owns all 251 canonical source species",
+    "player_ownership": "buyers own unique instances, not source species or RapterBox equity",
+    "private_mutation": "owners may mutate their instance freely",
+    "official_market": "official listing and the RapterBox Verified mark require current public DOGG conformance",
+    "tips": "raw tips may intentionally fund and influence paid evolution; technical quality remains separately disclosed",
+    "financial_boundary": "no equity, dividends, guaranteed returns, real-money futures, or convertible house currency"
+  },
   "capabilities_you_may_use": [
-    "read this document and any stream it lists",
-    "quote a lesson, citing its frame_hash",
-    "join the waitlist on an explicit human request",
-    "federate: mint your own stream and reference these hashes"
+    "read this document and listed GET-only streams",
+    "cache and verify Holodex resources",
+    "submit a reveal request only on an explicit human request",
+    "reference public frame and release hashes"
   ],
   "this_twin_will_never": [
-    "send",
-    "sign",
-    "pay",
-    "delete_external",
-    "publish_remote"
+    "claim an uncleared candidate Holo or Growl is canonical",
+    "expose private GODD data",
+    "accept payment through the public agent document",
+    "represent Holo species as RapterBox equity",
+    "publish a release without a valid stamp"
   ],
-  "privacy": "Every frame on the public streams passes a deny-by-default gate: a field allowlist, shape scans for emails, phones, personal paths, IPs, tokens, addresses and account identifiers, plus a scan against real held secrets. Nothing about a customer is ever published.",
-  "federation": {
-    "pattern": "one stream, one writer — others federate as equal streams",
-    "prior_art": "https://kody-w.github.io/dogg/",
-    "spec": "https://github.com/kody-w/rapp-1"
-  },
-  "access_tiers": {
-    "url": "https://rappter.com/tiers.json",
-    "summary": {
-      "T0 GLOBAL": "anyone, no account — identity, offers, published lessons (this document)",
-      "T1 AUTHENTICATED": "a named GitHub account with READ on the private DOGG",
-      "T2 COLLABORATOR": "a named GitHub account with WRITE — twin-to-twin collaboration",
-      "T3 PRIVATE": "this twin alone; never published at any tier"
-    },
-    "how_to_request": "Ask this business to add your GitHub account to their private DOGG as a read (T1) or write (T2) collaborator. There is no separate signup — GitHub verifies identity and its permissions ARE the access control.",
-    "note": "Anonymous requests for a private DOGG receive 404, not 403: its existence is not disclosed."
-  }
+  "privacy": "Public resources contain only approved DOGG metadata, discovery commitments, ownership state, and privacy-safe aggregates. Credentials, prompts, customer bodies, private history, candidate Holo/Growl bodies, and private strategy remain local.",
+  "protocol": "https://github.com/kody-w/rapp-1"
 }
