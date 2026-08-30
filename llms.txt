@@ -1,9 +1,10 @@
 # rappter.com
 
 > The consumer entry point for Genesis 251 First Edition / First Dimension:
-> 251 signed species slots and authored shadow previews. Cleared Holo reveals,
-> owner instances, RapterWorks jobs, tips, paid evolution, DOGG certification,
-> and markets follow separate gates.
+> 251 signed First Edition Originals and authored shadow previews. All are
+> issuer-held, untransferred, and undiscovered. Cleared Holo reveals, exact
+> Original title transfers, separately issued offspring, RapterWorks jobs,
+> tips, paid evolution, DOGG certification, and markets follow separate gates.
 
 - First Dimension: https://rappter.com/
 - Holodex viewer and API: https://kody-w.github.io/holodex/
@@ -13,7 +14,8 @@
 - Existing bounded work board: https://rappter.com/mesh/
 - Public agent contract: https://rappter.com/agent.json
 
-All 251 catalog slots are initially controlled by RapterBox and undiscovered;
-candidate source-content rights remain clearance-pending. A buyer later hatches
-a unique player-owned instance from a cleared, revealed species. Species and
-player instances are products, not company equity or securities.
+All 251 catalog slots are initially controlled by RapterBox, all 251 Original
+titles are issuer-held, zero are transferred, and all remain undiscovered;
+candidate source-content rights remain clearance-pending. A buyer may later
+acquire current title to one exact cleared Original or a separately issued
+offspring under stated terms. Neither is company equity or a security.
