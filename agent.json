@@ -6,7 +6,7 @@
     "organization": "RapterBox LLC",
     "since": "2026-08-24"
   },
-  "what_this_is": "The public consumer and agent entry point for the Genesis 251 First Edition / First Dimension species catalog, future cleared Holo reveals, owner instances, RapterWorks, and signed Holodex releases.",
+  "what_this_is": "The public consumer and agent entry point for the Genesis 251 First Edition / First Dimension Original catalog, future cleared Holo reveals, exact Original title transfers, separately issued offspring, RapterWorks, and signed Holodex releases.",
   "human_view": "https://rappter.com/",
   "agent_view": "https://rappter.com/agent.json",
   "streams": {
@@ -39,24 +39,30 @@
         "url": "https://formspree.io/f/mgawgado",
         "content_type": "application/json",
         "fields": {
-          "name": "string, required",
-          "email": "string, required",
+          "name": "string, optional",
+          "email": "string, optional",
           "species_id": "string, required, G001-G251",
           "first_job": "string, required",
           "source": "string, set to rappter.com-first-dimension"
         },
-        "human_equivalent": "https://rappter.com/#reveal"
+        "human_equivalent": "https://rappter.com/#reveal",
+        "privacy": "Name and email may be omitted for an anonymous demand signal. The form processor may receive standard network metadata."
       }
     },
     {
-      "id": "owner-instance-hatch",
+      "id": "original-title-transfer",
       "state": "sealed",
-      "what": "After a species reveal, purchase creates a unique player-owned instance with its own RAPPID, Credit, Capsule, dimension branch, and lens history. No source species is sold."
+      "what": "After rights clearance and commercial launch, a signed sale may transfer current title to one exact First Edition Original with its Credit, Capsule, history, and stated usage rights. No sale is open at catalog publication."
+    },
+    {
+      "id": "offspring-instance-issuance",
+      "state": "sealed",
+      "what": "Separately issued offspring are unique descendants with distinct RAPPIDs, Credits, Capsules, histories, and stated rights. Offspring do not duplicate or transfer title to a First Edition Original."
     },
     {
       "id": "rapterworks-job",
       "state": "sealed",
-      "what": "After reveal, eligible instances can complete a bounded supervised job, deliver the complete work first, then request an optional tip. Tips can sponsor paid evolution."
+      "what": "After commercial launch, eligible Originals and offspring can complete a bounded supervised job, deliver the complete agreed work and the assignment or license stated in accepted terms first, then request a benefit-free optional tip. Evolution Sponsorship is a separate paid service."
     },
     {
       "id": "business-rapterbox",
@@ -67,10 +73,12 @@
   ],
   "market_rules": {
     "catalog_control": "RapterBox LLC controls all 251 catalog slots; candidate source-content rights remain clearance-pending",
-    "player_ownership": "buyers own unique instances, not source species or RapterBox equity",
-    "private_mutation": "owners may mutate their instance freely",
+    "original_title": "RapterBox LLC currently holds 251 of 251 First Edition Originals; zero are transferred and all are undiscovered",
+    "player_ownership": "a buyer may later hold current title to one exact Original or a separately issued offspring under stated terms, never RapterBox equity or underlying brand, world, lineage, issuance, or certification rights",
+    "private_mutation": "owners may mutate their Original or offspring freely",
     "official_market": "official listing and the RapterBox Verified mark require current public DOGG conformance",
-    "tips": "raw tips may intentionally fund and influence paid evolution; technical quality remains separately disclosed",
+    "tips": "benefit-free tips contribute only to a separately disclosed Patronage Score and do not alter technical quality or official spot price",
+    "evolution_sponsorship": "a separate paid service may purchase defined mutation frames, lens selection, compute, and review for an owner-controlled Original or offspring",
     "financial_boundary": "no equity, dividends, guaranteed returns, real-money futures, or convertible house currency"
   },
   "capabilities_you_may_use": [
@@ -83,7 +91,7 @@
     "claim an uncleared candidate Holo or Growl is canonical",
     "expose private GODD data",
     "accept payment through the public agent document",
-    "represent Holo species as RapterBox equity",
+    "represent First Edition Originals or offspring as RapterBox equity",
     "publish a release without a valid stamp"
   ],
   "privacy": "Public resources contain only approved DOGG metadata, discovery commitments, ownership state, and privacy-safe aggregates. Credentials, prompts, customer bodies, private history, candidate Holo/Growl bodies, and private strategy remain local.",
