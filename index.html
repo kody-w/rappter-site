@@ -156,7 +156,7 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding-block:2rem 4r
     <div class="facts">
       <div><strong>251</strong><span>canonical species slots</span></div>
       <div><strong>0</strong><span>currently revealed</span></div>
-      <div><strong>251 / 251</strong><span>source ownership: RapterBox LLC</span></div>
+      <div><strong>251 / 251</strong><span>catalog control: RapterBox LLC</span></div>
       <div><strong>10</strong><span>mutation-market burn-in frames</span></div>
     </div>
   </div></section>
@@ -222,8 +222,8 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding-block:2rem 4r
 const frame=document.getElementById("mini-frame");
 for(let i=0;i<251;i++){const tile=document.createElement("span");tile.className="mini-tile";const id=document.createElement("span");id.textContent=`G${String(i+1).padStart(3,"0")}`;tile.append(id);frame.append(tile)}
 [
-  ["EDITION","FIRST EDITION"],["DIMENSION","FIRST DIMENSION"],["BURN","10 FRAMES"],["OWNER","251 / 251"],["STATE","SEALED"]
-].forEach(([id,title])=>{const tile=document.createElement("span");tile.className="mini-tile control";const label=document.createElement("span");label.textContent=id;const strong=document.createElement("b");strong.textContent=title;const small=document.createElement("small");small.textContent=id==="OWNER"?"RapterBox LLC":"undiscovered";tile.append(label,strong,small);frame.append(tile)});
+  ["EDITION","FIRST EDITION"],["DIMENSION","FIRST DIMENSION"],["BURN","10 FRAMES"],["CONTROL","251 / 251"],["STATE","CATALOG"]
+].forEach(([id,title])=>{const tile=document.createElement("span");tile.className="mini-tile control";const label=document.createElement("span");label.textContent=id;const strong=document.createElement("b");strong.textContent=title;const small=document.createElement("small");small.textContent=id==="CONTROL"?"RapterBox LLC":"undiscovered";tile.append(label,strong,small);frame.append(tile)});
 const form=document.getElementById("reveal-form"),message=document.getElementById("message");
 form.addEventListener("submit",async event=>{event.preventDefault();const button=form.querySelector("button");button.disabled=true;try{const response=await fetch(form.action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});if(!response.ok)throw new Error();form.hidden=true;message.style.display="block"}catch(error){button.disabled=false;button.textContent="Try again"}});
 </script>

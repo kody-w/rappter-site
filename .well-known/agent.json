@@ -66,7 +66,7 @@
     }
   ],
   "market_rules": {
-    "source_owner": "RapterBox LLC owns all 251 canonical source species",
+    "catalog_control": "RapterBox LLC controls all 251 catalog slots; candidate source-content rights remain clearance-pending",
     "player_ownership": "buyers own unique instances, not source species or RapterBox equity",
     "private_mutation": "owners may mutate their instance freely",
     "official_market": "official listing and the RapterBox Verified mark require current public DOGG conformance",
