@@ -10,6 +10,9 @@
 - Holodex viewer and API: https://kody-w.github.io/holodex/
 - Release stamp: https://kody-w.github.io/holodex/api/v1/release/latest.json
 - Species index: https://kody-w.github.io/holodex/api/v1/species/index.json
+- Official market lifecycle: https://rappter.com/market
+- Machine-readable market policy: https://rappter.com/market-policy.json
+- Canonical RapterBox LLC policy: https://rapterbox.com/MARKETPLACE-POLICY.md
 - RapterBox for business: https://rapterbox.com/
 - Existing bounded work board: https://rappter.com/mesh/
 - Public agent contract: https://rappter.com/agent.json
@@ -19,3 +22,9 @@ titles are issuer-held, zero are transferred, and all remain undiscovered;
 candidate source-content rights remain clearance-pending. A buyer may later
 acquire current title to one exact cleared Original or a separately issued
 offspring under stated terms. Neither is company equity or a security.
+
+The intended commercial lifecycle is a verifiable rip from the fixed cleared
+pool, a seven-day transfer-locked First Hatch period, then official market
+eligibility. A return sends title and the transferable Capsule to RapterBox
+inventory; private memory and credentials never come with it. RapterBox may
+publish funded standing bids, but no permanent floor or return is guaranteed.

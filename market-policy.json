@@ -1,0 +1,65 @@
+{
+  "schema": "rappter-official-market/1",
+  "status": "prelaunch",
+  "operator": "RapterBox LLC",
+  "canonical_policy": "https://rapterbox.com/MARKETPLACE-POLICY.md",
+  "catalog": {
+    "name": "Genesis 251 First Edition / First Dimension",
+    "original_supply": 251,
+    "originals_are_duplicated": false,
+    "offspring_are_separate_issues": true
+  },
+  "rip": {
+    "eligible_pool": "rights-cleared, available Originals disclosed before selection",
+    "selection": "verifiable against a committed inventory snapshot and published method",
+    "hidden_or_mutable_pool_allowed": false
+  },
+  "first_hatch": {
+    "duration_days": 7,
+    "starts_at": "signed delivery frame utc",
+    "transfer_locked_during_trial": true,
+    "return_questions_required": false,
+    "return_title_to": "RapterBox LLC inventory",
+    "refund": "purchase price through original payment path",
+    "private_memory_required_for_return": false,
+    "credentials_required_for_return": false,
+    "independent_offspring_included_in_return": false
+  },
+  "market": {
+    "market_eligible_at": "signed delivery frame utc plus 7 calendar days",
+    "automatic_forced_listing": false,
+    "owner_may": [
+      "hold unlisted",
+      "publish an asking price",
+      "accept an eligible bid",
+      "withdraw a listing under market rules"
+    ],
+    "atomic_transfer": [
+      "current title",
+      "declared transferable Capsule",
+      "public lineage",
+      "stated rights"
+    ]
+  },
+  "rapterbox_bids": {
+    "allowed": true,
+    "must_disclose": [
+      "eligible organism or class",
+      "price",
+      "quantity or budget limit",
+      "expiry",
+      "condition and provenance requirements",
+      "settlement terms",
+      "RapterBox issuer, operator, and bidder conflict"
+    ],
+    "permanent_floor_guaranteed": false,
+    "active_funded_bid_is_floor_only_for_covered_inventory": true
+  },
+  "financial_boundary": {
+    "company_equity": false,
+    "dividends": false,
+    "guaranteed_returns": false,
+    "guaranteed_liquidity": false,
+    "commercial_launch_requires_legal_and_payments_review": true
+  }
+}

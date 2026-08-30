@@ -19,6 +19,10 @@
       "url": "https://kody-w.github.io/holodex/api/v1/release/latest.json",
       "what": "the current release hashes and Ed25519 stamp"
     },
+    "market-policy": {
+      "url": "https://rappter.com/market-policy.json",
+      "what": "the prelaunch fixed-supply rip, seven-day First Hatch, resale, and RapterBox bid rules"
+    },
     "lessons": {
       "url": "https://rappter.com/lessons.jsonl",
       "what": "published operational knowledge as RAPP/1 frames",
@@ -55,6 +59,13 @@
       "what": "After rights clearance and commercial launch, a signed sale may transfer current title to one exact First Edition Original with its Credit, Capsule, history, and stated usage rights. No sale is open at catalog publication."
     },
     {
+      "id": "official-organism-market",
+      "state": "sealed",
+      "what": "After commercial launch, a verifiable rip begins a seven-day transfer-locked First Hatch period. A return moves title and the transferable Capsule to RapterBox inventory for the purchase-price refund; after day seven the organism becomes market eligible.",
+      "human_equivalent": "https://rappter.com/market",
+      "policy": "https://rapterbox.com/MARKETPLACE-POLICY.md"
+    },
+    {
       "id": "offspring-instance-issuance",
       "state": "sealed",
       "what": "Separately issued offspring are unique descendants with distinct RAPPIDs, Credits, Capsules, histories, and stated rights. Offspring do not duplicate or transfer title to a First Edition Original."
@@ -73,10 +84,13 @@
   ],
   "market_rules": {
     "catalog_control": "RapterBox LLC controls all 251 catalog slots; candidate source-content rights remain clearance-pending",
+    "fixed_original_supply": "First Edition Original supply is fixed at 251; resale transfers existing title and never mints a duplicate Original",
     "original_title": "RapterBox LLC currently holds 251 of 251 First Edition Originals; zero are transferred and all are undiscovered",
     "player_ownership": "a buyer may later hold current title to one exact Original or a separately issued offspring under stated terms, never RapterBox equity or underlying brand, world, lineage, issuance, or certification rights",
     "private_mutation": "owners may mutate their Original or offspring freely",
-    "official_market": "official listing and the RapterBox Verified mark require current public DOGG conformance",
+    "first_hatch": "signed delivery starts a seven-day transfer lock; the holder may return title and the transferable Capsule to RapterBox inventory for the purchase-price refund without giving up private memory, credentials, or independent offspring",
+    "official_market": "after day seven the organism becomes eligible for owner-controlled official listing; title, declared transferable artifacts, public lineage, and stated rights settle atomically",
+    "rapterbox_bids": "RapterBox may publish funded, expiring standing bids or direct buyouts with disclosed coverage, price, capacity, condition, conflict, and settlement; no permanent floor is guaranteed",
     "tips": "benefit-free tips contribute only to a separately disclosed Patronage Score and do not alter technical quality or official spot price",
     "evolution_sponsorship": "a separate paid service may purchase defined mutation frames, lens selection, compute, and review for an owner-controlled Original or offspring",
     "financial_boundary": "no equity, dividends, guaranteed returns, real-money futures, or convertible house currency"
@@ -84,6 +98,7 @@
   "capabilities_you_may_use": [
     "read this document and listed GET-only streams",
     "cache and verify Holodex resources",
+    "read and explain the public market policy without representing the market as open",
     "submit a reveal request only on an explicit human request",
     "reference public frame and release hashes"
   ],
@@ -92,6 +107,7 @@
     "expose private GODD data",
     "accept payment through the public agent document",
     "represent First Edition Originals or offspring as RapterBox equity",
+    "promise appreciation, liquidity, a permanent floor, or a future RapterBox buyout",
     "publish a release without a valid stamp"
   ],
   "privacy": "Public resources contain only approved DOGG metadata, discovery commitments, ownership state, and privacy-safe aggregates. Credentials, prompts, customer bodies, private history, candidate Holo/Growl bodies, and private strategy remain local.",
