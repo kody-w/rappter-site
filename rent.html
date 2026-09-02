@@ -12,7 +12,7 @@
 <link rel="canonical" href="https://rappter.com/rent">
 <link rel="alternate" type="application/json" href="https://rappter.com/rentals.json" title="Machine-readable rental offer">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Service","name":"Seven-day AI contractor beta","provider":{"@type":"Organization","name":"AI Contractor Beta","url":"https://rappter.com/"},"description":"A manually accepted seven-day test of one bounded virtual AI contractor using synthetic data.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability","url":"https://rappter.com/rent"}}
+{"@context":"https://schema.org","@type":"Service","name":"Seven-day AI contractor beta","provider":{"@type":"Organization","name":"RapterBox LLC","url":"https://rappter.com/"},"description":"A manually accepted seven-day test of one bounded virtual AI contractor using synthetic data.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability","url":"https://rappter.com/rent"}}
 </script>
 <style>
 :root{--bg:#07090d;--card:#11151d;--ink:#f5f7fb;--dim:#a0a9b8;--line:#283140;--hot:#ff5c7c;--go:#72a7ff;--ok:#59d17d;--gold:#ffc857}
@@ -92,7 +92,7 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;b
       <p class="eyebrow">LIMITED CONCIERGE BETA</p>
       <h2>Applications are open.</h2>
       <p class="lede">Capacity is intentionally limited. Submission is an application, not guaranteed acceptance. A person reviews every request and replies only when a bounded synthetic proof is ready.</p>
-      <p class="fine">Do not include passwords, API keys, regulated data, customer records, confidential documents, or production-system details. The form processor may receive standard network metadata.</p>
+      <p class="fine">Do not include passwords, API keys, regulated data, customer records, confidential documents, or production-system details. The form processor may receive standard network metadata. Read the <a href="/privacy">privacy notice</a>, <a href="/beta-terms">beta terms</a>, and <a href="/safety">safety boundaries</a>.</p>
     </div>
     <div>
       <form id="rental-form" action="https://formspree.io/f/mgawgado" method="POST">
@@ -119,9 +119,10 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;b
         </label>
         <label for="workflow">What do you do repeatedly that should become easier?<textarea id="workflow" name="daily_workflow" maxlength="1500" required></textarea></label>
         <label for="outcome">What would a useful result look like?<textarea id="outcome" name="desired_outcome" maxlength="1000" required></textarea></label>
-        <label class="check"><input type="checkbox" name="beta_terms_accepted" value="yes" required><span>I understand this is a manually accepted seven-day promotional rental using synthetic data, with no ownership transfer, card, automatic charge, debt, or acceptance guarantee.</span></label>
+        <label class="check"><input type="checkbox" name="beta_terms_accepted" value="yes" required><span>I have read the <a href="/beta-terms">beta terms</a> and <a href="/privacy">privacy notice</a>. I understand this is a manually accepted seven-day promotional rental using synthetic data, with no ownership transfer, card, automatic charge, debt, or acceptance guarantee.</span></label>
         <input type="hidden" name="source" value="ai-contractor-beta">
         <input type="hidden" name="offer_id" value="seven-day-ai-beta">
+        <input type="hidden" name="policy_version" value="2026-09-02">
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
         <button class="button" id="submit" type="submit">Apply for a seven-day rental</button>
       </form>
@@ -132,7 +133,7 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;b
 </main>
 <footer class="shell">
   <span>AI Contractor Beta</span>
-  <span><a href="/proofs/competitor-positioning-audit.html">Synthetic proof</a> · <a href="/rentals.json">Machine-readable offer</a> · <a href="/agent.json">Agent contract</a></span>
+  <span><a href="/how-it-works">How it works</a> · <a href="/safety">Safety</a> · <a href="/privacy">Privacy</a> · <a href="/beta-terms">Beta terms</a> · <a href="/proofs/competitor-positioning-audit.html">Synthetic proof</a> · <a href="/rentals.json">Machine-readable offer</a></span>
 </footer>
 <script>
 const form=document.getElementById("rental-form"),button=document.getElementById("submit"),ok=document.getElementById("ok"),no=document.getElementById("no");

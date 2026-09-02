@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the AI Contractor Beta Works</title>
+<meta name="description" content="From typed workflow to synthetic proof, explicit approval, seven-day beta, and closeout.">
+<link rel="canonical" href="https://rappter.com/how-it-works">
+<script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("scoutTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+*{box-sizing:border-box}body{margin:0;background:var(--cp-bg);color:var(--cp-text);font:17px/1.65 "Segoe UI",Aptos,Calibri,-apple-system,BlinkMacSystemFont,sans-serif}a{color:var(--cp-link)}.shell{width:min(72rem,calc(100% - 2rem));margin:auto}header,main,footer{padding:2rem 0}nav,footer{display:flex;justify-content:space-between;gap:1rem;align-items:center}.brand{color:var(--cp-text);font-weight:800;text-decoration:none}.hero{padding:5rem 0 3rem;border-bottom:1px solid var(--cp-border)}.eyebrow{color:var(--cp-accent);font:800 .78rem/1.2 Consolas,"Courier New",Courier,monospace;letter-spacing:.12em}h1{max-width:12ch;font-size:clamp(3rem,8vw,6rem);line-height:.94;letter-spacing:-.055em;margin:.5rem 0 1rem}h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.05}p,li{color:var(--cp-text-muted)}section{padding:3rem 0;border-bottom:1px solid var(--cp-border)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.card{padding:1.25rem;border:1px solid var(--cp-border);border-radius:16px;background:var(--cp-surface);box-shadow:0 0 2px var(--cp-border),0 1px 2px var(--cp-border)}.step{display:grid;grid-template-columns:3rem 1fr;gap:1rem}.num{color:var(--cp-accent);font:800 1rem/1 Consolas,"Courier New",Courier,monospace}.button{display:inline-flex;padding:.75rem 1rem;border-radius:.625rem;background:var(--cp-accent);color:var(--cp-accent-fg);font-weight:800;text-decoration:none}.button:hover{background:var(--cp-accent-hover)}footer{font-size:.85rem}@media(max-width:700px){.grid{grid-template-columns:1fr}nav,footer{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="shell"><nav><a class="brand" href="/rent">AI Contractors</a><a href="/proofs/competitor-positioning-audit.html">See a synthetic proof</a></nav></header>
+<main>
+<div class="shell hero"><p class="eyebrow">PROOF BEFORE ACCESS</p><h1>See the work before taking the risk.</h1><p>RapterBox LLC manually builds one bounded AI workflow around a typed, non-confidential request. The first run uses synthetic equivalents and produces a static HTML proof. Customer access is a later, separate decision.</p></div>
+<section><div class="shell grid">
+<article class="card step"><span class="num">01</span><div><h2>Describe</h2><p>Choose one of six service lanes and describe the recurring work and useful outcome. Do not upload files, credentials, customer records, or confidential details.</p></div></article>
+<article class="card step"><span class="num">02</span><div><h2>Qualify</h2><p>A person checks fit, safety, scope, measurable acceptance criteria, and whether a useful synthetic equivalent can be built.</p></div></article>
+<article class="card step"><span class="num">03</span><div><h2>Build JIT</h2><p>The job-specific AI, constraints, synthetic fixtures, refusal rules, and tests are assembled only after the request is accepted.</p></div></article>
+<article class="card step"><span class="num">04</span><div><h2>Run synthetic</h2><p>The workflow executes without customer-system access. Assumptions, steps, results, failed checks, and uncertainty remain visible.</p></div></article>
+<article class="card step"><span class="num">05</span><div><h2>Review proof</h2><p>You receive a self-contained HTML proof. You may stop, request an in-scope correction, approve a seven-day beta, or discuss narrowly scoped access.</p></div></article>
+<article class="card step"><span class="num">06</span><div><h2>Activate or close</h2><p>The seven-day clock begins only after explicit activation. There is no card, automatic charge, debt, renewal, or ownership transfer. Expiry ends the beta.</p></div></article>
+</div></section>
+<section><div class="shell"><h2>What proof contains</h2><div class="grid"><div class="card"><h3>Evidence</h3><p>Scope, synthetic inputs, workflow steps, outputs, checks, limitations, and reproducible receipts.</p></div><div class="card"><h3>Control</h3><p>The exact access that might be useful next, why it is needed, and a zero-access alternative whenever possible.</p></div></div></div></section>
+<section><div class="shell"><h2>The customer decides</h2><p>Silence is never approval. An application is not an acceptance promise, a proof is not permission to access systems, and beta participation is not consent to publish a case study.</p><a class="button" href="/rent#apply">Apply for the beta</a></div></section>
+</main>
+<footer class="shell"><span>RapterBox LLC</span><span><a href="/safety">Safety</a> · <a href="/privacy">Privacy</a> · <a href="/beta-terms">Beta terms</a></span></footer>
+</body>
+</html>

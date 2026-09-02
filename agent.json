@@ -5,6 +5,14 @@
   "human_view": "https://rappter.com/rent",
   "agent_view": "https://rappter.com/agent.json",
   "sample_proof": "https://rappter.com/proofs/competitor-positioning-audit.html",
+  "legal_operator": "RapterBox LLC",
+  "policies": {
+    "how_it_works": "https://rappter.com/how-it-works",
+    "safety": "https://rappter.com/safety",
+    "privacy": "https://rappter.com/privacy",
+    "beta_terms": "https://rappter.com/beta-terms",
+    "version": "2026-09-02"
+  },
   "offer": {
     "id": "seven-day-ai-beta",
     "state": "applications-open",
