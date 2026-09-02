@@ -21,6 +21,11 @@
     "beta_terms": "https://rappter.com/beta-terms",
     "version": "2026-09-02"
   },
+  "installation": {
+    "canonical": "https://rappter.com/install",
+    "public_installer_available": false,
+    "delivery": "private-recipient-bound-after-proof-approval"
+  },
   "offer": {
     "id": "seven-day-ai-beta",
     "state": "applications-open",
@@ -65,6 +70,7 @@
     "promise application acceptance",
     "request credentials or customer-system access before synthetic proof",
     "accept payment through the public agent document",
-    "send an application without explicit human approval"
+    "send an application without explicit human approval",
+    "direct a renter to an unrelated installer"
   ]
 }

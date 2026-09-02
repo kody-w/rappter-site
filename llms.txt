@@ -10,6 +10,7 @@ Applications are open for manually accepted, free seven-day AI workflow tests.
 - Safety boundaries: https://rappter.com/safety
 - Privacy notice: https://rappter.com/privacy
 - Beta terms: https://rappter.com/beta-terms
+- Installation boundary: https://rappter.com/install
 - Live synthetic demo: https://rappter.com/try/
 
 The customer chooses one of six prebuilt use-case offers. After intake, the

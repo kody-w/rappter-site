@@ -1,0 +1,17 @@
+{
+  "schema": "ai-contractor-installation-boundary/1",
+  "operator": "RapterBox LLC",
+  "canonical": "https://rappter.com/install",
+  "status": "private-after-proof-approval",
+  "public_installer_available": false,
+  "synthetic_proof_requires_installation": false,
+  "delivery_requirements": [
+    "accepted bounded rental",
+    "approved synthetic proof",
+    "recipient binding",
+    "signed package manifest",
+    "time-bounded entitlement",
+    "verified cleanup and expiry"
+  ],
+  "unrelated_installers_accepted": false
+}
