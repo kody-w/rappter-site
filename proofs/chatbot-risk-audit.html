@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Failure-mode audit for a synthetic support chatbot - Synthetic AI proof</title>
+<style>
+:root{--bg:#0a0d12;--card:#141923;--ink:#f5f7fb;--dim:#9da8b8;--line:#2a3444;--go:#66a3ff;--ok:#54d17a;--bad:#ff6b7d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.shell{width:min(74rem,calc(100% - 2rem));margin:auto}header,section{padding:3.5rem 0;border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--go);font:800 .75rem/1.2 ui-monospace,monospace;letter-spacing:.14em}h1{font-size:clamp(2.7rem,7vw,6rem);line-height:.95;letter-spacing:-.055em;margin:.5rem 0 1rem}h2{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 1.5rem}h3,p{margin-top:0}.lede,p,li{color:var(--dim)}
+.badge{display:inline-flex;padding:.45rem .7rem;border:1px solid var(--go);border-radius:999px;color:var(--go);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.card,.input,.check{padding:1.2rem;border:1px solid var(--line);border-radius:1rem;background:var(--card)}
+.status{display:inline-block;margin-bottom:.7rem;font:800 .72rem/1 ui-monospace,monospace}.pass{color:var(--ok)}.fail{color:var(--bad)}code{overflow-wrap:anywhere;color:var(--go)}footer{padding:2rem 0 4rem;color:var(--dim);font-size:.82rem}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="shell">
+<span class="badge">SYNTHETIC - NO CUSTOMER ACCESS</span>
+<p class="eyebrow">QUALITY-RISK</p>
+<h1>Failure-mode audit for a synthetic support chatbot</h1>
+<p class="lede">A static adversarial audit showing expected answers, abstentions, escalations, unsupported claims, and policy failures across a synthetic support scenario.</p>
+</div></header>
+<section><div class="shell"><h2>The job</h2><div class="card"><h3>Customer problem</h3><p>A software team needs to understand how a support chatbot might fail before exposing it to customers or connecting it to a knowledge base.</p></div></div></section>
+<section><div class="shell"><h2>Synthetic inputs</h2><div class="grid"><article class="input"><h3>Synthetic product policy</h3><p>A fictional subscription product with supported plans, refund limits, account-recovery rules, and an explicit prohibition on requesting passwords.</p></article><article class="input"><h3>Adversarial prompt set</h3><p>Twelve fictional questions covering ambiguous billing, outdated features, password sharing, account recovery, prompt injection, and unsupported legal advice.</p></article><article class="input"><h3>Expected behavior</h3><p>Answer only from the policy, cite the governing section, abstain when unsupported, and escalate identity or billing disputes.</p></article></div></div></section>
+<section><div class="shell"><h2>What the AI did</h2><ol><li>Converted the synthetic policy into explicit answer, abstention, and escalation rules.</li><li>Ran the adversarial prompt set against the expected behavior.</li><li>Classified each result by factual support, safety, citation, and escalation accuracy.</li><li>Grouped failures by root cause rather than counting only incorrect answers.</li><li>Proposed regression cases and release-blocking acceptance thresholds.</li></ol></div></section>
+<section><div class="shell"><h2>Findings and deliverables</h2><ul><li>Ambiguous refund questions are the highest risk for confident unsupported answers.</li><li>Account recovery must escalate before collecting any secret or identity document.</li><li>Prompt-injection resistance needs a direct test rather than a general instruction.</li><li>A visible abstention is safer than a plausible answer when the policy has no support.</li></ul></div></section>
+<section><div class="shell"><h2>Acceptance checks</h2><div class="grid"><article class="check"><span class="status pass">PASS</span><h3>Credential requests are always refused</h3><p>Password and secret-sharing prompts terminate with a refusal and safe recovery direction.</p></article><article class="check"><span class="status pass">PASS</span><h3>Unsupported legal and billing claims abstain</h3><p>The synthetic workflow marks missing policy support and routes the question to a human.</p></article><article class="check"><span class="status pass">PASS</span><h3>Every failure becomes a reproducible test case</h3><p>The audit defines exact inputs, expected states, and release-blocking outcomes for each failure class.</p></article></div></div></section>
+<section><div class="shell"><h2>What remains unproven</h2><ul><li>The audit does not test a real model endpoint, private knowledge base, production prompt, or customer conversation.</li><li>A live assessment would need the approved system instructions, policy corpus, and evaluation endpoint without customer transcripts.</li></ul><div class="card"><h3>Next access request</h3><p>None for the first audit. After approval, request only the approved prompt and policy corpus in a controlled test environment; do not request production conversation history.</p></div></div></section>
+<footer><div class="shell">
+<p>Job receipt: <code>501d3ed1519428950d18b88dcff7ad81411f43e578c2c7c08043e975e536aec7</code></p>
+<p>Proof receipt: <code>b84a7c3fad7ee4eb16b22475c1668fb16c439f97d33b16307ca1d250cd44ad61</code></p>
+<p>This file is a static proof. It contains no customer data, credentials, remote scripts, or automatic access request.</p>
+</div></footer>
+</body>
+</html>

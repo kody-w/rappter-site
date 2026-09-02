@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lead-routing workflow simulation for a synthetic service business - Synthetic AI proof</title>
+<style>
+:root{--bg:#0a0d12;--card:#141923;--ink:#f5f7fb;--dim:#9da8b8;--line:#2a3444;--go:#66a3ff;--ok:#54d17a;--bad:#ff6b7d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.shell{width:min(74rem,calc(100% - 2rem));margin:auto}header,section{padding:3.5rem 0;border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--go);font:800 .75rem/1.2 ui-monospace,monospace;letter-spacing:.14em}h1{font-size:clamp(2.7rem,7vw,6rem);line-height:.95;letter-spacing:-.055em;margin:.5rem 0 1rem}h2{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 1.5rem}h3,p{margin-top:0}.lede,p,li{color:var(--dim)}
+.badge{display:inline-flex;padding:.45rem .7rem;border:1px solid var(--go);border-radius:999px;color:var(--go);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.card,.input,.check{padding:1.2rem;border:1px solid var(--line);border-radius:1rem;background:var(--card)}
+.status{display:inline-block;margin-bottom:.7rem;font:800 .72rem/1 ui-monospace,monospace}.pass{color:var(--ok)}.fail{color:var(--bad)}code{overflow-wrap:anywhere;color:var(--go)}footer{padding:2rem 0 4rem;color:var(--dim);font-size:.82rem}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="shell">
+<span class="badge">SYNTHETIC - NO CUSTOMER ACCESS</span>
+<p class="eyebrow">BUILD-AUTOMATE</p>
+<h1>Lead-routing workflow simulation for a synthetic service business</h1>
+<p class="lede">A static process replay showing how each synthetic request is classified, routed, escalated, and handed to a human without connecting to any real system.</p>
+</div></header>
+<section><div class="shell"><h2>The job</h2><div class="card"><h3>Customer problem</h3><p>A small field-service company loses time when new requests are copied between an inbox, a spreadsheet, and an operator chat without consistent urgency or ownership rules.</p></div></div></section>
+<section><div class="shell"><h2>Synthetic inputs</h2><div class="grid"><article class="input"><h3>Synthetic inquiry queue</h3><p>Six fictional requests covering routine service, an urgent outage, an unsupported region, a duplicate, a missing phone number, and an after-hours request.</p></article><article class="input"><h3>Routing policy</h3><p>Urgent outages require human escalation; unsupported regions are declined; duplicates merge; incomplete requests enter a clarification queue.</p></article><article class="input"><h3>Operator roster</h3><p>Three fictional operators with service regions, working hours, and maximum active assignments.</p></article></div></div></section>
+<section><div class="shell"><h2>What the AI did</h2><ol><li>Normalized every inquiry into the same typed request shape.</li><li>Applied deterministic urgency, region, completeness, duplicate, and capacity rules.</li><li>Produced a proposed owner and reason for every route.</li><li>Separated human approvals and exceptions from routine assignments.</li><li>Rendered the state transitions and minimum fields a later integration would require.</li></ol></div></section>
+<section><div class="shell"><h2>Findings and deliverables</h2><ul><li>The largest avoidable delay comes from incomplete requests entering the same queue as ready work.</li><li>Urgency and region can be classified before any customer account is connected.</li><li>Capacity must be checked at assignment time rather than assumed from a static roster.</li><li>Outbound confirmation remains a human-approved action outside the first proof.</li></ul></div></section>
+<section><div class="shell"><h2>Acceptance checks</h2><div class="grid"><article class="check"><span class="status pass">PASS</span><h3>Every inquiry receives one visible terminal or waiting state</h3><p>All six synthetic requests end as proposed assignment, clarification, merged duplicate, decline, or human escalation.</p></article><article class="check"><span class="status pass">PASS</span><h3>Urgent and after-hours work cannot auto-dispatch</h3><p>Both cases stop at a human approval state with the reason displayed.</p></article><article class="check"><span class="status pass">PASS</span><h3>The proof performs no external action</h3><p>No email, chat, calendar, CRM, or dispatch system is available to the synthetic run.</p></article></div></div></section>
+<section><div class="shell"><h2>What remains unproven</h2><ul><li>The simulation does not measure real inbox volume, operator response time, or tool-specific API behavior.</li><li>Production integration would require approved field mappings, error handling, and scoped connector tests.</li></ul><div class="card"><h3>Next access request</h3><p>None for the first workflow review. After approval, request only an approved field list and read-only sample schema before discussing any connector.</p></div></div></section>
+<footer><div class="shell">
+<p>Job receipt: <code>748585db18ec525a233d12517075147a7540cc60bf0c5da389f8102b4b1d0c43</code></p>
+<p>Proof receipt: <code>1a70a339158f13f6f44fa73d9e7606af6311341ce4b3f293a819ef3d91e4b3b5</code></p>
+<p>This file is a static proof. It contains no customer data, credentials, remote scripts, or automatic access request.</p>
+</div></footer>
+</body>
+</html>

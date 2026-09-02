@@ -5,7 +5,7 @@ Applications are open for manually accepted, free seven-day AI workflow tests.
 - Human application: https://rappter.com/rent
 - Machine-readable offer: https://rappter.com/rentals.json
 - Agent contract: https://rappter.com/agent.json
-- Synthetic proof example: https://rappter.com/proofs/competitor-positioning-audit.html
+- Six-lane synthetic proof library: https://rappter.com/proofs/
 - How it works: https://rappter.com/how-it-works
 - Safety boundaries: https://rappter.com/safety
 - Privacy notice: https://rappter.com/privacy

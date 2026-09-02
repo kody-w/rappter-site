@@ -5,6 +5,14 @@
   "human_view": "https://rappter.com/rent",
   "agent_view": "https://rappter.com/agent.json",
   "sample_proof": "https://rappter.com/proofs/competitor-positioning-audit.html",
+  "sample_proofs": {
+    "research-intelligence": "https://rappter.com/proofs/competitor-positioning-audit.html",
+    "build-automate": "https://rappter.com/proofs/lead-routing-simulation.html",
+    "creative-media": "https://rappter.com/proofs/content-repurposing-system.html",
+    "quality-risk": "https://rappter.com/proofs/chatbot-risk-audit.html",
+    "growth-commerce": "https://rappter.com/proofs/landing-page-conversion.html",
+    "operations-support": "https://rappter.com/proofs/order-ledger-cleanup.html"
+  },
   "legal_operator": "RapterBox LLC",
   "policies": {
     "how_it_works": "https://rappter.com/how-it-works",

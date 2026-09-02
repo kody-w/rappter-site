@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spreadsheet cleanup workflow for a synthetic order ledger - Synthetic AI proof</title>
+<style>
+:root{--bg:#0a0d12;--card:#141923;--ink:#f5f7fb;--dim:#9da8b8;--line:#2a3444;--go:#66a3ff;--ok:#54d17a;--bad:#ff6b7d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.shell{width:min(74rem,calc(100% - 2rem));margin:auto}header,section{padding:3.5rem 0;border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--go);font:800 .75rem/1.2 ui-monospace,monospace;letter-spacing:.14em}h1{font-size:clamp(2.7rem,7vw,6rem);line-height:.95;letter-spacing:-.055em;margin:.5rem 0 1rem}h2{font-size:clamp(1.8rem,4vw,3rem);margin:0 0 1.5rem}h3,p{margin-top:0}.lede,p,li{color:var(--dim)}
+.badge{display:inline-flex;padding:.45rem .7rem;border:1px solid var(--go);border-radius:999px;color:var(--go);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.card,.input,.check{padding:1.2rem;border:1px solid var(--line);border-radius:1rem;background:var(--card)}
+.status{display:inline-block;margin-bottom:.7rem;font:800 .72rem/1 ui-monospace,monospace}.pass{color:var(--ok)}.fail{color:var(--bad)}code{overflow-wrap:anywhere;color:var(--go)}footer{padding:2rem 0 4rem;color:var(--dim);font-size:.82rem}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="shell">
+<span class="badge">SYNTHETIC - NO CUSTOMER ACCESS</span>
+<p class="eyebrow">OPERATIONS-SUPPORT</p>
+<h1>Spreadsheet cleanup workflow for a synthetic order ledger</h1>
+<p class="lede">A static before-and-after cleanup proof with deterministic rules, exception queues, validation checks, and an operator-ready handoff.</p>
+</div></header>
+<section><div class="shell"><h2>The job</h2><div class="card"><h3>Customer problem</h3><p>An operations team spends hours correcting inconsistent dates, duplicate orders, missing owners, mixed status names, and malformed currency values before weekly reporting.</p></div></div></section>
+<section><div class="shell"><h2>Synthetic inputs</h2><div class="grid"><article class="input"><h3>Synthetic order ledger</h3><p>Twenty fictional rows containing duplicate order IDs, three date formats, blank owners, inconsistent statuses, negative totals, and text in numeric fields.</p></article><article class="input"><h3>Normalization rules</h3><p>Use one date format, one status vocabulary, valid non-negative currency, unique order IDs, and explicit exception reasons.</p></article><article class="input"><h3>Reporting contract</h3><p>Produce clean rows, quarantined exceptions, rule counts, and a reconciliation total without silently discarding data.</p></article></div></div></section>
+<section><div class="shell"><h2>What the AI did</h2><ol><li>Profiled every synthetic column and recorded the detected shape violations.</li><li>Applied deterministic normalization rules without overwriting the source representation.</li><li>Merged only exact duplicates and quarantined ambiguous conflicts.</li><li>Reconciled row counts and valid currency totals before and after cleanup.</li><li>Produced an exception queue with one reason and recommended owner action per row.</li></ol></div></section>
+<section><div class="shell"><h2>Findings and deliverables</h2><ul><li>Status aliases can be normalized safely when the mapping is explicit.</li><li>Conflicting duplicate order IDs must be quarantined rather than merged automatically.</li><li>Missing owners are a workflow exception, not a value to invent.</li><li>Reconciliation totals are the fastest way to catch silent row loss.</li></ul></div></section>
+<section><div class="shell"><h2>Acceptance checks</h2><div class="grid"><article class="check"><span class="status pass">PASS</span><h3>No source row disappears without an accounted state</h3><p>Every row is represented as clean, exact duplicate, or quarantined exception.</p></article><article class="check"><span class="status pass">PASS</span><h3>Ambiguous values are never fabricated</h3><p>Missing owners, conflicting duplicates, and malformed totals remain visible exceptions.</p></article><article class="check"><span class="status pass">PASS</span><h3>Before-and-after counts reconcile</h3><p>The clean set, duplicate set, and exception set sum to the original twenty synthetic rows.</p></article></div></div></section>
+<section><div class="shell"><h2>What remains unproven</h2><ul><li>The synthetic workbook does not reproduce a real customer&#x27;s formulas, macros, locale, volume, or downstream imports.</li><li>A production cleanup would require an approved sanitized sample and explicit output schema.</li></ul><div class="card"><h3>Next access request</h3><p>None for the synthetic proof. After approval, request one sanitized sample with no customer or regulated data and a written output schema; no live spreadsheet access is required.</p></div></div></section>
+<footer><div class="shell">
+<p>Job receipt: <code>2b1fb3d2f906469746c916efa5c18159880e450c4f898669abdfd360cbf27af7</code></p>
+<p>Proof receipt: <code>4dab3525b7bf4355b9eaab8ac8a5ad0cdc9b31341b6af55b0681cb3a01d5031f</code></p>
+<p>This file is a static proof. It contains no customer data, credentials, remote scripts, or automatic access request.</p>
+</div></footer>
+</body>
+</html>
