@@ -4,6 +4,7 @@
   "what_this_is": "The public machine-readable entry point for a proof-before-access AI contractor beta.",
   "human_view": "https://rappter.com/rent",
   "agent_view": "https://rappter.com/agent.json",
+  "sample_proof": "https://rappter.com/proofs/competitor-positioning-audit.html",
   "offer": {
     "id": "seven-day-ai-beta",
     "state": "applications-open",

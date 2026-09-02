@@ -29,13 +29,14 @@ h1,h2,h3,p{margin-top:0}h1{max-width:11ch;font-size:clamp(3.3rem,8vw,7.2rem);lin
 .fact strong{display:block;font-size:1.1rem}.fact span,.card p{color:var(--dim);font-size:.9rem}
 section{padding:5rem 0;border-top:1px solid var(--line)}.six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.card b{color:var(--gold);font:800 .75rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}.step{padding:1.25rem;border-left:3px solid var(--hot);background:var(--card)}.step span{color:var(--dim)}
+.sample-proof{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-top:1rem;padding:1.25rem;border:1px solid var(--line);border-radius:1rem}.sample-proof p{margin:0;color:var(--dim)}
 .apply{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:3rem;align-items:start}
 form{padding:1.5rem;border:1px solid var(--line);border-radius:1rem;background:var(--card)}
 label{display:grid;gap:.4rem;margin-top:1rem;font-weight:750;font-size:.88rem}input,select,textarea{width:100%;min-height:3rem;padding:.75rem .85rem;border:1px solid var(--line);border-radius:.65rem;color:var(--ink);background:var(--bg);font:inherit}textarea{min-height:7rem;resize:vertical}
 .check{grid-template-columns:auto 1fr;align-items:start;font-weight:500;color:var(--dim)}.check input{width:1.1rem;min-height:1.1rem;margin-top:.35rem}.fine{color:var(--dim);font-size:.8rem}.msg{display:none;padding:1rem;border:1px solid var(--ok);border-radius:.7rem;color:var(--ok);font-weight:800}
 footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;border-top:1px solid var(--line);color:var(--dim);font-size:.82rem}
 @media(max-width:900px){.hero,.apply{grid-template-columns:1fr}.six{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.shell{width:calc(100% - 2rem)}.six,.steps,.facts{grid-template-columns:1fr}footer{flex-direction:column}}
+@media(max-width:560px){.shell{width:calc(100% - 2rem)}.six,.steps,.facts{grid-template-columns:1fr}.sample-proof,footer{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
@@ -79,6 +80,10 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;b
       <div class="step"><h3>2. Build JIT</h3><span>We assemble the exact AI, tools, constraints, and proof standard for the job.</span></div>
       <div class="step"><h3>3. Run synthetic</h3><span>The AI completes a safe equivalent without customer-system access.</span></div>
       <div class="step"><h3>4. See the proof</h3><span>You receive a static HTML result and replay before deciding whether to continue.</span></div>
+    </div>
+    <div class="sample-proof">
+      <p>See the exact proof standard on a fully synthetic competitor-positioning job.</p>
+      <a class="button alt" href="/proofs/competitor-positioning-audit.html">Open the synthetic proof</a>
     </div>
   </div></section>
 
@@ -127,7 +132,7 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;b
 </main>
 <footer class="shell">
   <span>AI Contractor Beta</span>
-  <span><a href="/rentals.json">Machine-readable offer</a> · <a href="/agent.json">Agent contract</a></span>
+  <span><a href="/proofs/competitor-positioning-audit.html">Synthetic proof</a> · <a href="/rentals.json">Machine-readable offer</a> · <a href="/agent.json">Agent contract</a></span>
 </footer>
 <script>
 const form=document.getElementById("rental-form"),button=document.getElementById("submit"),ok=document.getElementById("ok"),no=document.getElementById("no");
