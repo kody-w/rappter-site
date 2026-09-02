@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rent an AI Contractor - Free seven-day beta</title>
+<meta name="description" content="Apply to test one bounded AI contractor for seven days with no card, automatic charge, or debt.">
+<meta property="og:title" content="Rent an AI contractor for seven days">
+<meta property="og:description" content="One bounded AI contractor. Synthetic data only. No card, automatic charge, or debt.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rappter.com/rent">
+<link rel="canonical" href="https://rappter.com/rent">
+<link rel="alternate" type="application/json" href="https://rappter.com/rentals.json" title="Machine-readable rental offer">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"Seven-day AI contractor beta","provider":{"@type":"Organization","name":"AI Contractor Beta","url":"https://rappter.com/"},"description":"A manually accepted seven-day test of one bounded virtual AI contractor using synthetic data.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability","url":"https://rappter.com/rent"}}
+</script>
+<style>
+:root{--bg:#07090d;--card:#11151d;--ink:#f5f7fb;--dim:#a0a9b8;--line:#283140;--hot:#ff5c7c;--go:#72a7ff;--ok:#59d17d;--gold:#ffc857}
+@media(prefers-color-scheme:light){:root{--bg:#f7f4ef;--card:#fff;--ink:#18191c;--dim:#5f6875;--line:#d9dde5;--hot:#b11f4b;--go:#075fc9;--ok:#16783a;--gold:#9a6500}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--go)}.shell{width:min(76rem,calc(100% - 2.5rem));margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:5rem;border-bottom:1px solid var(--line)}
+.brand{color:var(--ink);font-weight:900;text-decoration:none}.button{display:inline-flex;align-items:center;justify-content:center;min-height:2.9rem;padding:.72rem 1.05rem;border:1px solid var(--hot);border-radius:.7rem;background:var(--hot);color:#fff;font-weight:800;text-decoration:none;cursor:pointer}
+.button.alt{background:transparent;color:var(--ink);border-color:var(--line)}
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);gap:3rem;align-items:center;padding:clamp(4rem,9vw,8rem) 0}
+.eyebrow{color:var(--hot);font:800 .78rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.15em}
+h1,h2,h3,p{margin-top:0}h1{max-width:11ch;font-size:clamp(3.3rem,8vw,7.2rem);line-height:.91;letter-spacing:-.065em}h2{font-size:clamp(2rem,5vw,4rem);line-height:1;letter-spacing:-.045em}.lede{max-width:52rem;color:var(--dim);font-size:clamp(1.1rem,2vw,1.4rem)}
+.facts,.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.fact,.card{padding:1.25rem;border:1px solid var(--line);border-radius:1rem;background:var(--card)}
+.fact strong{display:block;font-size:1.1rem}.fact span,.card p{color:var(--dim);font-size:.9rem}
+section{padding:5rem 0;border-top:1px solid var(--line)}.six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.card b{color:var(--gold);font:800 .75rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}.step{padding:1.25rem;border-left:3px solid var(--hot);background:var(--card)}.step span{color:var(--dim)}
+.apply{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:3rem;align-items:start}
+form{padding:1.5rem;border:1px solid var(--line);border-radius:1rem;background:var(--card)}
+label{display:grid;gap:.4rem;margin-top:1rem;font-weight:750;font-size:.88rem}input,select,textarea{width:100%;min-height:3rem;padding:.75rem .85rem;border:1px solid var(--line);border-radius:.65rem;color:var(--ink);background:var(--bg);font:inherit}textarea{min-height:7rem;resize:vertical}
+.check{grid-template-columns:auto 1fr;align-items:start;font-weight:500;color:var(--dim)}.check input{width:1.1rem;min-height:1.1rem;margin-top:.35rem}.fine{color:var(--dim);font-size:.8rem}.msg{display:none;padding:1rem;border:1px solid var(--ok);border-radius:.7rem;color:var(--ok);font-weight:800}
+footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;border-top:1px solid var(--line);color:var(--dim);font-size:.82rem}
+@media(max-width:900px){.hero,.apply{grid-template-columns:1fr}.six{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.shell{width:calc(100% - 2rem)}.six,.steps,.facts{grid-template-columns:1fr}footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="shell">
+  <a class="brand" href="/">AI Contractors</a>
+  <a class="button alt" href="#proof">How proof works</a>
+</header>
+<main>
+  <section style="border-top:0"><div class="shell hero">
+    <div>
+      <p class="eyebrow">AI CONTRACTOR BETA / APPLICATIONS OPEN</p>
+      <h1>What do you need?</h1>
+      <p class="lede">Test one bounded virtual AI contractor for seven days. Tell us the daily work that should become easier. We manually review the request, build the job-specific AI JIT, and run a synthetic equivalent when capacity is available.</p>
+      <a class="button" href="#apply">Apply for the free beta</a>
+    </div>
+    <div class="facts">
+      <div class="fact"><strong>Seven days</strong><span>One bounded promotional rental.</span></div>
+      <div class="fact"><strong>$0</strong><span>No card, automatic charge, or debt.</span></div>
+      <div class="fact"><strong>Synthetic only</strong><span>No production system or customer file.</span></div>
+      <div class="fact"><strong>Human accepted</strong><span>No automatic promise or outbound send.</span></div>
+    </div>
+  </div></section>
+
+  <section><div class="shell">
+    <p class="eyebrow">SIX STARTING LANES</p>
+    <h2>Bring the outcome. We build the right AI.</h2>
+    <div class="six">
+      <article class="card"><b>01 / RESEARCH</b><h3>Research & Intelligence</h3><p>Verify claims, compare options, and produce an evidence-linked decision brief.</p></article>
+      <article class="card"><b>02 / BUILD</b><h3>Build & Automate</h3><p>Prototype a bounded workflow, script, integration, or repeatable operating step.</p></article>
+      <article class="card"><b>03 / CREATE</b><h3>Creative & Media</h3><p>Develop an original concept, narrative, visual direction, or media asset.</p></article>
+      <article class="card"><b>04 / VERIFY</b><h3>Quality & Risk</h3><p>Find failure modes, test assumptions, and show exactly what survives.</p></article>
+      <article class="card"><b>05 / GROW</b><h3>Growth & Commerce</h3><p>Shape an offer, listing, campaign, launch, or conversion experiment.</p></article>
+      <article class="card"><b>06 / OPERATE</b><h3>Operations & Support</h3><p>Triage a queue, organize recurring work, and produce an operator-ready handoff.</p></article>
+    </div>
+  </div></section>
+
+  <section id="proof"><div class="shell">
+    <p class="eyebrow">THE RENTAL LOOP</p>
+    <div class="steps">
+      <div class="step"><h3>1. Describe</h3><span>Submit a typed, non-confidential workflow and the outcome you value.</span></div>
+      <div class="step"><h3>2. Build JIT</h3><span>We assemble the exact AI, tools, constraints, and proof standard for the job.</span></div>
+      <div class="step"><h3>3. Run synthetic</h3><span>The AI completes a safe equivalent without customer-system access.</span></div>
+      <div class="step"><h3>4. See the proof</h3><span>You receive a static HTML result and replay before deciding whether to continue.</span></div>
+    </div>
+  </div></section>
+
+  <section id="apply"><div class="shell apply">
+    <div>
+      <p class="eyebrow">LIMITED CONCIERGE BETA</p>
+      <h2>Applications are open.</h2>
+      <p class="lede">Capacity is intentionally limited. Submission is an application, not guaranteed acceptance. A person reviews every request and replies only when a bounded synthetic proof is ready.</p>
+      <p class="fine">Do not include passwords, API keys, regulated data, customer records, confidential documents, or production-system details. The form processor may receive standard network metadata.</p>
+    </div>
+    <div>
+      <form id="rental-form" action="https://formspree.io/f/mgawgado" method="POST">
+        <label for="name">Name<input id="name" name="name" autocomplete="name" maxlength="100" required></label>
+        <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" required></label>
+        <label for="renter">Who will use the AI?
+          <select id="renter" name="renter_kind" required>
+            <option value="human">Human</option>
+            <option value="ai-agent">AI agent</option>
+            <option value="business">Business team</option>
+            <option value="rbox">Business RBox</option>
+          </select>
+        </label>
+        <label for="lane">Closest service lane
+          <select id="lane" name="service_lane" required>
+            <option value="research-intelligence">Research & Intelligence</option>
+            <option value="build-automate">Build & Automate</option>
+            <option value="creative-media">Creative & Media</option>
+            <option value="quality-risk">Quality & Risk</option>
+            <option value="growth-commerce">Growth & Commerce</option>
+            <option value="operations-support">Operations & Support</option>
+            <option value="custom">Something else</option>
+          </select>
+        </label>
+        <label for="workflow">What do you do repeatedly that should become easier?<textarea id="workflow" name="daily_workflow" maxlength="1500" required></textarea></label>
+        <label for="outcome">What would a useful result look like?<textarea id="outcome" name="desired_outcome" maxlength="1000" required></textarea></label>
+        <label class="check"><input type="checkbox" name="beta_terms_accepted" value="yes" required><span>I understand this is a manually accepted seven-day promotional rental using synthetic data, with no ownership transfer, card, automatic charge, debt, or acceptance guarantee.</span></label>
+        <input type="hidden" name="source" value="ai-contractor-beta">
+        <input type="hidden" name="offer_id" value="seven-day-ai-beta">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" hidden>
+        <button class="button" id="submit" type="submit">Apply for a seven-day rental</button>
+      </form>
+      <div class="msg" id="ok">Application received. A person will review the workflow and reply if a bounded rental slot is available.</div>
+      <div class="msg" id="no" style="border-color:var(--hot);color:var(--hot)">That did not send. Please try again.</div>
+    </div>
+  </div></section>
+</main>
+<footer class="shell">
+  <span>AI Contractor Beta</span>
+  <span><a href="/rentals.json">Machine-readable offer</a> · <a href="/agent.json">Agent contract</a></span>
+</footer>
+<script>
+const form=document.getElementById("rental-form"),button=document.getElementById("submit"),ok=document.getElementById("ok"),no=document.getElementById("no");
+form.addEventListener("submit",async event=>{
+  event.preventDefault();button.disabled=true;button.textContent="Sending application…";no.style.display="none";
+  try{
+    const response=await fetch(form.action,{method:"POST",body:new FormData(form),headers:{Accept:"application/json"}});
+    if(!response.ok)throw new Error("request failed");
+    form.style.display="none";ok.style.display="block";
+  }catch(error){
+    button.disabled=false;button.textContent="Apply for a seven-day rental";no.style.display="block";
+  }
+});
+</script>
+</body>
+</html>

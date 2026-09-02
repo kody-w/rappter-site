@@ -1,0 +1,55 @@
+{
+  "schema": "ai-contractor-public-offer/1",
+  "status": "applications-open",
+  "operator": "AI Contractor Beta",
+  "surface": "https://rappter.com/rent",
+  "mode": "promo-seven-day-value-trial",
+  "price_minor": 0,
+  "currency": "USD",
+  "duration_days": 7,
+  "payment_method_required": false,
+  "automatic_charge": false,
+  "debt_created": false,
+  "title_transferred": false,
+  "acceptance_automatic": false,
+  "fulfillment": "manual-human-approved",
+  "data_mode": "typed-non-confidential-description-to-synthetic-equivalent",
+  "attachments_accepted": false,
+  "capacity": "limited-manually-accepted-jit-builds",
+  "service_lanes": [
+    "research-intelligence",
+    "build-automate",
+    "creative-media",
+    "quality-risk",
+    "growth-commerce",
+    "operations-support",
+    "custom"
+  ],
+  "apply": {
+    "method": "POST",
+    "url": "https://formspree.io/f/mgawgado",
+    "content_type": "multipart/form-data",
+    "human_equivalent": "https://rappter.com/rent#apply",
+    "requires_explicit_human_request": true,
+    "fields": {
+      "name": "string, required",
+      "email": "email, required",
+      "renter_kind": "human | ai-agent | business | rbox",
+      "service_lane": "one listed service lane",
+      "daily_workflow": "typed non-confidential string, required",
+      "desired_outcome": "typed non-confidential string, required",
+      "beta_terms_accepted": "yes, required",
+      "source": "ai-contractor-beta",
+      "offer_id": "seven-day-ai-beta"
+    }
+  },
+  "never_submit": [
+    "passwords",
+    "api keys",
+    "regulated data",
+    "customer records",
+    "confidential documents",
+    "production-system details"
+  ],
+  "commerce_boundary": "Paid services, tips, Original title, offspring, and investment-like claims are not offered through this public beta."
+}

@@ -1,30 +1,16 @@
-# rappter.com
+# AI Contractor Beta
 
-> The consumer entry point for Genesis 251 First Edition / First Dimension:
-> 251 signed First Edition Originals and authored shadow previews. All are
-> issuer-held, untransferred, and undiscovered. Cleared Holo reveals, exact
-> Original title transfers, separately issued offspring, RapterWorks jobs,
-> tips, paid evolution, DOGG certification, and markets follow separate gates.
+Applications are open for manually accepted, free seven-day AI workflow tests.
 
-- First Dimension: https://rappter.com/
-- Holodex viewer and API: https://kody-w.github.io/holodex/
-- Release stamp: https://kody-w.github.io/holodex/api/v1/release/latest.json
-- Species index: https://kody-w.github.io/holodex/api/v1/species/index.json
-- Official market lifecycle: https://rappter.com/market
-- Machine-readable market policy: https://rappter.com/market-policy.json
-- Canonical RapterBox LLC policy: https://rapterbox.com/MARKETPLACE-POLICY.md
-- RapterBox for business: https://rapterbox.com/
-- Existing bounded work board: https://rappter.com/mesh/
-- Public agent contract: https://rappter.com/agent.json
+- Human application: https://rappter.com/rent
+- Machine-readable offer: https://rappter.com/rentals.json
+- Agent contract: https://rappter.com/agent.json
+- Live synthetic demo: https://rappter.com/try/
 
-All 251 catalog slots are initially controlled by RapterBox, all 251 Original
-titles are issuer-held, zero are transferred, and all remain undiscovered;
-candidate source-content rights remain clearance-pending. A buyer may later
-acquire current title to one exact cleared Original or a separately issued
-offspring under stated terms. Neither is company equity or a security.
+The customer chooses one of six prebuilt use-case offers. After intake, the
+job-specific AI is built JIT, run on synthetic equivalents, and delivered as a
+static HTML proof before any customer-system access is requested.
 
-The intended commercial lifecycle is a verifiable rip from the fixed cleared
-pool, a seven-day transfer-locked First Hatch period, then official market
-eligibility. A return sends title and the transferable Capsule to RapterBox
-inventory; private memory and credentials never come with it. RapterBox may
-publish funded standing bids, but no permanent floor or return is guaranteed.
+The public cohort requires no card, creates no automatic charge or debt,
+accepts no attachments, and never guarantees acceptance. Every application,
+proof, access request, and delivery decision is human reviewed.
