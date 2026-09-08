@@ -4,6 +4,35 @@
   "what_this_is": "The public machine-readable entry point for a proof-before-access AI contractor beta.",
   "human_view": "https://rappter.com/rent",
   "agent_view": "https://rappter.com/agent.json",
+  "sample_proof": "https://rappter.com/proofs/competitor-positioning-audit.html",
+  "sample_proofs": {
+    "research-intelligence": "https://rappter.com/proofs/competitor-positioning-audit.html",
+    "build-automate": "https://rappter.com/proofs/lead-routing-simulation.html",
+    "creative-media": "https://rappter.com/proofs/content-repurposing-system.html",
+    "quality-risk": "https://rappter.com/proofs/chatbot-risk-audit.html",
+    "growth-commerce": "https://rappter.com/proofs/landing-page-conversion.html",
+    "operations-support": "https://rappter.com/proofs/order-ledger-cleanup.html"
+  },
+  "legal_operator": "RapterBox LLC",
+  "policies": {
+    "how_it_works": "https://rappter.com/how-it-works",
+    "safety": "https://rappter.com/safety",
+    "privacy": "https://rappter.com/privacy",
+    "beta_terms": "https://rappter.com/beta-terms",
+    "version": "2026-09-02"
+  },
+  "installation": {
+    "canonical": "https://rappter.com/install",
+    "public_installer_available": false,
+    "delivery": "private-recipient-bound-after-proof-approval"
+  },
+  "planned_paid_rental": {
+    "contract": "https://rappter.com/paid-rental-plan.json",
+    "schema": "ai-contractor-paid-rental-plan/1",
+    "status": "planned-disabled",
+    "paid_ready": false,
+    "discovery_only": true
+  },
   "offer": {
     "id": "seven-day-ai-beta",
     "state": "applications-open",
@@ -48,6 +77,7 @@
     "promise application acceptance",
     "request credentials or customer-system access before synthetic proof",
     "accept payment through the public agent document",
-    "send an application without explicit human approval"
+    "send an application without explicit human approval",
+    "direct a renter to an unrelated installer"
   ]
 }

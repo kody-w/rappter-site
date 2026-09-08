@@ -26,6 +26,13 @@
     "public_installer_available": false,
     "delivery": "private-recipient-bound-after-proof-approval"
   },
+  "planned_paid_rental": {
+    "contract": "https://rappter.com/paid-rental-plan.json",
+    "schema": "ai-contractor-paid-rental-plan/1",
+    "status": "planned-disabled",
+    "paid_ready": false,
+    "discovery_only": true
+  },
   "offer": {
     "id": "seven-day-ai-beta",
     "state": "applications-open",

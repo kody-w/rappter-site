@@ -20,3 +20,31 @@ static HTML proof before any customer-system access is requested.
 The public cohort requires no card, creates no automatic charge or debt,
 accepts no attachments, and never guarantees acceptance. Every application,
 proof, access request, and delivery decision is human reviewed.
+
+## Planned paid rental — disabled, not an active offer
+
+- Schema: ai-contractor-paid-rental-plan/1
+- Status: planned-disabled
+- paid_ready: false
+- Planning disclosure: https://rappter.com/paid-rental-plan.json
+- Exact plan schema: https://rappter.com/paid-rental-plan.schema.json
+- Human explanation: https://rappter.com/rent#paid-rental-plan
+- Discovery mirror: https://rappter.com/.well-known/agent.json
+
+This is the same rental product; the free beta above is unchanged. The plan
+describes a fixed $5 USD deposit (500 minor units), credited toward a fixed
+customer-accepted total quote. Deposit authorization must be explicit.
+The balance requires explicit customer approval bound to the exact deliverable
+and quote; paid completion also requires verified provider capture matching
+the rental, quote, currency, and amount. Silence or review timeout is not
+satisfaction or collection authority. There is no default automatic collection.
+Disputes, refunds, and chargebacks append outcomes; no fixed irreversibility
+window is promised. Identity, rental, title, and paid rights are distinct.
+
+No paid checkout or payment endpoint is published by this plan. Activation requires a
+tested production payment adapter and an approved production release.
+Open-manifest discovery grants no payment or governance authority.
+RAPP/1 is the byte/signature contract, not ownership proof:
+https://github.com/kody-w/rapp-1/blob/main/SPEC.md
+These application-level requirements do not change the core protocol and
+are not transaction evidence.
