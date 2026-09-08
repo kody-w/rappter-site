@@ -1,0 +1,97 @@
+{
+  "schema": "ai-contractor-paid-rental-plan/1",
+  "schema_url": "https://rappter.com/paid-rental-plan.schema.json",
+  "status": "planned-disabled",
+  "paid_ready": false,
+  "operator": "RapterBox LLC",
+  "same_product_as": "https://rappter.com/rentals.json",
+  "replaces_current_offer": false,
+  "human_view": "https://rappter.com/rent#paid-rental-plan",
+  "activation_requires": [
+    "tested-production-payment-adapter",
+    "approved-production-release"
+  ],
+  "terms": {
+    "currency": "USD",
+    "amount_unit": "minor",
+    "minor_units_per_major": 100,
+    "deposit_minor": 500,
+    "quote_basis": "fixed-customer-accepted-total-including-deposit",
+    "deposit_requires": [
+      "accepted-fixed-quote",
+      "explicit-customer-deposit-authorization"
+    ],
+    "balance_calculation": "accepted_quote_total_minor - deposit_minor",
+    "balance_requires": [
+      "accepted-fixed-quote",
+      "exact-deliverable-digest",
+      "explicit-customer-approval-bound-to-quote-and-deliverable"
+    ],
+    "paid_completion_requires": [
+      "accepted-fixed-quote",
+      "exact-deliverable-digest",
+      "explicit-customer-approval-bound-to-quote-and-deliverable",
+      "verified-provider-capture-matching-rental-quote-currency-and-total-paid"
+    ],
+    "automatic_collection": false,
+    "review_timeout_is_satisfaction": false,
+    "review_timeout_authorizes_collection": false,
+    "quote_changes_require_customer_acceptance": true
+  },
+  "evidence": {
+    "kind": "requirements-only-not-transaction-evidence",
+    "binding_required": [
+      "rental-reference",
+      "accepted-quote-reference",
+      "exact-deliverable-digest",
+      "explicit-customer-approval-reference",
+      "verified-provider-capture-reference"
+    ],
+    "capture_must_match": [
+      "rental",
+      "accepted-quote",
+      "currency",
+      "amount"
+    ],
+    "not_capture_evidence": [
+      "payment-authorization",
+      "checkout-redirect",
+      "unverified-webhook",
+      "operator-assertion"
+    ],
+    "history": "append-only-outcomes",
+    "later_outcomes": [
+      "dispute",
+      "refund",
+      "chargeback"
+    ],
+    "capture_is_irreversible": false,
+    "fixed_irreversibility_window_promised": false,
+    "transaction_records_published": false
+  },
+  "rights": {
+    "distinct_concepts": [
+      "identity",
+      "rental-entitlement",
+      "asset-title",
+      "paid-deliverable-rights"
+    ],
+    "rental_transfers_title": false,
+    "payment_alone_grants_title_or_deliverable_rights": false,
+    "paid_rights_require": [
+      "explicitly-agreed-rights",
+      "verified-paid-completion"
+    ]
+  },
+  "discovery": {
+    "grants_payment_authority": false,
+    "grants_governance_authority": false
+  },
+  "protocol": {
+    "spec": "rapp/1",
+    "reference": "https://github.com/kody-w/rapp-1/blob/main/SPEC.md",
+    "scope": "bytes-and-signatures-only",
+    "proves_ownership": false,
+    "changes_core_spec": false
+  }
+}

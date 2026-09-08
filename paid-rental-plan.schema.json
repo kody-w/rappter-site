@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rappter.com/paid-rental-plan.schema.json",
+  "title": "AI contractor paid rental plan /1",
+  "description": "Exact public disclosure contract for a planned, disabled paid rental. This version cannot enable payments, publish transaction records, or replace the free beta. An active offer requires a separately reviewed contract and approved release; changing this document cannot activate service.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "schema_url", "status", "paid_ready", "operator",
+    "same_product_as", "replaces_current_offer", "human_view",
+    "activation_requires", "terms", "evidence", "rights", "discovery", "protocol"
+  ],
+  "properties": {
+    "schema": {"type": "string", "const": "ai-contractor-paid-rental-plan/1"},
+    "schema_url": {"type": "string", "const": "https://rappter.com/paid-rental-plan.schema.json"},
+    "status": {"type": "string", "const": "planned-disabled"},
+    "paid_ready": {"type": "boolean", "const": false},
+    "operator": {"type": "string", "const": "RapterBox LLC"},
+    "same_product_as": {"type": "string", "const": "https://rappter.com/rentals.json"},
+    "replaces_current_offer": {"type": "boolean", "const": false},
+    "human_view": {"type": "string", "const": "https://rappter.com/rent#paid-rental-plan"},
+    "activation_requires": {
+      "type": "array",
+      "items": {"type": "string"},
+      "const": ["tested-production-payment-adapter", "approved-production-release"]
+    },
+    "terms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency", "amount_unit", "minor_units_per_major", "deposit_minor",
+        "quote_basis", "deposit_requires", "balance_calculation",
+        "balance_requires", "paid_completion_requires", "automatic_collection",
+        "review_timeout_is_satisfaction", "review_timeout_authorizes_collection",
+        "quote_changes_require_customer_acceptance"
+      ],
+      "properties": {
+        "currency": {"type": "string", "const": "USD"},
+        "amount_unit": {"type": "string", "const": "minor"},
+        "minor_units_per_major": {"type": "integer", "const": 100},
+        "deposit_minor": {"type": "integer", "const": 500},
+        "quote_basis": {"type": "string", "const": "fixed-customer-accepted-total-including-deposit"},
+        "deposit_requires": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": ["accepted-fixed-quote", "explicit-customer-deposit-authorization"]
+        },
+        "balance_calculation": {"type": "string", "const": "accepted_quote_total_minor - deposit_minor"},
+        "balance_requires": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "accepted-fixed-quote",
+            "exact-deliverable-digest",
+            "explicit-customer-approval-bound-to-quote-and-deliverable"
+          ]
+        },
+        "paid_completion_requires": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "accepted-fixed-quote",
+            "exact-deliverable-digest",
+            "explicit-customer-approval-bound-to-quote-and-deliverable",
+            "verified-provider-capture-matching-rental-quote-currency-and-total-paid"
+          ]
+        },
+        "automatic_collection": {"type": "boolean", "const": false},
+        "review_timeout_is_satisfaction": {"type": "boolean", "const": false},
+        "review_timeout_authorizes_collection": {"type": "boolean", "const": false},
+        "quote_changes_require_customer_acceptance": {"type": "boolean", "const": true}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind", "binding_required", "capture_must_match", "not_capture_evidence",
+        "history", "later_outcomes", "capture_is_irreversible",
+        "fixed_irreversibility_window_promised", "transaction_records_published"
+      ],
+      "properties": {
+        "kind": {"type": "string", "const": "requirements-only-not-transaction-evidence"},
+        "binding_required": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": [
+            "rental-reference",
+            "accepted-quote-reference",
+            "exact-deliverable-digest",
+            "explicit-customer-approval-reference",
+            "verified-provider-capture-reference"
+          ]
+        },
+        "capture_must_match": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": ["rental", "accepted-quote", "currency", "amount"]
+        },
+        "not_capture_evidence": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": ["payment-authorization", "checkout-redirect", "unverified-webhook", "operator-assertion"]
+        },
+        "history": {"type": "string", "const": "append-only-outcomes"},
+        "later_outcomes": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": ["dispute", "refund", "chargeback"]
+        },
+        "capture_is_irreversible": {"type": "boolean", "const": false},
+        "fixed_irreversibility_window_promised": {"type": "boolean", "const": false},
+        "transaction_records_published": {"type": "boolean", "const": false}
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "distinct_concepts", "rental_transfers_title",
+        "payment_alone_grants_title_or_deliverable_rights", "paid_rights_require"
+      ],
+      "properties": {
+        "distinct_concepts": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": ["identity", "rental-entitlement", "asset-title", "paid-deliverable-rights"]
+        },
+        "rental_transfers_title": {"type": "boolean", "const": false},
+        "payment_alone_grants_title_or_deliverable_rights": {"type": "boolean", "const": false},
+        "paid_rights_require": {
+          "type": "array",
+          "items": {"type": "string"},
+          "const": ["explicitly-agreed-rights", "verified-paid-completion"]
+        }
+      }
+    },
+    "discovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grants_payment_authority", "grants_governance_authority"],
+      "properties": {
+        "grants_payment_authority": {"type": "boolean", "const": false},
+        "grants_governance_authority": {"type": "boolean", "const": false}
+      }
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec", "reference", "scope", "proves_ownership", "changes_core_spec"],
+      "properties": {
+        "spec": {"type": "string", "const": "rapp/1"},
+        "reference": {"type": "string", "const": "https://github.com/kody-w/rapp-1/blob/main/SPEC.md"},
+        "scope": {"type": "string", "const": "bytes-and-signatures-only"},
+        "proves_ownership": {"type": "boolean", "const": false},
+        "changes_core_spec": {"type": "boolean", "const": false}
+      }
+    }
+  }
+}

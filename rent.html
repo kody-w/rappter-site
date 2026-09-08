@@ -11,6 +11,8 @@
 <meta property="og:url" content="https://rappter.com/rent">
 <link rel="canonical" href="https://rappter.com/rent">
 <link rel="alternate" type="application/json" href="https://rappter.com/rentals.json" title="Machine-readable rental offer">
+<link rel="alternate" type="application/json" href="https://rappter.com/.well-known/agent.json" title="Public agent manifest">
+<link rel="describedby" type="application/json" href="https://rappter.com/paid-rental-plan.json" title="Planned paid rental contract — disabled">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Service","name":"Seven-day AI contractor beta","provider":{"@type":"Organization","name":"RapterBox LLC","url":"https://rappter.com/"},"description":"A manually accepted seven-day test of one bounded virtual AI contractor using synthetic data.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability","url":"https://rappter.com/rent"}}
 </script>
@@ -129,6 +131,20 @@ footer{display:flex;justify-content:space-between;gap:2rem;padding:2rem 0 4rem;b
       <div class="msg" id="ok">Application received. A person will review the workflow and reply if a bounded rental slot is available.</div>
       <div class="msg" id="no" style="border-color:var(--hot);color:var(--hot)">That did not send. Please try again.</div>
     </div>
+  </div></section>
+
+  <section id="paid-rental-plan" data-contract-schema="ai-contractor-paid-rental-plan/1" data-status="planned-disabled" data-paid-ready="false"><div class="shell">
+    <p class="eyebrow">PLANNED / DISABLED</p>
+    <h2>Paid rental plan — not available.</h2>
+    <p>This describes a possible paid continuation of the same AI contractor rental, not a second product or an active paid offer. The current seven-day beta stays $0, with no card, debt, automatic charge, or title transfer. There is no paid checkout or payment endpoint here. A paid release requires a tested production payment adapter and an approved production release.</p>
+    <ul>
+      <li>The planned fixed deposit is <strong>$5 USD (500 minor units)</strong>, credited toward the fixed total quote explicitly accepted by the customer. The deposit would also require explicit customer payment authorization.</li>
+      <li>Only the remainder of that accepted fixed quote could be collected, after explicit customer approval bound to the exact deliverable and quote. Paid completion would additionally require verified provider capture matching the rental, quote, currency, and total paid amount.</li>
+      <li>Silence or a review timeout is not satisfaction and does not authorize collection. There is no default automatic collection; changes to the quote require new customer acceptance.</li>
+      <li>Disputes, refunds, and chargebacks append new outcomes rather than rewriting history. Capture is not a promise of irreversibility, and no fixed irreversibility window is promised.</li>
+    </ul>
+    <p class="fine">Identity, rental entitlement, asset title, and paid deliverable rights are distinct. Rental or payment alone does not transfer title; paid rights require explicitly agreed rights and verified paid completion. <a href="https://github.com/kody-w/rapp-1/blob/main/SPEC.md">RAPP/1</a> supplies the byte and signature contract, not ownership proof. This application-level plan does not change the core protocol. Open-manifest discovery grants neither payment nor governance authority. This disclosure contains requirements, not transaction evidence or customer records.</p>
+    <p><a href="/paid-rental-plan.json">Read the planned, disabled paid contract</a> · <a href="/paid-rental-plan.schema.json">Exact plan schema</a> · <a href="/.well-known/agent.json">Public agent manifest</a></p>
   </div></section>
 </main>
 <footer class="shell">
